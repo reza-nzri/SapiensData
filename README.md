@@ -7,59 +7,6 @@ Current version: 0.1.0
 
 **SapiensData** is a web application designed to manage personal accounting through advanced data receipt management, analysis, and visualization. Utilizing AI models, this application allows users to capture, analyze, and visualize their financial data from receipts, enabling better financial management and decision-making.
 
-## Setup & Installation 🛠️
-
-### Prerequisites ✔️
-
-Before you begin, ensure you have the following installed on your machine:
-
-- Python 3.8 or higher
-- Node.js (for front-end development)
-- Git
-
-### Creating and Managing a Virtual Environment 🌱
-
-1. Navigate to the project directory:
-
-   ```bash
-   cd /path/to/SapiensData-DRMAV
-   ```
-
-2. Create a virtual environment:
-
-   ```bash
-   python -m venv venv
-   ```
-
-3. Activate the virtual environment:
-   - On Windows:
-
-     ```bash
-     venv\Scripts\activate
-     ```
-
-   - On macOS/Linux:
-
-     ```bash
-     source venv/bin/activate
-     ```
-
-### Dependencies 📦
-
-Install the required packages using `requirements.txt`:
-
-```bash
-pip install -r requirements.txt
-```
-
-### Running the Program 🚀
-
-To run the application, execute:
-
-```bash
-python src/main.py
-```
-
 ## Project Description 📝
 
 SapiensData enables users to upload images of their receipts, which are then processed using AI models for Optical Character Recognition (OCR). The application extracts and organizes receipt data into a user-friendly format, allowing users to analyze their spending habits and visualize financial trends.
@@ -99,5 +46,10 @@ SapiensData enables users to upload images of their receipts, which are then pro
 - **Janusz Sliwinski**
   - Role: Backend Developer
 
-- **Luca Braf**
-  - Role: Frontend Developer
+## Clone the Wiki Repository
+
+- Run the following command to clone the wiki repository:
+
+```bash
+git clone https://gitlab.com/bktmpdr/itas/2022_ait/ait30v-2025_25/projektarbeit/01-self-driven-learning-project/reza-janusz/sapiensdata-drmav.wiki.git
+```
