@@ -1,1 +1,71 @@
-hi
+SapiensData-DRMAV/SapiensDataAPI/
+  ├─].vs/ (ignored)
+  ├─ docs/
+  │  └─ READMEs/
+  │     ├─ markdowns/
+  │     └─ media/
+  │        ├─ images/
+  │        └─ videos/
+  ├─ SapiensDataAPI/
+  │  ├─ bin/
+  │  │  └─ Debug/
+  │  │     └─ net8.0/
+  │  ├─ Configs/
+  │  │  └─ JwtConfig.cs
+  │  ├─ Controllers/
+  │  │  ├─ AccountController.cs
+  │  │  ├─ AuthController.cs
+  │  │  ├─ ProtectedController.cs
+  │  │  └─ SoftwareController.cs
+  │  ├─ Data/
+  │  │  ├─ DbContextCs/
+  │  │  │  └─ SoftwareApiDbContext.cs
+  │  │  └─ sql/
+  │  │     ├─ stored-procedure/
+  │  │     │  └─ NotEmpty.txt
+  │  │     ├─ views/
+  │  │     │  └─ vw_ExpenseCategoryHierarchy .sql
+  │  │     ├─ ddl_schema.sql
+  │  │     ├─ dml_datasets.sql
+  │  │     └─ dml_dummy_reciept_dataset.sql
+  │  ├─ Dtos/
+  │  │  ├─ Auth/
+  │  │  │  ├─ Request/
+  │  │  │  │  ├─ AdminUpdateUserDto.cs
+  │  │  │  │  ├─ ChangeUserRoleRequestDto.cs
+  │  │  │  │  ├─ LoginRequestDto.cs
+  │  │  │  │  ├─ RegisterRequestDto.cs
+  │  │  │  │  ├─ TokenRequestDto.cs
+  │  │  │  │  └─ UserProfileUpdateDto.cs
+  │  │  │  ├─ Response/
+  │  │  │  │  ├─ ClaimDto.cs
+  │  │  │  │  ├─ LoginResponseDto.cs
+  │  │  │  │  ├─ RefreshTokenResponseDto.cs
+  │  │  │  │  └─ RegisterResponseDto.cs
+  │  │  │  └─ AuthResult.cs
+  │  │  ├─ Software/
+  │  │  │  ├─ AddSoftwareDto.cs
+  │  │  │  └─ UpdateSoftwareDto.cs
+  │  │  └─ UpdateUserDto.cs
+  │  ├─ Models/
+  │  │  ├─ ApplicationUserModel.cs
+  │  │  ├─ RefreshTockenModel.cs
+  │  │  └─ SoftwareModel.cs
+  │  ├─ Properties/
+  │  │  └─ launchSettings.json
+  │  ├─ Services/
+  │  │  ├─ IJwtTokenService.cs
+  │  │  └─ JwtTokenService.cs
+  │  ├─].env (ignored)
+  │  ├─ .env.example
+  │  ├─ appsettings.Development.json
+  │  ├─ appsettings.json
+  │  ├─ Program.cs
+  │  ├─ SapiensDataAPI.csproj
+  │  ├─ SapiensDataAPI.csproj.user
+  │  ├─ SapiensDataAPI.http
+  │  └─ WeatherForecast.cs
+  ├─ .gitignore
+  ├─ folder-structure.txt
+  ├─ README.md
+  └─ SapiensDataAPI.sln
