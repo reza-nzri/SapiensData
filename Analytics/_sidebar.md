@@ -1,0 +1,30 @@
+# SapiensData - DRMAV Wiki
+
+- [Home](home) 🏠
+- **Project Overview**
+  - [Project Description](project-description)
+  - [Team Members](team-members)
+  - [Technologies Used](technologies-used)
+- **Setup & Installation**
+  - [System Requirements](system-requirements)
+  - [Installation Guide](installation-guide)
+  - [Environment Configuration](environment-configuration)
+- **Features**
+  - [Receipt Scanning & OCR](receipt-scanning-ocr)
+  - [Data Validation & Storage](data-validation-storage)
+  - [Product Categorization](product-categorization)
+  - [Data Analysis & Visualization](data-analysis-visualization)
+  - [Manual Data Corrections](manual-data-corrections)
+- **Development Guide**
+  - [Folder Structure](folder-structure)
+  - [Backend Development](backend-development)
+  - [Frontend Development](frontend-development)
+  - [Database Design](database-design)
+  - [API Documentation](api-documentation)
+- **Testing & Deployment**
+  - [Testing Instructions](testing-instructions)
+  - [Deployment Guide](deployment-guide)
+- **Additional Resources**
+  - [Frequently Asked Questions (FAQ)](faq)
+  - [Glossary of Terms](glossary)
+  - [External Links & References](external-links)

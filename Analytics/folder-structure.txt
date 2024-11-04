@@ -1,0 +1,23 @@
+SapiensData-DRMAV/Analytics/
+  ├─ dataset/
+  │  ├─]reciepts/ (ignored)
+  │  └─ train/
+  │     └─ NotEmpty.txt
+  ├─ src/
+  │  ├─ models/
+  │  │  └─ __init__.py
+  │  ├─ utils/
+  │  │  ├─ __init__.py
+  │  │  └─ cli.py
+  │  └─ main.py
+  ├─ _sidebar.md
+  ├─ .env.dev.example
+  ├─ .env.prod.example
+  ├─ .gitignore
+  ├─ CHANGELOG.md
+  ├─ CONTRIBUTING.md
+  ├─ folder-structure.txt
+  ├─ pyproject.toml
+  ├─ README.md
+  ├─ requirements.txt
+  └─ setup.py

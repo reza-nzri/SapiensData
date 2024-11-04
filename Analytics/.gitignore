@@ -1,0 +1,97 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.egg-info/
+dist/
+build/
+*.egg
+*.whl
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Environment variable files
+.env
+.env.dev
+.env.prod
+
+# Allow example environment files
+!.env.example
+!.env.dev.example
+!.env.prod.example
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.pyc
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Log files
+*.log
+logs/
+*.out
+*.err
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+.coverage
+*.cover
+htmlcov/
+.tox/
+.nox/
+pytest_cache/
+nosetests.xml
+coverage.xml
+*.mo
+*.pot
+
+# Dependency directories
+node_modules/
+bower_components/
+vendor/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+*.whl
+
+# Operating system files
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Other
+/dataset/reciepts

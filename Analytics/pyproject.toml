@@ -1,0 +1,15 @@
+# Black Formater by Microsoft vs code Extention
+# TOML file for Python Code Formater
+
+[tool.black]
+line-length = 88  # You can change this to your preferred max line length.
+target-version = ['py38', 'py39']  # Specify Python versions (optional).
+include = '\.pyi?$'  # Specify which files to include (optional).
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''  # Specify directories/files to exclude (optional).
