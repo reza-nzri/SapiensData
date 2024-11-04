@@ -53,3 +53,8 @@ SapiensData enables users to upload images of their receipts, which are then pro
 ```bash
 git clone https://gitlab.com/bktmpdr/itas/2022_ait/ait30v-2025_25/projektarbeit/01-self-driven-learning-project/reza-janusz/sapiensdata-drmav.wiki.git
 ```
+## Commands
+```bash
+# Revert commit without deleting changes
+git reset --soft HEAD^
+```
