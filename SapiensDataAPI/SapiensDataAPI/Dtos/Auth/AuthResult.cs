@@ -1,4 +1,4 @@
-﻿namespace SoftwareManagementAPI.Dtos.Auth
+﻿namespace SapiensDataAPI.Dtos.Auth
 {
     public class AuthResult
     {

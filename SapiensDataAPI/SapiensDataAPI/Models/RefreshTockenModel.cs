@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SoftwareManagementAPI.Models
+namespace SapiensDataAPI.Models
 {
     public class RefreshTokenModel
     {

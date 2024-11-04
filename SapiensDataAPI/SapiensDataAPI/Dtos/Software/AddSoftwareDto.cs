@@ -1,4 +1,4 @@
-﻿namespace SoftwareManagementAPI.Dtos.Software
+﻿namespace SapiensDataAPI.Dtos.Software
 {
     public class AddSoftwareDto
     {

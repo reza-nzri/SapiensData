@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc; // Import MVC functionalities
 using Microsoft.EntityFrameworkCore; // Import EF Core functionalities for database operations
-using SoftwareManagementAPI.Data.DbContextCs; // Import custom DbContext for database access
-using SoftwareManagementAPI.Models; // Import custom software model
+using SapiensDataAPI.Data.DbContextCs; // Import custom DbContext for database access
+using SapiensDataAPI.Models; // Import custom software model
 
-namespace SoftwareManagementAPI.Controllers // Define the namespace for this controller
+namespace SapiensDataAPI.Controllers // Define the namespace for this controller
 {
     [ApiController] // Mark the class as an API controller
     [Route("api/[controller]")] // Define the route for the controller

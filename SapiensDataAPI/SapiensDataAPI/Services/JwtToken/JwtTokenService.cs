@@ -1,9 +1,9 @@
-﻿// SoftwareManagementAPI/Services/JwtTokenService.cs
+﻿// SapiensDataAPI/Services/JwtTokenService.cs
 using Microsoft.AspNetCore.Identity; // Import Identity for managing user roles and identity
 using Microsoft.IdentityModel.Tokens; // Import for security token handling
-using SoftwareManagementAPI.Dtos.Auth.Request; // Import request DTOs for authentication
-using SoftwareManagementAPI.Dtos.Auth.Response; // Import response DTOs for authentication
-using SoftwareManagementAPI.Models; // Import user model
+using SapiensDataAPI.Dtos.Auth.Request; // Import request DTOs for authentication
+using SapiensDataAPI.Dtos.Auth.Response; // Import response DTOs for authentication
+using SapiensDataAPI.Models; // Import user model
 using System.IdentityModel.Tokens.Jwt; // Import for handling JWT tokens
 using System.Security.Claims; // Import for handling claims in JWT
 using System.Text; // Import for encoding the JWT key

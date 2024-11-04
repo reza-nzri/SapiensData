@@ -1,4 +1,4 @@
-﻿namespace SoftwareManagementAPI.Dtos.Auth.Response
+﻿namespace SapiensDataAPI.Dtos.Auth.Response
 {
     public class RegisterResponseDto
     {

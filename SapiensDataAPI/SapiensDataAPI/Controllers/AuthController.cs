@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity; // Import Identity namespace for user and role management
 using Microsoft.AspNetCore.Mvc; // Import namespace for ASP.NET Core MVC functionality
-using SoftwareManagementAPI.Dtos.Auth.Request; // Import the request DTOs for authentication
-using SoftwareManagementAPI.Models; // Import the ApplicationUserModel for user-related actions
-using SoftwareManagementAPI.Services; // Import the JwtTokenService for handling JWT tokens
+using SapiensDataAPI.Dtos.Auth.Request; // Import the request DTOs for authentication
+using SapiensDataAPI.Models; // Import the ApplicationUserModel for user-related actions
+using SapiensDataAPI.Services.JwtToken; // Import the JwtTokenService for handling JWT tokens
 
-namespace SoftwareManagementAPI.Controllers // Define the namespace for the AuthController
+namespace SapiensDataAPI.Controllers // Define the namespace for the AuthController
 {
     [Route("api/[controller]")] // Define the route template for this controller
     [ApiController] // Mark this class as an API controller

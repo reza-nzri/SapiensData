@@ -1,4 +1,4 @@
-﻿namespace SoftwareManagementAPI.Dtos.Auth.Request
+﻿namespace SapiensDataAPI.Dtos.Auth.Request
 {
     public class AdminUpdateUserDto
     {

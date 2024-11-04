@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SoftwareManagementAPI.Dtos.Auth.Request;
-using SoftwareManagementAPI.Models;
-using SoftwareManagementAPI.Services;
+using SapiensDataAPI.Dtos.Auth.Request;
+using SapiensDataAPI.Models;
+using SapiensDataAPI.Services.JwtToken;
 
-namespace SoftwareManagementAPI.Controllers
+namespace SapiensDataAPI.Controllers
 {
     // Define the route for the controller and mark it as an API controller
     [Route("api/[controller]")]

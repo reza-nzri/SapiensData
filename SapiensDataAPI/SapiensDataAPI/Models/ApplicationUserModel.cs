@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace SoftwareManagementAPI.Models
+namespace SapiensDataAPI.Models
 {
     public class ApplicationUserModel : IdentityUser
     {
