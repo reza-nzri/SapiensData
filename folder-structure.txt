@@ -1,13 +1,8 @@
-SapiensData-DRMAV/
-  ├─ docs/
-  │  └─ READMEs/
-  │     └─ markdowns/
-  │        └─ 0.0_Table-of-Contents.md
-  ├─ src/
-  │  ├─ utils/
-  │  │  ├─ __init__.py
-  │  │  └─ cli.py
-  │  └─ main.py
+SapiensData/SapiensData-DRMAV/
+  ├─ Analytics/
+  ├─ API/
+  ├─ Docs/
+  ├─ WebApp/
   ├─ .gitignore
   ├─ folder-structure.txt
   └─ README.md
