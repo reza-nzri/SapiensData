@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SoftwareManagementAPI.Models;
+using SapiensDataAPI.Models;
 
-namespace SoftwareManagementAPI.Data.DbContextCs
+namespace SapiensDataAPI.Data.DbContextCs
 {
     public class SoftwareApiDbContext : IdentityDbContext<ApplicationUserModel>
     {

@@ -1,4 +1,4 @@
-﻿namespace SoftwareManagementAPI.Config
+﻿namespace SapiensDataAPI.Config
 {
     public class JwtConfig
     {

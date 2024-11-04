@@ -1,6 +1,6 @@
-﻿using SoftwareManagementAPI.Dtos.Auth.Request;
-using SoftwareManagementAPI.Dtos.Auth.Response;
-using SoftwareManagementAPI.Models;
+﻿using SapiensDataAPI.Dtos.Auth.Request;
+using SapiensDataAPI.Dtos.Auth.Response;
+using SapiensDataAPI.Models;
 
 namespace SapiensDataAPI.Services.JwtToken
 {

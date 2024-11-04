@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization; // Import authorization functionalities
 using Microsoft.AspNetCore.Mvc; // Import MVC functionalities
 
-namespace SoftwareManagementAPI.Controllers // Define the namespace for this controller
+namespace SapiensDataAPI.Controllers // Define the namespace for this controller
 {
     [ApiController] // Mark the class as an API controller
     [Route("api/[controller]")] // Define the route for the controller

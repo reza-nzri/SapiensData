@@ -1,4 +1,4 @@
-﻿namespace SoftwareManagementAPI.Dtos
+﻿namespace SapiensDataAPI.Dtos
 {
     public class UpdateUserDto
     {

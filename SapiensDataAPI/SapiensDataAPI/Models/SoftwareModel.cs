@@ -1,4 +1,4 @@
-﻿namespace SoftwareManagementAPI.Models
+﻿namespace SapiensDataAPI.Models
 {
     public class SoftwareModel
     {

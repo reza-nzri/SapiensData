@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Identity; // Import Identity for user and role management
 using Microsoft.OpenApi.Models;
-using SoftwareManagementAPI.Data.DbContextCs; // Import database context
-using SoftwareManagementAPI.Models; // Import models, including ApplicationUserModel
-using SoftwareManagementAPI.Services; // Import services, including JwtTokenService
+using SapiensDataAPI.Data.DbContextCs; // Import database context
+using SapiensDataAPI.Models; // Import models, including ApplicationUserModel
+using SapiensDataAPI.Services.JwtToken; // Import services, including JwtTokenService
 using System.Text; // Import for encoding JWT secret key
+using DotNetEnv;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args); // Create a builder for the web application
 builder.Configuration.AddEnvironmentVariables(); // Add environment variables to the configuration
