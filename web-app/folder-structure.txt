@@ -1,0 +1,35 @@
+SapiensData-DRMAV/web-app/
+  ├─].next/ (ignored)
+  ├─]node_modules/ (ignored)
+  ├─ public/
+  │  ├─ docs/
+  │  │  ├─ markdowns/
+  │  │  │  └─ media/
+  │  │  │     ├─ images/
+  │  │  │     └─ videos/
+  │  │  └─ mockup/
+  │  ├─ file.svg
+  │  ├─ globe.svg
+  │  ├─ next.svg
+  │  ├─ vercel.svg
+  │  └─ window.svg
+  ├─ src/
+  │  ├─ app/
+  │  │  ├─ fonts/
+  │  │  │  ├─ GeistMonoVF.woff
+  │  │  │  └─ GeistVF.woff
+  │  │  ├─ favicon.ico
+  │  │  ├─ globals.css
+  │  │  ├─ layout.tsx
+  │  │  └─ page.tsx
+  │  └─ components/
+  ├─ .eslintrc.json
+  ├─ .gitignore
+  ├─]next-env.d.ts (ignored)
+  ├─ next.config.ts
+  ├─ package-lock.json
+  ├─ package.json
+  ├─ postcss.config.mjs
+  ├─ README.md
+  ├─ tailwind.config.ts
+  └─ tsconfig.json
