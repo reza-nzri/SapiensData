@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt; // Import for handling JWT tokens
 using System.Security.Claims; // Import for handling claims in JWT
 using System.Text; // Import for encoding the JWT key
 
-namespace SoftwareManagementAPI.Services // Define the service namespace
+namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 {
     public class JwtTokenService : IJwtTokenService // Implement the IJwtTokenService interface
     {

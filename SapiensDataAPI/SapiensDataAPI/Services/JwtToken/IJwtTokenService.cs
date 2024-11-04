@@ -2,7 +2,7 @@
 using SoftwareManagementAPI.Dtos.Auth.Response;
 using SoftwareManagementAPI.Models;
 
-namespace SoftwareManagementAPI.Services
+namespace SapiensDataAPI.Services.JwtToken
 {
     public interface IJwtTokenService
     {
