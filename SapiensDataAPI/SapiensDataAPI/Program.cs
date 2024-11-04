@@ -1,8 +1,4 @@
-using DotNetEnv; // Import DotNetEnv to load environment variables from .env file
-using Microsoft.AspNetCore.Authentication.JwtBearer; // Import JWT Bearer Authentication
 using Microsoft.AspNetCore.Identity; // Import Identity for user and role management
-using Microsoft.EntityFrameworkCore; // Import for configuring and using Entity Framework Core
-using Microsoft.IdentityModel.Tokens; // Import for handling token validation parameters and security
 using Microsoft.OpenApi.Models;
 using SoftwareManagementAPI.Data.DbContextCs; // Import database context
 using SoftwareManagementAPI.Models; // Import models, including ApplicationUserModel
