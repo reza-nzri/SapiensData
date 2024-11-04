@@ -160,3 +160,63 @@ INSERT INTO ExpenseCategory (category_name, description, parent_category_id) VAL
     ('babysitting', 'Payments for babysitting services', (SELECT category_id FROM ExpenseCategory WHERE category_name = 'childcare')),
     ('preschool', 'Expenses for preschool or daycare', (SELECT category_id FROM ExpenseCategory WHERE category_name = 'childcare'));
 GO
+
+-----------
+
+-- Insert Main Categories
+INSERT INTO Category (category_name, description, category_type)
+VALUES 
+    ('Variable Expenses', 'Expenses that vary monthly based on usage or consumption.', 'Variable'),
+    ('Savings Expenses', 'Savings-related expenses.', 'Savings'),
+    ('Fixed Expenses', 'Expenses that are the same amount every month.', 'Fixed'),
+    ('Irregular Savings Expenses', 'Occasional savings expenses that occur irregularly.', 'Irregular Savings'),
+    ('Targeted Savings Expenses', 'Specific savings goals with a target amount and timeframe.', 'Targeted Savings'),
+    ('Additional Expenses', 'Additional criteria for classifying expenses.', 'Additional');
+
+-- Insert Subcategories for Variable Expenses
+INSERT INTO Category (category_name, description, parent_category_id, category_type)
+VALUES 
+    ('Groceries', 'Expenses for food and household supplies.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Personal Care Items', 'Pharmacy and other personal care products.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Fuel / Public Transportation', 'Transportation costs including fuel and public transit.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Parking', 'Expenses for vehicle parking.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Clothing and Shoes', 'Expenses on clothing and footwear.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Childcare', 'Expenses for daycare and child maintenance.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Work Lunch and Snacks', 'Meals and snacks purchased during work hours.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Eating Out', 'Expenses for dining out at restaurants.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Entertainment', 'Expenses for entertainment and recreational activities.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Tobacco / Alcohol', 'Expenses for tobacco and alcoholic products.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Lottery', 'Expenses for lottery tickets.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Child Maintenance', 'Support and maintenance for children.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Sports and Recreation', 'Expenses for sports, recreation, and other hobbies.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Hair Care Services', 'Costs for hair care and salon services.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Magazines / Newspapers / Books', 'Expenses for publications and books.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable'),
+    ('Children’s Lessons and Activities', 'Expenses for children’s extracurricular activities.', (SELECT category_id FROM Category WHERE category_name = 'Variable Expenses'), 'Variable');
+
+-- Insert Subcategories for Savings Expenses
+INSERT INTO Category (category_name, description, parent_category_id, category_type)
+VALUES 
+    ('Irregular Savings Expenses', 'Occasional savings expenses that occur irregularly.', (SELECT category_id FROM Category WHERE category_name = 'Savings Expenses'), 'Irregular Savings'),
+    ('Targeted Savings Expenses', 'Specific savings goals with a target amount and timeframe.', (SELECT category_id FROM Category WHERE category_name = 'Savings Expenses'), 'Targeted Savings');
+
+-- Insert Subcategories for Fixed Expenses
+INSERT INTO Category (category_name, description, parent_category_id, category_type)
+VALUES 
+    ('Mortgage', 'Monthly mortgage payments.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Rent', 'Monthly rent payments.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Property Tax', 'Monthly property tax payments.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Condo/HOA Fees', 'Monthly condo or homeowner association fees.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Home / Renter’s Insurance', 'Insurance for home or rented property.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Utility Bills', 'Monthly utility bills like cable, electricity, water, etc.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Car Lease / Loan Payments', 'Monthly car lease or loan payments.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Car Insurance', 'Monthly car insurance payments.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Life / Disability Insurance', 'Monthly life, disability, or health insurance payments.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Bank Fees', 'Monthly bank fees.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed'),
+    ('Debt Payments', 'Monthly debt payments.', (SELECT category_id FROM Category WHERE category_name = 'Fixed Expenses'), 'Fixed');
+
+-- Insert Additional Expenses as Questions for Classification
+INSERT INTO Category (category_name, description, parent_category_id, category_type)
+VALUES 
+    ('Frequent and Regular', 'Does this expense occur frequently and regularly, remaining unchanged?', (SELECT category_id FROM Category WHERE category_name = 'Additional Expenses'), 'Additional'),
+    ('Store Purchases', 'Do I buy it from a store? Can I control the amount spent?', (SELECT category_id FROM Category WHERE category_name = 'Additional Expenses'), 'Additional'),
+    ('Advance Savings', 'Should I save in advance for this?', (SELECT category_id FROM Category WHERE category_name = 'Additional Expenses'), 'Additional');

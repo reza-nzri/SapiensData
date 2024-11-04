@@ -132,7 +132,7 @@ CREATE TABLE Product (
     vat_rate DECIMAL(5, 2),               -- VAT rate for the product (e.g., 19.00 for 19%)
     is_bio BIT,                           -- Indicator for organic (bio) product (1 if bio, 0 otherwise)
     code NVARCHAR(50),                    -- Product code
-    category_id INT,                      -- Placeholder if a Category table exists
+    category_id INT,                      -- Placeholder if a Category table exists from AI Dataset
     brand NVARCHAR(50),                   -- Brand of the product
     origin_country NVARCHAR(50),          -- Country of origin
     expiration_date DATE,                 -- Expiration date for perishables
@@ -307,10 +307,12 @@ CREATE TABLE Expense (
     expense_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),     -- Unique identifier for each expense record
     user_id INT NOT NULL,                                  -- ID of the user associated with the expense
     source_type NVARCHAR(20) CHECK (source_type IN ('user', 'company', 'external_person')), -- Indicates if the source is a user, company, or an external person
-    source_user_id INT,                                     -- If the source is a registered user, reference to the User table
-    source_company_id INT,                                  -- If the source is a company, reference to the Company table
-    source_name NVARCHAR(100),                              -- First and last name for an external person, or company name if applicable
-    expense_date DATE NOT NULL,                             -- Date the expense was incurred
+    source_user_id INT,                                    -- If the source is a registered user, reference to the User table
+    source_company_id INT,                                 -- If the source is a company, reference to the Company table
+    source_first_name NVARCHAR(50),                        -- First name for an external person if applicable
+    source_last_name NVARCHAR(50),                         -- last name for an external person if applicable
+    source_company_name NVARCHAR(100),                     -- for an external company if applicable
+    expense_date DATE NOT NULL,                            -- Date the expense was incurred
     expense_category_id INT, 
     description NVARCHAR(255),                             -- Description or notes regarding the expense
     amount DECIMAL(18, 2) NOT NULL,                        -- Total amount of the expense
@@ -332,82 +334,133 @@ CREATE TABLE Expense (
     FOREIGN KEY (tax_rate_id) REFERENCES TaxRate(tax_rate_id),
     FOREIGN KEY (frequency_id) REFERENCES Frequency(frequency_id)
 );
+
+CREATE TABLE Savings (
+    savings_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),           
+    user_id INT NOT NULL,                                        -- Foreign key to User table (indicating who owns this savings entry)
+    savings_goal NVARCHAR(255) NOT NULL,                         -- Name or purpose of the savings goal (e.g., "Vacation Fund")
+    target_amount DECIMAL(18, 2) NOT NULL,                       -- Total target amount for the savings goal
+    saved_amount DECIMAL(18, 2) DEFAULT 0,                       -- Amount saved so far toward the target
+    start_date DATE NOT NULL DEFAULT GETDATE(),                  -- Date when the savings plan started
+    target_date DATE,                                            -- Planned date by which to achieve the savings goal
+    frequency_id INT,
+    contribution_amount DECIMAL(18, 2),                          -- Suggested or actual contribution per period
+    interest_rate DECIMAL(5, 2) DEFAULT 0,                       -- Annual interest rate applied to the savings, if applicable (e.g., for investment accounts)
+    accumulated_interest DECIMAL(18, 2) DEFAULT 0,               -- Interest earned so far on the savings, if applicable
+    status NVARCHAR(20) CHECK (status IN (                       -- Status of the savings goal (e.g., "in-progress", "achieved", "on-hold", "canceled")
+        'in-progress', 'achieved', 'on-hold', 'canceled'
+    )) NOT NULL DEFAULT 'in-progress',
+    notes NVARCHAR(500),                                         -- Additional notes or comments regarding the savings goal
+    last_updated_at DATETIME DEFAULT GETDATE(),                  -- Timestamp for the last update to the savings record
+    created_at DATETIME DEFAULT GETDATE(),                       -- Timestamp for the creation of the savings record
+    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (frequency_id) REFERENCES Frequency(frequency_id)
+);
+
+CREATE TABLE Bank (
+    bank_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+    bank_name NVARCHAR(100) NOT NULL,                        -- Name of the bank (e.g., "Deutsche Bank")
+    api_endpoint NVARCHAR(255) NOT NULL,                     -- URL endpoint for the bank's API
+    api_version NVARCHAR(20) DEFAULT 'v1',                   -- API version used for integration
+    contact_email NVARCHAR(100),                             -- Support or contact email for the bank
+    contact_phone NVARCHAR(20),                              -- Support or contact phone for the bank
+    created_at DATETIME DEFAULT GETDATE(),                   -- Timestamp when the bank was added
+    updated_at DATETIME DEFAULT GETDATE()                    -- Timestamp for the last update to bank details
+);
+
+CREATE TABLE BankAccount (
+    account_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+    user_id INT NOT NULL,                                    -- Foreign key to User table
+    bank_id INT NOT NULL,                                    -- Foreign key to Bank table
+    account_number NVARCHAR(50) UNIQUE,                      -- User's bank account number (In future features: encrypted)
+    account_type NVARCHAR(50) CHECK (                        -- Type of bank account (e.g., "checking", "savings", "credit")
+        account_type IN ('checking', 'savings', 'credit', 'investment', 'loan')
+    ),
+    iban NVARCHAR(34),                                       -- International Bank Account Number
+    currency NVARCHAR(10) DEFAULT 'EUR',                     -- Currency of the account balance
+    api_access_token NVARCHAR(255) UNIQUE,                   -- API access token for secure bank connection
+    account_balance DECIMAL(18, 2) DEFAULT 0,                -- Current balance in the account
+    last_synced_at DATETIME,                                 -- Timestamp of the last successful balance sync
+    created_at DATETIME DEFAULT GETDATE(),                   -- Timestamp when the account was added
+    updated_at DATETIME DEFAULT GETDATE(),                   -- Timestamp for the last update to account details
+    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (bank_id) REFERENCES Bank(bank_id) ON DELETE CASCADE
+);
+
+CREATE TABLE BankTransaction (
+    transaction_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+    account_id INT NOT NULL,                                 -- Foreign key to BankAccount table
+    transaction_date DATETIME NOT NULL,                      -- Date of the transaction
+    transaction_type NVARCHAR(50) CHECK (                    -- Type of transaction (e.g., "deposit", "withdrawal", "payment")
+        transaction_type IN ('deposit', 'withdrawal', 'payment', 'transfer', 'fee', 'interest')
+    ),
+    amount DECIMAL(18, 2) NOT NULL,                          -- Amount of the transaction
+    description NVARCHAR(255),                               -- Description of the transaction
+    balance_after DECIMAL(18, 2),                            -- Account balance after the transaction
+    created_at DATETIME DEFAULT GETDATE(),                   -- Timestamp when the transaction was recorded
+    updated_at DATETIME DEFAULT GETDATE(),                   -- Timestamp for the last update to transaction details
+    FOREIGN KEY (account_id) REFERENCES BankAccount(account_id) ON DELETE CASCADE
+);
+
+CREATE TABLE Debt (
+    debt_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+    user_id INT NOT NULL,                                     -- Foreign key to User table (who owes the debt)
+    debt_type NVARCHAR(50) CHECK (debt_type IN (              -- Type of debt (e.g., "personal loan", "credit card", "mortgage")
+        'personal loan', 'credit card', 'mortgage', 'loan from friend', 'other'
+    )),
+    amount_owed DECIMAL(18, 2) NOT NULL,                      -- Total amount owed
+    interest_rate DECIMAL(5, 2) DEFAULT 0,                    -- Interest rate on the debt
+    due_date DATE,                                            -- Due date for debt repayment
+    creditor_user_id INT,                                     -- Foreign key to User table for registered creditor
+    creditor_company_id INT,                                  -- Foreign key to Company table for creditor if it's a company
+    creditor_first_name NVARCHAR(50),                         -- First name of an external person (if not in app)
+    creditor_last_name NVARCHAR(50),                          -- Last name of an external person (if not in app)
+    creditor_company_name NVARCHAR(100),                      -- Company name if creditor is an external company
+    status NVARCHAR(20) CHECK (status IN (                    -- Status of the debt (e.g., "open", "closed", "in progress")
+        'open', 'closed', 'in progress', 'overdue'
+    )) NOT NULL DEFAULT 'open',
+    description NVARCHAR(255),                                -- Description of the debt purpose (e.g., "For travel to Dortmund")
+    frequency NVARCHAR(50) CHECK (frequency IN (              -- Payment frequency (e.g., "monthly", "quarterly")
+        'one-time', 'weekly', 'bi-weekly', 'monthly', 'quarterly', 'annually'
+    )),
+    times_remaining INT,                                      -- Remaining times for installment payments
+    next_reminder DATETIME,                                   -- Date for the next payment reminder
+    created_at DATETIME DEFAULT GETDATE(),                    -- Timestamp for debt entry creation
+    updated_at DATETIME DEFAULT GETDATE(),                    -- Timestamp for the last update to debt details
+    FOREIGN KEY (creditor_user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (creditor_company_id) REFERENCES Company(company_id)
+);
+
+CREATE TABLE Investments (
+    investment_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+    user_id INT NOT NULL,                                     -- Foreign key to User table
+    investment_type NVARCHAR(50) CHECK (investment_type IN (  -- Type of investment (e.g., "stocks", "bonds", "real estate")
+        'stocks', 'bonds', 'real estate', 'mutual funds', 'savings account', 'other'
+    )),
+    amount DECIMAL(18, 2) NOT NULL,                           -- Amount invested
+    loaned_to_user_id INT,                                    -- FK to User table if money was loaned to an app user
+    loaned_to_company_id INT,                                 -- FK to Company table if money was loaned to a company
+    loaned_to_first_name NVARCHAR(50),                        -- First name if loaned to an external person not in app
+    loaned_to_last_name NVARCHAR(50),                         -- Last name if loaned to an external person not in app
+    investment_date DATE NOT NULL DEFAULT GETDATE(),          -- Date of the investment
+    description NVARCHAR(255),                                -- Optional description of the investment
+    interest_rate DECIMAL(5, 2),                              -- Interest or return rate for the investment
+    created_at DATETIME DEFAULT GETDATE(),                    -- Timestamp for the creation of the investment record
+    updated_at DATETIME DEFAULT GETDATE(),                    -- Timestamp for the last update to investment details
+    FOREIGN KEY (loaned_to_user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (loaned_to_company_id) REFERENCES Company(company_id)
+);
+
+CREATE TABLE Category (
+    category_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+    category_name NVARCHAR(100) NOT NULL,                             -- Name of the category (e.g., "Variable Expenses", "Groceries")
+    description NVARCHAR(500),                                        -- Detailed description of the category
+    parent_category_id INT,                                           -- Self-referencing foreign key for subcategories
+    category_type NVARCHAR(50) CHECK (                                -- Type of the category (e.g., "Variable", "Fixed", "Savings", "Additional")
+        category_type IN ('Variable', 'Fixed', 'Savings', 'Irregular Savings', 'Targeted Savings', 'Additional')
+    ),
+    created_at DATETIME DEFAULT GETDATE(),                            -- Timestamp for the creation of the category
+    updated_at DATETIME DEFAULT GETDATE(),                            -- Timestamp for the last update to the category
+    FOREIGN KEY (parent_category_id) REFERENCES Category(category_id) ON DELETE SET NULL -- FK for self-referencing parent category
+);
 GO
-
-
-/*
-Savings: savings_goal, 
-Debt: debt_type, amount_owed, interest_rate, due_date, ID of the creditor, Status (open usw), Description (bsp: For travel to dortmond), Freq. Times (wie oft muss man in ratt zahlen), Next Reminder
-Investments` Tabelle: investment_type, amount, investment_date
-BudgetCategories: category_name` (z.B. "Lebensmittel", "Miete", "Transport"), monthly / weekly / usw budget
-*/
-
-/*
-Variable Expenses:
-Groceries
-Personal Care Items (Pharmacy)
-Fuel / Public Transportation
-Parking
-Clothing and Shoes
-Childcare
-Work Lunch and Snacks
-Eating Out
-Entertainment
-Tobacco / Alcohol
-Lottery
-Child Maintenance
-Sports and Recreation, Other Hobbies
-Hair Care Services / Salon
-Magazines / Newspapers / Books
-Children’s Lessons and Activities
-*/
-
-/*
-Savings Expenses:
-Irregular Savings Expenses
-Targeted Savings Expenses
-*/
-
-/*
-Fixed Expenses:
-Mortgage
-Rent
-Property Tax (if paid monthly)
-Condo/HOA Fees
-Home / Renter’s Insurance
-Utility Bills (Cable, Cell, Electricity, Water, etc.)
-Car Lease / Loan Payments
-Car Insurance (if paid monthly)
-Life / Disability / Extended Health Insurance (or others)
-Bank Fees
-Debt Payments for Your Debt Repayment Plan
-*/
-
-/*
-Irregular Savings Expenses:
-Property Tax (if paid quarterly or annually)
-Home Insurance (if paid annually)
-Car Insurance (if paid quarterly or annually)
-Clothing and Shoes (if purchased once or twice a year)
-Healthcare Expenses
-Veterinary Bills
-Gifts
-Car Maintenance
-*/
-
-/*
-Targeted Savings Expenses:
-Goals that we save and invest for to purchase or achieve something
-Retirement Savings
-Determine how much you need to save, when you need to save it by, and divide by the number of months left until that date. This will show how much you need to save each month. This type of savings is not accessible until the event occurs.
-Emergency Savings
-Travel Prepayment Savings
-Education Savings
-*/
-
-/*
-Additional Expenses:
-1. Does this expense occur frequently and regularly and remain unchanged? (Fixed Expenses)
-2. Do I buy it from a store? Can I control how much I spend on this expense? (Variable)
-3. Should I save in advance for this? (Savings)
-*/
