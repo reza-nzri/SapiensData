@@ -21,21 +21,7 @@ INSERT INTO PaymentMethod (name, abbreviation, description) VALUES
 ('Bank Draft', 'BD', 'A payment made via a bank draft or cashier’s check');
 GO
 
-INSERT INTO Label (label_name, description, color_code) VALUES 
-    ('organic', 'Indicates that the product is organic', '#3CB371'),
-    ('essential', 'Denotes essential products or items', '#FF4500'),
-    ('luxury', 'Marks items as luxury goods', '#FFD700'),
-    ('eco-friendly', 'Environmentally friendly products', '#8BC34A'),
-    ('limited edition', 'Special limited-edition item', '#FF69B4');
-GO
 
--- LabelAssignment Usage Example
-INSERT INTO LabelAssignment (label_id, entity_type, entity_id) VALUES 
-  (1, 'Product', 1),   -- Assign "organic" label to product with product_id = 1
-  (4, 'Product', 1),   -- Assign "eco-friendly" label to product with product_id = 1
-  (2, 'Expense', 5),   -- Assign "essential" label to Expense with expense_id = 5
-  (3, 'Income', 3);    -- Assign "luxury" label to Income with income_id = 3
-GO
 
 -- Insert commonly used units
 INSERT INTO UnitType (unit_name, unit_type) VALUES 
