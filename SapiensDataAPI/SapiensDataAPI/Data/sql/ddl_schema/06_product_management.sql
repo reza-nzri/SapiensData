@@ -1,3 +1,5 @@
+USE SapeinsData;
+
 CREATE TABLE Product (
     product_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
     full_name NVARCHAR(255),              -- Full name from receipt

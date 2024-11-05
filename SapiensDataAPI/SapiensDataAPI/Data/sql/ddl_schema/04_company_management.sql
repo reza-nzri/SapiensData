@@ -1,3 +1,5 @@
+USE SapeinsData;
+
 CREATE TABLE Company (
     company_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
     name NVARCHAR(100) NOT NULL,                              -- Full name of the company
@@ -17,7 +19,7 @@ CREATE TABLE CompanyAddress (
     company_id INT,
     address_id INT,
     is_default BIT DEFAULT 0,
-    address_type NVARCHAR(50) NOT NULL UNIQUE                 -- Examples: "Home", "Work", "Billing", "Shipping"
+    address_type NVARCHAR(50) NOT NULL UNIQUE,                 -- Examples: "Home", "Work", "Billing", "Shipping"
     created_at DATETIME DEFAULT GETDATE(),
     updated_at DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (company_id) REFERENCES Company(company_id),

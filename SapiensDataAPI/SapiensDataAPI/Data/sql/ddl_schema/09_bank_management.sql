@@ -1,3 +1,5 @@
+USE SapeinsData;
+
 CREATE TABLE Bank (
     bank_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
     bank_name NVARCHAR(100) NOT NULL,                        -- Name of the bank (e.g., "Deutsche Bank")
@@ -12,9 +14,9 @@ GO
 
 CREATE TABLE BankAccount (
     account_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
-    user_id INT NOT NULL,                                    -- Foreign key to User table
+    user_id INT NOT NULL,                                    -- Foreign key to [User] table
     bank_id INT NOT NULL,                                    -- Foreign key to Bank table
-    account_number NVARCHAR(50) UNIQUE,                      -- User's bank account number (In future features: encrypted)
+    account_number NVARCHAR(50) UNIQUE,                      -- [User]'s bank account number (In future features: encrypted)
     account_type NVARCHAR(50) CHECK (                        -- Type of bank account (e.g., "checking", "savings", "credit")
         account_type IN ('checking', 'savings', 'credit', 'investment', 'loan')
     ),
@@ -25,7 +27,7 @@ CREATE TABLE BankAccount (
     last_synced_at DATETIME,                                 -- Timestamp of the last successful balance sync
     created_at DATETIME DEFAULT GETDATE(),                   -- Timestamp when the account was added
     updated_at DATETIME DEFAULT GETDATE(),                   -- Timestamp for the last update to account details
-    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES [User](user_id) ON DELETE CASCADE,
     FOREIGN KEY (bank_id) REFERENCES Bank(bank_id) ON DELETE CASCADE
 );
 GO

@@ -47,6 +47,6 @@ CREATE TABLE Category (
     ),
     created_at DATETIME DEFAULT GETDATE(),                            -- Timestamp for the creation of the category
     updated_at DATETIME DEFAULT GETDATE(),                            -- Timestamp for the last update to the category
-    FOREIGN KEY (parent_category_id) REFERENCES Category(category_id) ON DELETE SET NULL -- FK for self-referencing parent category
+    FOREIGN KEY (parent_category_id) REFERENCES Category(category_id) ON DELETE NO ACTION -- FK for self-referencing parent category
 );
 GO

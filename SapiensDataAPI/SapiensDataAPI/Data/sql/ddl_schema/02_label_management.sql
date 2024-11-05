@@ -1,3 +1,5 @@
+USE SapeinsData;
+
 -- User-defined labels for categorization
 CREATE TABLE Label (
     label_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),

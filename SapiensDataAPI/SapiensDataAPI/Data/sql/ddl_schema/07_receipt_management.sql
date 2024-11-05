@@ -1,3 +1,5 @@
+USE SapeinsData;
+
 CREATE TABLE Receipt (
     receipt_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
     buy_datetime DATETIME,
