@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity; // Import Identity for user and role management
 using Microsoft.OpenApi.Models;
-using SapiensDataAPI.Data.DbContextCs; // Import database context
+//using SapiensDataAPI.Data.DbContextCs; // Import database context
 using SapiensDataAPI.Models; // Import models, including ApplicationUserModel
 using SapiensDataAPI.Services.JwtToken; // Import services, including JwtTokenService
 using System.Text; // Import for encoding JWT secret key
@@ -60,12 +60,12 @@ builder.Services.AddCors(options =>
 });
 
 // Configure the database context
-builder.Services.AddDbContext<SoftwareApiDbContext>(options =>
+builder.Services.AddDbContext<SapeinsDataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // Configure SQL Server with a connection string
 
 // Configure Identity
 builder.Services.AddIdentity<ApplicationUserModel, IdentityRole>() // Add Identity services for ApplicationUserModel and roles
-    .AddEntityFrameworkStores<SoftwareApiDbContext>() // Use the database context for storing identity data
+    .AddEntityFrameworkStores<SapeinsDataContext>() // Use the database context for storing identity data
     .AddDefaultTokenProviders(); // Add default token providers for password reset and other identity features
 
 // Configure JWT Key, Issuer, and Audience from environment variables
@@ -136,6 +136,13 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>(); // Add JwtToken
 
 var app = builder.Build(); // Build the application
 
+// Configure the HTTP request pipeline
+if (app.Environment.IsDevelopment()) // Check if the application is in development environment
+{
+    app.UseSwagger(); // Enable Swagger for API documentation
+    app.UseSwaggerUI(); // Enable the Swagger UI
+}
+
 // Create roles on startup
 using (var scope = app.Services.CreateScope()) // Create a scope for dependency injection
 {
@@ -148,13 +155,6 @@ using (var scope = app.Services.CreateScope()) // Create a scope for dependency 
             await roleManager.CreateAsync(new IdentityRole(role)); // Create the role if it doesn't exist
         }
     }
-}
-
-// Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment()) // Check if the application is in development environment
-{
-    app.UseSwagger(); // Enable Swagger for API documentation
-    app.UseSwaggerUI(); // Enable the Swagger UI
 }
 
 app.UseHttpsRedirection(); // Redirect all HTTP requests to HTTPS

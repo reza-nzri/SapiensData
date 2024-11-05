@@ -7,9 +7,6 @@ SapiensData-DRMAV/SapiensDataAPI/
   │        ├─ images/
   │        └─ videos/
   ├─ SapiensDataAPI/
-  │  ├─ bin/
-  │  │  └─ Debug/
-  │  │     └─ net8.0/
   │  ├─ Configs/
   │  │  └─ JwtConfig.cs
   │  ├─ Controllers/
@@ -21,13 +18,31 @@ SapiensData-DRMAV/SapiensDataAPI/
   │  │  ├─ DbContextCs/
   │  │  │  └─ SoftwareApiDbContext.cs
   │  │  └─ sql/
+  │  │     ├─ ddl_schema/
+  │  │     │  ├─ 01_initial_tables.sql
+  │  │     │  ├─ 02_label_management.sql
+  │  │     │  ├─ 03_user_management.sql
+  │  │     │  ├─ 04_company_management.sql
+  │  │     │  ├─ 05_store_management.sql
+  │  │     │  ├─ 06_product_management.sql
+  │  │     │  ├─ 07_receipt_management.sql
+  │  │     │  ├─ 08_finance_management.sql
+  │  │     │  ├─ 09_bank_management.sql
+  │  │     │  ├─ ddl_schema.sql
+  │  │     │  └─ schema_structure.md
+  │  │     ├─ dml_datasets/
+  │  │     │  ├─ demo_data/
+  │  │     │  │  └─ 01_demo_data.sql
+  │  │     │  ├─ dummy_data/
+  │  │     │  │  └─ 01_reciept_data.sql
+  │  │     │  ├─ initial_data/
+  │  │     │  │  └─ 01_label.sql
+  │  │     │  └─ test_data/
+  │  │     │     └─ 01_label.sql
   │  │     ├─ stored-procedure/
-  │  │     │  └─ NotEmpty.txt
-  │  │     ├─ views/
-  │  │     │  └─ vw_ExpenseCategoryHierarchy .sql
-  │  │     ├─ ddl_schema.sql
-  │  │     ├─ dml_datasets.sql
-  │  │     └─ dml_dummy_reciept_dataset.sql
+  │  │     │  └─ sp_BackupDatabase.sql
+  │  │     └─ views/
+  │  │        └─ vw_ExpenseCategoryHierarchy .sql
   │  ├─ Dtos/
   │  │  ├─ Auth/
   │  │  │  ├─ Request/
@@ -48,14 +63,45 @@ SapiensData-DRMAV/SapiensDataAPI/
   │  │  │  └─ UpdateSoftwareDto.cs
   │  │  └─ UpdateUserDto.cs
   │  ├─ Models/
+  │  │  ├─ Address.cs
   │  │  ├─ ApplicationUserModel.cs
-  │  │  ├─ RefreshTockenModel.cs
-  │  │  └─ SoftwareModel.cs
+  │  │  ├─ Bank.cs
+  │  │  ├─ BankAccount.cs
+  │  │  ├─ BankTransaction.cs
+  │  │  ├─ Category.cs
+  │  │  ├─ Company.cs
+  │  │  ├─ CompanyAddress.cs
+  │  │  ├─ Debt.cs
+  │  │  ├─ Expense.cs
+  │  │  ├─ ExpenseCategory.cs
+  │  │  ├─ Frequency.cs
+  │  │  ├─ Income.cs
+  │  │  ├─ IncomeCategory.cs
+  │  │  ├─ Investment.cs
+  │  │  ├─ Label.cs
+  │  │  ├─ LabelAssignment.cs
+  │  │  ├─ PaymentMethod.cs
+  │  │  ├─ Product.cs
+  │  │  ├─ Receipt.cs
+  │  │  ├─ ReceiptPayment.cs
+  │  │  ├─ ReceiptTaxDetail.cs
+  │  │  ├─ RefreshTokenModel.cs
+  │  │  ├─ SapeinsDataContext.cs
+  │  │  ├─ Saving.cs
+  │  │  ├─ Store.cs
+  │  │  ├─ StoreAddress.cs
+  │  │  ├─ TaxRate.cs
+  │  │  ├─ UnitType.cs
+  │  │  ├─ User.cs
+  │  │  ├─ UserAddress.cs
+  │  │  ├─ UserRelationship.cs
+  │  │  └─ UserSession.cs
   │  ├─ Properties/
   │  │  └─ launchSettings.json
   │  ├─ Services/
-  │  │  ├─ IJwtTokenService.cs
-  │  │  └─ JwtTokenService.cs
+  │  │  └─ JwtToken/
+  │  │     ├─ IJwtTokenService.cs
+  │  │     └─ JwtTokenService.cs
   │  ├─].env (ignored)
   │  ├─ .env.example
   │  ├─ appsettings.Development.json
@@ -63,8 +109,7 @@ SapiensData-DRMAV/SapiensDataAPI/
   │  ├─ Program.cs
   │  ├─ SapiensDataAPI.csproj
   │  ├─ SapiensDataAPI.csproj.user
-  │  ├─ SapiensDataAPI.http
-  │  └─ WeatherForecast.cs
+  │  └─ SapiensDataAPI.http
   ├─ .gitignore
   ├─ folder-structure.txt
   ├─ README.md

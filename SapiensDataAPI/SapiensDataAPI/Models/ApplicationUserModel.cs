@@ -6,7 +6,5 @@ namespace SapiensDataAPI.Models
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-
-        public virtual List<string> Roles { get; set; } = new List<string>(); // Initialize with an empty list
     }
 }
