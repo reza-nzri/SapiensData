@@ -95,3 +95,6 @@ Desktop.ini
 
 # Other
 /dataset/reciepts
+
+# Ignoriere das Verzeichnis für das trainierte Modell, um große Binärdateien und häufige Änderungen von Versionskontrollen auszuschließen
+src/models/category_classifier_model/
