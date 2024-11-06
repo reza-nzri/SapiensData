@@ -36,9 +36,6 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 			// Add roles as claims
 			claims.AddRange(roles.Select(role => new Claim("role", role))); // Add each user role as a claim
 
-			// Add roles as a separate claim for compatibility
-			claims.Add(new Claim("roles", string.Join(",", roles))); // Add all roles as a single claim
-
 			// Create the key from configuration
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])); // Generate the symmetric security key
 			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256); // Create signing credentials using HMAC SHA256
@@ -48,7 +45,7 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 				issuer: _configuration["Jwt:Issuer"], // Define the token issuer
 				audience: _configuration["Jwt:Audience"], // Define the token audience
 				claims: claims, // Pass the claims into the token
-				expires: DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpiryMinutes"])), // Set token expiration time
+				expires: DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:DurationInMinutes"])), // Set token expiration time
 				signingCredentials: creds); // Pass signing credentials
 
 			// Return the generated token
