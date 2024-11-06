@@ -75,7 +75,7 @@ namespace SapiensDataAPI.Controllers // Define the namespace for the AuthControl
                 return StatusCode(500, "An error occurred while generating the token."); // Return internal server error
 
             var userRoles = await _userManager.GetRolesAsync(user); // Retrieve the roles assigned to the user
-            return Ok(new { Token = token, Message = "Login successful.", Roles = userRoles }); // Return success response with the token and roles
+            return Ok(new { Token = token, Message = "Login successful."}); // Return success response with the token and roles
         }
     }
 }
