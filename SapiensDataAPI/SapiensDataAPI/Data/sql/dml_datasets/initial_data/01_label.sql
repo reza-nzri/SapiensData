@@ -5,5 +5,3 @@ INSERT INTO Label (label_name, description, color_code) VALUES
     ('eco-friendly', 'Environmentally friendly products', '#8BC34A'),
     ('limited edition', 'Special limited-edition item', '#FF69B4');
 GO
-
--- erstelle einen sp for it!
