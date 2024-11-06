@@ -1081,125 +1081,125 @@ public partial class SapeinsDataContext : IdentityDbContext<ApplicationUserModel
                 .HasColumnName("unit_type");
         });
 
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.UserId).HasName("PK__User__B9BE370F03BB93CC");
+        //modelBuilder.Entity<User>(entity =>
+        //{
+        //    entity.HasKey(e => e.UserId).HasName("PK__User__B9BE370F03BB93CC");
 
-            entity.ToTable("User");
+        //    entity.ToTable("User");
 
-            entity.HasIndex(e => e.AccountEmail, "UQ__User__713342DDA1F6D29E").IsUnique();
+        //    entity.HasIndex(e => e.AccountEmail, "UQ__User__713342DDA1F6D29E").IsUnique();
 
-            entity.HasIndex(e => e.Username, "UQ__User__F3DBC5725409B28E").IsUnique();
+        //    entity.HasIndex(e => e.Username, "UQ__User__F3DBC5725409B28E").IsUnique();
 
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-            entity.Property(e => e.AccountEmail)
-                .HasMaxLength(100)
-                .HasColumnName("account_email");
-            entity.Property(e => e.AccountPhone)
-                .HasMaxLength(20)
-                .HasColumnName("account_phone");
-            entity.Property(e => e.AltEmails)
-                .HasMaxLength(255)
-                .HasColumnName("alt_emails");
-            entity.Property(e => e.AppLanguage)
-                .HasMaxLength(10)
-                .HasDefaultValue("en")
-                .HasColumnName("app_language");
-            entity.Property(e => e.Birthday).HasColumnName("birthday");
-            entity.Property(e => e.CompanyName)
-                .HasMaxLength(100)
-                .HasColumnName("company_name");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("created_at");
-            entity.Property(e => e.Department)
-                .HasMaxLength(100)
-                .HasColumnName("department");
-            entity.Property(e => e.Facebook)
-                .HasMaxLength(255)
-                .HasColumnName("facebook");
-            entity.Property(e => e.FirstName)
-                .HasMaxLength(50)
-                .HasColumnName("first_name");
-            entity.Property(e => e.Gender)
-                .HasMaxLength(1)
-                .IsUnicode(false)
-                .IsFixedLength()
-                .HasColumnName("gender");
-            entity.Property(e => e.Github)
-                .HasMaxLength(255)
-                .HasColumnName("github");
-            entity.Property(e => e.Instagram)
-                .HasMaxLength(255)
-                .HasColumnName("instagram");
-            entity.Property(e => e.JobTitle)
-                .HasMaxLength(100)
-                .HasColumnName("job_title");
-            entity.Property(e => e.LastLogin)
-                .HasColumnType("datetime")
-                .HasColumnName("last_login");
-            entity.Property(e => e.LastName)
-                .HasMaxLength(50)
-                .HasColumnName("last_name");
-            entity.Property(e => e.Linkedin)
-                .HasMaxLength(255)
-                .HasColumnName("linkedin");
-            entity.Property(e => e.MiddleName)
-                .HasMaxLength(50)
-                .HasColumnName("middle_name");
-            entity.Property(e => e.Nickname)
-                .HasMaxLength(50)
-                .HasColumnName("nickname");
-            entity.Property(e => e.PasswordHash)
-                .HasMaxLength(255)
-                .HasColumnName("password_hash");
-            entity.Property(e => e.Prefix)
-                .HasMaxLength(10)
-                .HasColumnName("prefix");
-            entity.Property(e => e.ProfilePicturePath)
-                .HasMaxLength(255)
-                .HasColumnName("profile_picture_path");
-            entity.Property(e => e.RecoveryEmail)
-                .HasMaxLength(100)
-                .HasColumnName("recovery_email");
-            entity.Property(e => e.RecoveryPhone)
-                .HasMaxLength(20)
-                .HasColumnName("recovery_phone");
-            entity.Property(e => e.Role)
-                .HasMaxLength(50)
-                .HasDefaultValue("[User]")
-                .HasColumnName("role");
-            entity.Property(e => e.Snapchat)
-                .HasMaxLength(255)
-                .HasColumnName("snapchat");
-            entity.Property(e => e.Status)
-                .HasMaxLength(20)
-                .HasDefaultValue("active")
-                .HasColumnName("status");
-            entity.Property(e => e.Suffix)
-                .HasMaxLength(10)
-                .HasColumnName("suffix");
-            entity.Property(e => e.Tiktok)
-                .HasMaxLength(255)
-                .HasColumnName("tiktok");
-            entity.Property(e => e.Twitter)
-                .HasMaxLength(255)
-                .HasColumnName("twitter");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("updated_at");
-            entity.Property(e => e.Username)
-                .HasMaxLength(50)
-                .HasColumnName("username");
-            entity.Property(e => e.Website)
-                .HasMaxLength(255)
-                .HasColumnName("website");
-            entity.Property(e => e.Youtube)
-                .HasMaxLength(255)
-                .HasColumnName("youtube");
-        });
+        //    entity.Property(e => e.UserId).HasColumnName("user_id");
+        //    entity.Property(e => e.AccountEmail)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("account_email");
+        //    entity.Property(e => e.AccountPhone)
+        //        .HasMaxLength(20)
+        //        .HasColumnName("account_phone");
+        //    entity.Property(e => e.AltEmails)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("alt_emails");
+        //    entity.Property(e => e.AppLanguage)
+        //        .HasMaxLength(10)
+        //        .HasDefaultValue("en")
+        //        .HasColumnName("app_language");
+        //    entity.Property(e => e.Birthday).HasColumnName("birthday");
+        //    entity.Property(e => e.CompanyName)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("company_name");
+        //    entity.Property(e => e.CreatedAt)
+        //        .HasDefaultValueSql("(getdate())")
+        //        .HasColumnType("datetime")
+        //        .HasColumnName("created_at");
+        //    entity.Property(e => e.Department)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("department");
+        //    entity.Property(e => e.Facebook)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("facebook");
+        //    entity.Property(e => e.FirstName)
+        //        .HasMaxLength(50)
+        //        .HasColumnName("first_name");
+        //    entity.Property(e => e.Gender)
+        //        .HasMaxLength(1)
+        //        .IsUnicode(false)
+        //        .IsFixedLength()
+        //        .HasColumnName("gender");
+        //    entity.Property(e => e.Github)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("github");
+        //    entity.Property(e => e.Instagram)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("instagram");
+        //    entity.Property(e => e.JobTitle)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("job_title");
+        //    entity.Property(e => e.LastLogin)
+        //        .HasColumnType("datetime")
+        //        .HasColumnName("last_login");
+        //    entity.Property(e => e.LastName)
+        //        .HasMaxLength(50)
+        //        .HasColumnName("last_name");
+        //    entity.Property(e => e.Linkedin)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("linkedin");
+        //    entity.Property(e => e.MiddleName)
+        //        .HasMaxLength(50)
+        //        .HasColumnName("middle_name");
+        //    entity.Property(e => e.Nickname)
+        //        .HasMaxLength(50)
+        //        .HasColumnName("nickname");
+        //    entity.Property(e => e.PasswordHash)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("password_hash");
+        //    entity.Property(e => e.Prefix)
+        //        .HasMaxLength(10)
+        //        .HasColumnName("prefix");
+        //    entity.Property(e => e.ProfilePicturePath)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("profile_picture_path");
+        //    entity.Property(e => e.RecoveryEmail)
+        //        .HasMaxLength(100)
+        //        .HasColumnName("recovery_email");
+        //    entity.Property(e => e.RecoveryPhone)
+        //        .HasMaxLength(20)
+        //        .HasColumnName("recovery_phone");
+        //    entity.Property(e => e.Role)
+        //        .HasMaxLength(50)
+        //        .HasDefaultValue("[User]")
+        //        .HasColumnName("role");
+        //    entity.Property(e => e.Snapchat)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("snapchat");
+        //    entity.Property(e => e.Status)
+        //        .HasMaxLength(20)
+        //        .HasDefaultValue("active")
+        //        .HasColumnName("status");
+        //    entity.Property(e => e.Suffix)
+        //        .HasMaxLength(10)
+        //        .HasColumnName("suffix");
+        //    entity.Property(e => e.Tiktok)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("tiktok");
+        //    entity.Property(e => e.Twitter)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("twitter");
+        //    entity.Property(e => e.UpdatedAt)
+        //        .HasDefaultValueSql("(getdate())")
+        //        .HasColumnType("datetime")
+        //        .HasColumnName("updated_at");
+        //    entity.Property(e => e.Username)
+        //        .HasMaxLength(50)
+        //        .HasColumnName("username");
+        //    entity.Property(e => e.Website)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("website");
+        //    entity.Property(e => e.Youtube)
+        //        .HasMaxLength(255)
+        //        .HasColumnName("youtube");
+        //});
 
         modelBuilder.Entity<UserAddress>(entity =>
         {
