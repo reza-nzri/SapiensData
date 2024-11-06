@@ -7,7 +7,7 @@ public partial class BankAccount
 {
     public int AccountId { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public int BankId { get; set; }
 
@@ -33,5 +33,5 @@ public partial class BankAccount
 
     public virtual ICollection<BankTransaction> BankTransactions { get; set; } = new List<BankTransaction>();
 
-    public virtual User User { get; set; } = null!;
+    public virtual ApplicationUserModel User { get; set; } = null!;
 }

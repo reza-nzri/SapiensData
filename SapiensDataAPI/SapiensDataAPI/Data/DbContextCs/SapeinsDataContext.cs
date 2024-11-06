@@ -68,7 +68,7 @@ public partial class SapeinsDataContext : IdentityDbContext<ApplicationUserModel
 
     public virtual DbSet<UnitType> UnitTypes { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    //public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserAddress> UserAddresses { get; set; }
 

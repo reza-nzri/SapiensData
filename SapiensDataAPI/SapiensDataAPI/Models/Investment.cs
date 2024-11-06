@@ -13,7 +13,7 @@ public partial class Investment
 
     public decimal Amount { get; set; }
 
-    public int? LoanedToUserId { get; set; }
+    public string? LoanedToUserId { get; set; }
 
     public int? LoanedToCompanyId { get; set; }
 
@@ -33,5 +33,5 @@ public partial class Investment
 
     public virtual Company? LoanedToCompany { get; set; }
 
-    public virtual User? LoanedToUser { get; set; }
+    public virtual ApplicationUserModel? LoanedToUser { get; set; }
 }

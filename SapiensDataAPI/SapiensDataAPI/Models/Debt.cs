@@ -17,7 +17,7 @@ public partial class Debt
 
     public DateOnly? DueDate { get; set; }
 
-    public int? CreditorUserId { get; set; }
+    public string? CreditorUserId { get; set; }
 
     public int? CreditorCompanyId { get; set; }
 
@@ -43,5 +43,5 @@ public partial class Debt
 
     public virtual Company? CreditorCompany { get; set; }
 
-    public virtual User? CreditorUser { get; set; }
+    public virtual ApplicationUserModel? CreditorUser { get; set; }
 }

@@ -7,7 +7,7 @@ public partial class UserSession
 {
     public int SessionId { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public DateTime? LoginTime { get; set; }
 
@@ -33,5 +33,5 @@ public partial class UserSession
 
     public int? SessionDuration { get; set; }
 
-    public virtual User User { get; set; } = null!;
+    public virtual ApplicationUserModel User { get; set; } = null!;
 }

@@ -7,7 +7,7 @@ public partial class Income
 {
     public int IncomeId { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public DateOnly IncomeDate { get; set; }
 
@@ -15,7 +15,7 @@ public partial class Income
 
     public string? SourceType { get; set; }
 
-    public int? SourceUserId { get; set; }
+    public string? SourceUserId { get; set; }
 
     public int? SourceCompanyId { get; set; }
 
@@ -51,7 +51,7 @@ public partial class Income
 
     public virtual Company? SourceCompany { get; set; }
 
-    public virtual User? SourceUser { get; set; }
+    public virtual ApplicationUserModel? SourceUser { get; set; }
 
-    public virtual User User { get; set; } = null!;
+    public virtual ApplicationUserModel User { get; set; } = null!;
 }

@@ -7,11 +7,11 @@ public partial class Expense
 {
     public int ExpenseId { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public string? SourceType { get; set; }
 
-    public int? SourceUserId { get; set; }
+    public string? SourceUserId { get; set; }
 
     public int? SourceCompanyId { get; set; }
 
@@ -55,9 +55,9 @@ public partial class Expense
 
     public virtual Company? SourceCompany { get; set; }
 
-    public virtual User? SourceUser { get; set; }
+    public virtual ApplicationUserModel? SourceUser { get; set; }
 
     public virtual TaxRate? TaxRate { get; set; }
 
-    public virtual User User { get; set; } = null!;
+    public virtual ApplicationUserModel User { get; set; } = null!;
 }

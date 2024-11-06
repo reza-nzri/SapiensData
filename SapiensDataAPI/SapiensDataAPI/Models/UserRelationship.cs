@@ -7,15 +7,15 @@ public partial class UserRelationship
 {
     public int RelationshipId { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
-    public int RelatedUserId { get; set; }
+    public string RelatedUserId { get; set; }
 
     public string? RelationshipType { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
-    public virtual User RelatedUser { get; set; } = null!;
+    public virtual ApplicationUserModel RelatedUser { get; set; } = null!;
 
-    public virtual User User { get; set; } = null!;
+    public virtual ApplicationUserModel User { get; set; } = null!;
 }
