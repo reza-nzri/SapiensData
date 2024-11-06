@@ -10,6 +10,9 @@ namespace SapiensDataAPI.Models
 		public string? Prefix { get; set; }
 		public string? Suffix { get; set; }
 		public string? Nickname { get; set; }
+		public string? RecoveryEmail { get; set; }
+		public string? AlternaiveEmail { get; set; }
+		public string? RecoveryPhoneNumber { get; set; }
 		public string? Gender { get; set; }
 		public DateOnly? Birthday { get; set; }
 		public string? ProfilePicturePath { get; set; }

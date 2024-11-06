@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapiensDataAPI.Models;
 
@@ -11,9 +12,11 @@ using SapiensDataAPI.Models;
 namespace SapiensDataAPI.Migrations
 {
     [DbContext(typeof(SapeinsDataContext))]
-    partial class SapeinsDataContextModelSnapshot : ModelSnapshot
+    [Migration("20241106101832_add recovery email and phone number")]
+    partial class addrecoveryemailandphonenumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
