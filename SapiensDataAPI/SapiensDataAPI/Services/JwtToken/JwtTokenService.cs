@@ -6,7 +6,8 @@ using SapiensDataAPI.Dtos.Auth.Response; // Import response DTOs for authenticat
 using SapiensDataAPI.Models; // Import user model
 using System.IdentityModel.Tokens.Jwt; // Import for handling JWT tokens
 using System.Security.Claims; // Import for handling claims in JWT
-using System.Text; // Import for encoding the JWT key
+using System.Text;
+using System.Text.Json; // Import for encoding the JWT key
 
 namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 {
@@ -94,6 +95,33 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 					ErrorMessage = ex.Message // Return the error message
 				};
 			}
+		}
+
+		public static JsonDocument DecodeJwtPayloadToJson(string token)
+		{
+			// Split the token into parts: header, payload, and signature
+			var parts = token.Split('.');
+
+			if (parts.Length < 2)
+			{
+				throw new ArgumentException("Invalid JWT token format.");
+			}
+
+			// Decode the payload (second part) from Base64
+			var payload = parts[1];
+			var base64Payload = payload.Replace('-', '+').Replace('_', '/'); // Standard Base64 format
+			var padding = 4 - base64Payload.Length % 4;
+			if (padding < 4)
+			{
+				base64Payload += new string('=', padding);
+			}
+
+			var bytes = Convert.FromBase64String(base64Payload);
+
+			// Parse the decoded payload as JSON
+			var jsonDocument = JsonDocument.Parse(bytes);
+
+			return jsonDocument;
 		}
 	}
 }

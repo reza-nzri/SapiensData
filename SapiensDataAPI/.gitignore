@@ -41,7 +41,7 @@ bld/
 #wwwroot/
 
 # Visual Studio 2017 auto generated files
-Generated\ Files/
+Generated/ Files/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -431,7 +431,7 @@ test-results/
 .AppleDouble
 .LSOverride
 
-# Icon must end with two \r
+# Icon must end with two /r
 Icon
 
 # Thumbnails
@@ -516,3 +516,6 @@ ehthumbs.db
 # Environment Variables
 *.env
 SapiensDataAPI/.env
+
+# User uploaded receipts
+SapiensDataAPI/Data/src/media/UserReceiptUploads
