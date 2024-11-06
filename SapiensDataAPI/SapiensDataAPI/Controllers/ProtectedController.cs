@@ -12,7 +12,7 @@ namespace SapiensDataAPI.Controllers // Define the namespace for this controller
         /// </summary>
         /// <returns>An Ok response with admin protected data.</returns>
         [HttpGet("admin-data")] // Define an HTTP GET endpoint for admin data
-        [Authorize(Policy = "ADMIN")] // Access for users with "Admin" role
+        [Authorize(Policy = "Admin")] // Access for users with "Admin" role
         public IActionResult GetAdminData() // Method to return admin-protected data
         {
             var response = new // Create the response object
@@ -30,7 +30,7 @@ namespace SapiensDataAPI.Controllers // Define the namespace for this controller
         /// </summary>
         /// <returns>An Ok response with user protected data.</returns>
         [HttpGet("user-data")] // Define an HTTP GET endpoint for normal user data
-        [Authorize(Policy = "NORMALUSER")] // Access for users with "NormalUser" role
+        [Authorize(Policy = "NormalUser")] // Access for users with "NormalUser" role
         public IActionResult GetUserData() // Method to return user-protected data
         {
             var response = new // Create the response object
@@ -43,11 +43,25 @@ namespace SapiensDataAPI.Controllers // Define the namespace for this controller
             return Ok(response); // Return the response with a 200 OK status
         }
 
-        /// <summary>
-        /// Handle access denied for unauthorized users.
-        /// </summary>
-        /// <returns>A response with error message for unauthorized access.</returns>
-        [HttpGet("unauthorized")] // Define an HTTP GET endpoint for unauthorized access
+		[HttpGet("superadmin-data")] // Define an HTTP GET endpoint for normal user data
+		[Authorize(Policy = "SuperAdmin")] // Access for users with "NormalUser" role
+		public IActionResult GetSuperAdminData() // Method to return user-protected data
+		{
+			var response = new // Create the response object
+			{
+				Success = true, // Indicate success
+				Message = "Access granted.", // Message to indicate access is granted
+				Data = "This is SuperAdmin protected data." // The user-protected data
+			};
+
+			return Ok(response); // Return the response with a 200 OK status
+		}
+
+		/// <summary>
+		/// Handle access denied for unauthorized users.
+		/// </summary>
+		/// <returns>A response with error message for unauthorized access.</returns>
+		[HttpGet("unauthorized")] // Define an HTTP GET endpoint for unauthorized access
         public IActionResult HandleUnauthorizedAccess() // Method to handle unauthorized access
         {
             var response = new // Create the response object
