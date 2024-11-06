@@ -508,9 +508,6 @@ bld/
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
 
-# Entity Framework Core Migrations
-[Mm]igrations/
-
 # OS generated files
 .DS_Store
 Thumbs.db
