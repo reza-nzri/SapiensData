@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SapiensDataAPI.Data.DbContextCs;
 using SapiensDataAPI.Dtos;
+using SapiensDataAPI.Dtos.Expense.Request;
 using SapiensDataAPI.Dtos.ImageUploader.Request;
+using SapiensDataAPI.Dtos.Income.Request;
+using SapiensDataAPI.Dtos.Receipt.Request;
 using SapiensDataAPI.Models;
 using SapiensDataAPI.Services.JwtToken;
 using System.Text.Json;
@@ -12,10 +17,12 @@ namespace SapiensDataAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class ReceiptsController(SapeinsDataContext context, IJwtTokenService jwtTokenService) : ControllerBase
+	public class ReceiptsController(SapeinsDataContext context, IJwtTokenService jwtTokenService, IMapper mapper, UserManager<ApplicationUserModel> userManager) : ControllerBase
 	{
 		private readonly SapeinsDataContext _context = context;
 		private readonly IJwtTokenService _jwtTokenService = jwtTokenService; // Dependency injection for handling JWT token generation
+		private readonly IMapper _mapper = mapper;
+		private readonly UserManager<ApplicationUserModel> _userManager = userManager;
 
 		// GET: api/Receipts
 		[HttpGet]
@@ -112,6 +119,30 @@ namespace SapiensDataAPI.Controllers
 			{
 				await image.Image.CopyToAsync(fileStream);
 			}
+
+			var user = await _userManager.FindByNameAsync(JwtPayload.Sub);
+			if (user == null)
+			{
+				return NotFound("User was not found.");
+			}
+			var userId = user.Id;
+
+			var EXAMPLEReceiptDto = new ReceiptDto
+			{
+				BuyDatetime = DateTime.Now,
+				TraceNumber = "ABC12345",
+				TotalAmount = 150.00m,
+				CashbackAmount = 5.00m,
+				Currency = "USD",
+				FullNamePaymentMethod = "Credit Card",
+				Iban = "US12345678901234567890",
+				ReceiptImagePath = filePath,
+				UserId = userId
+			};
+
+			var receipt = _mapper.Map<Receipt>(EXAMPLEReceiptDto);
+			_context.Receipts.Add(receipt);
+			await _context.SaveChangesAsync();
 
 			return Ok("Image uploaded successfully.");
 		}
