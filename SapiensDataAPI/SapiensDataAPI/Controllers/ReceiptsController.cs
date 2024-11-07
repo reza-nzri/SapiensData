@@ -5,7 +5,6 @@ using SapiensDataAPI.Dtos;
 using SapiensDataAPI.Dtos.ImageUploader.Request;
 using SapiensDataAPI.Models;
 using SapiensDataAPI.Services.JwtToken;
-using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 
 namespace SapiensDataAPI.Controllers
@@ -92,7 +91,16 @@ namespace SapiensDataAPI.Controllers
 			var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
 
 			if (!Directory.Exists(uploadsFolderPath))
-				Directory.CreateDirectory(uploadsFolderPath);
+			{
+				try
+				{
+					Directory.CreateDirectory(uploadsFolderPath);
+				}
+				catch
+				{
+					return StatusCode(500, "Can't create directory.");
+				}
+			}
 
 			var extension = Path.GetExtension(image.Image.FileName);
 			var newFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + extension;

@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\src\media\UserReceiptUploads\" />
+    <Folder Include="Data\src\media\" />
   </ItemGroup>
 
 </Project>
