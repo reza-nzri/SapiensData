@@ -11,7 +11,7 @@ namespace SapiensDataAPI.Migrations
 {
 	[DbContext(typeof(SapeinsDataContext))]
     [Migration("20241105115113_init")]
-    partial class init
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

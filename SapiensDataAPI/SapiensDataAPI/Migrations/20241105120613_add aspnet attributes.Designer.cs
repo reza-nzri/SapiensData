@@ -14,7 +14,7 @@ namespace SapiensDataAPI.Migrations
 {
     [DbContext(typeof(SapeinsDataContext))]
     [Migration("20241105120613_add aspnet attributes")]
-    partial class addaspnetattributes
+    partial class Addaspnetattributes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

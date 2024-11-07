@@ -5,7 +5,7 @@
 namespace SapiensDataAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class addrecoveryemailandphonenumber : Migration
+    public partial class Addrecoveryemailandphonenumber : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

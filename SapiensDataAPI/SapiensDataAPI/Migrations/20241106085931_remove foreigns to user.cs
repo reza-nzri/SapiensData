@@ -5,7 +5,7 @@
 namespace SapiensDataAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class removeforeignstouser : Migration
+    public partial class Removeforeignstouser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

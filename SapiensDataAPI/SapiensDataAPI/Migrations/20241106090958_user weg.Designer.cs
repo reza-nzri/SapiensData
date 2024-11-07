@@ -13,7 +13,7 @@ namespace SapiensDataAPI.Migrations
 {
     [DbContext(typeof(SapeinsDataContext))]
     [Migration("20241106090958_user weg")]
-    partial class userweg
+    partial class Userweg
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

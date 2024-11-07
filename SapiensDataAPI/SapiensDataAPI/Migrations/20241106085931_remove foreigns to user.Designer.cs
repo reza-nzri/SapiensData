@@ -13,7 +13,7 @@ namespace SapiensDataAPI.Migrations
 {
     [DbContext(typeof(SapeinsDataContext))]
     [Migration("20241106085931_remove foreigns to user")]
-    partial class removeforeignstouser
+    partial class Removeforeignstouser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

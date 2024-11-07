@@ -13,7 +13,7 @@ namespace SapiensDataAPI.Migrations
 {
     [DbContext(typeof(SapeinsDataContext))]
     [Migration("20241106101832_add recovery email and phone number")]
-    partial class addrecoveryemailandphonenumber
+    partial class Addrecoveryemailandphonenumber
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
