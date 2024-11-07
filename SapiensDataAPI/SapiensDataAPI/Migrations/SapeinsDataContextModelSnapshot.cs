@@ -1245,7 +1245,7 @@ namespace SapiensDataAPI.Migrations
 
                     b.HasIndex("LoanedToUserId");
 
-                    b.ToTable("Investments");
+                    b.ToTable("Investments", (string)null);
                 });
 
             modelBuilder.Entity("SapiensDataAPI.Models.Label", b =>
@@ -1714,7 +1714,7 @@ namespace SapiensDataAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Savings");
+                    b.ToTable("Savings", (string)null);
                 });
 
             modelBuilder.Entity("SapiensDataAPI.Models.Store", b =>
