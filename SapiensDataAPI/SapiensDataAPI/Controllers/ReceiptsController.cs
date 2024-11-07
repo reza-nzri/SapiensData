@@ -84,8 +84,8 @@ namespace SapiensDataAPI.Controllers
 		public async Task<ActionResult<Receipt>> PostReceipt([FromForm] UploadImageDto image)
 		{
 			var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement.ToString();
-			JwtPayload JwtPayload = JsonSerializer.Deserialize<JwtPayload>(decodedToken);
+			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement;
+			JwtPayload JwtPayload = JsonSerializer.Deserialize<JwtPayload>(decodedToken) ?? new JwtPayload(); ;
 
 			if (image == null || image.Image.Length == 0)
 				return BadRequest("No image file provided.");

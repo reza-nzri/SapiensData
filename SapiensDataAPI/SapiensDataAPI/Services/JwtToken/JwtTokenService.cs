@@ -69,7 +69,13 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 
 			try
 			{
-				var principal = tokenHandler.ValidateToken(tokenRequest.Token, tokenValidationParameters, out var validatedToken); // Validate the token
+				//var principal = tokenHandler.ValidateToken(tokenRequest.Token, tokenValidationParameters, out var validatedToken); // Validate the token
+				var (principal, validatedToken) = await Task.Run(() =>
+				{
+					// Validate the token and capture principal and validatedToken
+					var principal = tokenHandler.ValidateToken(tokenRequest.Token, tokenValidationParameters, out var validatedToken);
+					return (principal, validatedToken);
+				});
 
 				// Check if the token is expired
 				if (validatedToken.ValidTo < DateTime.UtcNow) // Check if the token expiration time has passed

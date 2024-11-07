@@ -38,7 +38,7 @@ namespace SapiensDataAPI.Dtos
 		public List<string> Role { get; set; } = new List<string>();
 
 		[JsonPropertyName("exp")]
-		public long Exp { get; set; }
+		public long Exp { get; set; } = 0;
 
 		[JsonPropertyName("iss")]
 		public string Iss { get; set; } = string.Empty;
