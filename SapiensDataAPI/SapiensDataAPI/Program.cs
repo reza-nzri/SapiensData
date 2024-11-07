@@ -63,7 +63,6 @@ builder.Services.AddCors(options =>
 
 var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 dbConnectionString = dbConnectionString.Replace("${DB_SERVER_IP}", Environment.GetEnvironmentVariable("DB_SERVER_IP"));
-Console.WriteLine(dbConnectionString);
 // Configure the database context
 builder.Services.AddDbContext<SapeinsDataContext>(options =>
 	options.UseSqlServer(dbConnectionString)); // Configure SQL Server with a connection string
