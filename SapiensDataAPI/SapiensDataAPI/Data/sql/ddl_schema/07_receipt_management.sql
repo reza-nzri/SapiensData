@@ -11,10 +11,13 @@ CREATE TABLE Receipt (
     full_name_payment_method NVARCHAR(255),
     iban CHAR(34),
     receipt_image_path NVARCHAR(255),         -- File path or URL to the receipt image
+    user_id INT,                              -- ID of the user who uploaded the image
+    upload_date DATETIME DEFAULT GETDATE(),   -- Date the image was uploaded
     payment_method_id INT,
     store_id INT,
     FOREIGN KEY (payment_method_id) REFERENCES PaymentMethod(payment_method_id),
-    FOREIGN KEY (store_id) REFERENCES Store(store_id)
+    FOREIGN KEY (store_id) REFERENCES Store(store_id),
+    FOREIGN KEY (user_id) REFERENCES [User](user_id)
 );
 GO
 
