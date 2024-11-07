@@ -106,7 +106,7 @@ builder.Services.AddAuthentication(options =>
 	{
 		OnAuthenticationFailed = context =>
 		{
-			context.Response.Headers.Add("Token-Error", "Invalid token"); // Add a custom header for token errors
+			context.Response.Headers.Append("Token-Error", "Invalid token"); // Add a custom header for token errors
 			return Task.CompletedTask; // Complete the task after handling the error
 		},
 		OnTokenValidated = context =>
