@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SapiensDataAPI.Data.DbContextCs;
 using SapiensDataAPI.Dtos;
 using SapiensDataAPI.Dtos.ImageUploader.Request;
 using SapiensDataAPI.Models;

@@ -5,13 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SapiensDataAPI.Models;
+using SapiensDataAPI.Data.DbContextCs;
+
 
 #nullable disable
 
 namespace SapiensDataAPI.Migrations
 {
-    [DbContext(typeof(SapeinsDataContext))]
+	[DbContext(typeof(SapeinsDataContext))]
     [Migration("20241106090958_user weg")]
     partial class Userweg
     {

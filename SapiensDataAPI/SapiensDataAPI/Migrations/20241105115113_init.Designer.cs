@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using SapiensDataAPI.Models;
+using SapiensDataAPI.Data.DbContextCs;
+
 
 
 #nullable disable
