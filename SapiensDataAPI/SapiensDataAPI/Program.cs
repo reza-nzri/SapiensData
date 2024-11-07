@@ -5,9 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SapiensDataAPI.Data.DbContextCs;
-
-
-//using SapiensDataAPI.Data.DbContextCs; // Import database context
 using SapiensDataAPI.Models; // Import models, including ApplicationUserModel
 using SapiensDataAPI.Services.JwtToken; // Import services, including JwtTokenService
 using System.Text; // Import for encoding JWT secret key
