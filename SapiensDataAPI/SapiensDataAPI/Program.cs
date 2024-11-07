@@ -92,6 +92,11 @@ var jwtKey = builder.Configuration["Jwt:Key"]; // Store the JWT key in a variabl
 var jwtIssuer = builder.Configuration["Jwt:Issuer"]; // Store the JWT issuer in a variable
 var jwtAudience = builder.Configuration["Jwt:Audience"]; // Store the JWT audience in a variable
 
+if (string.IsNullOrEmpty(jwtKey))
+{
+	throw new InvalidOperationException("JWT Key is not configured in the settings.");
+}
+
 // JWT Validation params
 var keyBytes = Encoding.UTF8.GetBytes(jwtKey); // Convert the JWT key into a byte array
 var tokenValidationParams = new TokenValidationParameters // Set up token validation parameters
