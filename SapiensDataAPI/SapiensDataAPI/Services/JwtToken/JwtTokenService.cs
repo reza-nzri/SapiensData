@@ -97,12 +97,17 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 			}
 		}
 
-		public static JsonDocument DecodeJwtPayloadToJson(string token)
+		public JsonDocument DecodeJwtPayloadToJson(string token)
 		{
-			// Split the token into parts: header, payload, and signature
-			var parts = token.Split('.');
+			// Check if token is empty or null
+			if (string.IsNullOrEmpty(token))
+			{
+				throw new ArgumentException("JWT token cannot be null or empty.");
+			}
 
-			if (parts.Length < 2)
+			// Split the token into parts
+			var parts = token.Split('.');
+			if (parts.Length < 3)
 			{
 				throw new ArgumentException("Invalid JWT token format.");
 			}
@@ -118,10 +123,9 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 
 			var bytes = Convert.FromBase64String(base64Payload);
 
-			// Parse the decoded payload as JSON
-			var jsonDocument = JsonDocument.Parse(bytes);
-
-			return jsonDocument;
+			// Parse and return the decoded JSON
+			return JsonDocument.Parse(bytes);
 		}
+
 	}
 }
