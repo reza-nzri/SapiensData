@@ -45,5 +45,6 @@ namespace SapiensDataAPI.Models
 		public virtual ICollection<UserRelationship> UserRelationshipRelatedUsers { get; set; } = new List<UserRelationship>();
 		public virtual ICollection<UserRelationship> UserRelationshipUsers { get; set; } = new List<UserRelationship>();
 		public virtual ICollection<UserSession> UserSessions { get; set; } = new List<UserSession>();
+		public virtual ICollection<Receipt> Receipts { get; set; } = new List<Receipt>();
 	}
 }
