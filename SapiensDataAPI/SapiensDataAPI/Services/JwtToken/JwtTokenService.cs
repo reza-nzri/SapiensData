@@ -27,6 +27,11 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 			// Get user roles
 			var roles = await _userManager.GetRolesAsync(user);
 
+			if (string.IsNullOrEmpty(user.UserName))
+			{
+				throw new InvalidOperationException("No username provided.");
+			}
+
 			// Create claims list
 			var claims = new List<Claim>
 			{
@@ -37,8 +42,15 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 			// Add roles as claims
 			claims.AddRange(roles.Select(role => new Claim("role", role))); // Add each user role as a claim
 
-			// Create the key from configuration
-			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])); // Generate the symmetric security key
+			var jwtKey = _configuration["Jwt:Key"];
+
+			if (string.IsNullOrEmpty(jwtKey))
+			{
+				throw new InvalidOperationException("JWT Key is not configured in the settings.");
+			}
+
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)); // Generate the symmetric security key
+
 			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256); // Create signing credentials using HMAC SHA256
 
 			// Create the token
@@ -132,6 +144,5 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 			// Parse and return the decoded JSON
 			return JsonDocument.Parse(bytes);
 		}
-
 	}
 }
