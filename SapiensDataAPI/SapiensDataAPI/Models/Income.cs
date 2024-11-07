@@ -4,7 +4,7 @@ public partial class Income
 {
 	public int IncomeId { get; set; }
 
-	public string UserId { get; set; }
+	public required string UserId { get; set; }
 
 	public DateOnly IncomeDate { get; set; }
 

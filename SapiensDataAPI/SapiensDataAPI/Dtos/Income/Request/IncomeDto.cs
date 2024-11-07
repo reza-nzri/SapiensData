@@ -2,7 +2,7 @@
 {
 	public class IncomeDto
 	{
-		public string UserId { get; set; }
+		public required string UserId { get; set; }
 
 		public DateOnly IncomeDate { get; set; }
 
