@@ -2,7 +2,7 @@
 
 namespace SapiensDataAPI.Dtos.Income.Request
 {
-	public class IncomeDto
+	public class ReqIncomeDto
 	{
 		public required int IncomeId { get; set; }
 

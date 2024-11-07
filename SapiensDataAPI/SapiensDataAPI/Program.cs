@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity; // Import Identity for user and role manage
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SapiensDataAPI.Configs;
 using SapiensDataAPI.Data.DbContextCs;
 using SapiensDataAPI.Models; // Import models, including ApplicationUserModel
 using SapiensDataAPI.Services.JwtToken; // Import services, including JwtTokenService
@@ -11,6 +12,8 @@ using System.Text; // Import for encoding JWT secret key
 
 var builder = WebApplication.CreateBuilder(args); // Create a builder for the web application
 builder.Configuration.AddEnvironmentVariables(); // Add environment variables to the configuration
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());  // Registers all profiles in the project
 
 // Load environment variables from .env file
 Env.Load(".env");

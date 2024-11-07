@@ -1,6 +1,6 @@
 ﻿namespace SapiensDataAPI.Dtos.Expense.Request
 {
-	public class ExpenseDto
+	public class ReqExpenseDto
 	{
 	}
 }

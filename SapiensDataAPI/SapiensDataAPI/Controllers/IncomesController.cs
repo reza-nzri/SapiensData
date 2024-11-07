@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SapiensDataAPI.Data.DbContextCs;
+using SapiensDataAPI.Dtos.Income.Request;
+using SapiensDataAPI.Dtos.Income.Response;
 using SapiensDataAPI.Models;
 
 namespace SapiensDataAPI.Controllers
@@ -15,10 +18,12 @@ namespace SapiensDataAPI.Controllers
     public class IncomesController : ControllerBase
     {
         private readonly SapeinsDataContext _context;
+        private readonly IMapper _mapper;
 
-        public IncomesController(SapeinsDataContext context)
+        public IncomesController(SapeinsDataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Incomes
@@ -76,8 +81,9 @@ namespace SapiensDataAPI.Controllers
         // POST: api/Incomes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Income>> PostIncome(Income income)
+        public async Task<ActionResult<ResIncomeDto>> PostIncome(ReqIncomeDto incomeDto)
         {
+            var income = _mapper.Map<Income>(incomeDto);
             _context.Incomes.Add(income);
             await _context.SaveChangesAsync();
 
