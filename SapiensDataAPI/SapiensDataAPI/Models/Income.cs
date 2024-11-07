@@ -5,7 +5,7 @@ namespace SapiensDataAPI.Models;
 
 public partial class Income
 {
-    public required int IncomeId { get; set; }
+    public int IncomeId { get; set; }
 
     public required string UserId { get; set; }
 
