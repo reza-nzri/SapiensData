@@ -1,6 +1,4 @@
-﻿using SapiensDataAPI.Models;
-
-namespace SapiensDataAPI.Dtos.Income.Request
+﻿namespace SapiensDataAPI.Dtos.Income.Request
 {
 	public class IncomeDto
 	{

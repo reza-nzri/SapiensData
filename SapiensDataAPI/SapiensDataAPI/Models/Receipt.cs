@@ -25,6 +25,10 @@ public partial class Receipt
 
     public string? ReceiptImagePath { get; set; }
 
+    public string? UserId { get; set; }
+
+    public DateTime? UploadDate { get; set; }
+
     public int? PaymentMethodId { get; set; }
 
     public int? StoreId { get; set; }
@@ -38,6 +42,8 @@ public partial class Receipt
     public virtual ICollection<ReceiptTaxDetail> ReceiptTaxDetails { get; set; } = new List<ReceiptTaxDetail>();
 
     public virtual Store? Store { get; set; }
+    
+    public virtual ApplicationUserModel? User { get; set; }
 
     public virtual ICollection<TaxRate> TaxRates { get; set; } = new List<TaxRate>();
 }

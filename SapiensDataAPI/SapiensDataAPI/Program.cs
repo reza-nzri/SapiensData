@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity; // Import Identity for user and role manage
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SapiensDataAPI.Configs;
 using SapiensDataAPI.Data.DbContextCs;
 using SapiensDataAPI.Models; // Import models, including ApplicationUserModel
 using SapiensDataAPI.Services.JwtToken; // Import services, including JwtTokenService

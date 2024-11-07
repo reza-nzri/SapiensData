@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SapiensDataAPI.Data.DbContextCs;
+using SapiensDataAPI.Dtos.Expense.Request;
 using SapiensDataAPI.Models;
 
 namespace SapiensDataAPI.Controllers
@@ -15,10 +17,12 @@ namespace SapiensDataAPI.Controllers
     public class ExpensesController : ControllerBase
     {
         private readonly SapeinsDataContext _context;
+        private readonly IMapper _mapper;
 
-        public ExpensesController(SapeinsDataContext context)
+        public ExpensesController(SapeinsDataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Expenses
@@ -76,8 +80,9 @@ namespace SapiensDataAPI.Controllers
         // POST: api/Expenses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Expense>> PostExpense(Expense expense)
+        public async Task<ActionResult<Expense>> PostExpense(ExpenseDto expenseDto)
         {
+            var expense = _mapper.Map<Expense>(expenseDto);
             _context.Expenses.Add(expense);
             await _context.SaveChangesAsync();
 

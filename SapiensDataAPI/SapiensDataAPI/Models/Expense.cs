@@ -5,7 +5,7 @@ namespace SapiensDataAPI.Models;
 
 public partial class Expense
 {
-    public required int ExpenseId { get; set; }
+    public int ExpenseId { get; set; }
 
     public required string UserId { get; set; }
 
