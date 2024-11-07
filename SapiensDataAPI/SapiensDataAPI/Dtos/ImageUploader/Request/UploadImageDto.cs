@@ -2,7 +2,6 @@
 {
 	public class UploadImageDto
 	{
-		public string UserName { get; set; }
-        public IFormFile Image { get; set; }
-    }
+		public IFormFile Image { get; set; }
+	}
 }

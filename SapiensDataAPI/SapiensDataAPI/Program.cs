@@ -60,7 +60,6 @@ builder.Services.AddCors(options =>
 		});
 });
 
-
 var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 dbConnectionString = dbConnectionString.Replace("${DB_SERVER_IP}", Environment.GetEnvironmentVariable("DB_SERVER_IP"));
 // Configure the database context

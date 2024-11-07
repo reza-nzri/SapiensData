@@ -1,135 +1,133 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SapiensDataAPI.Models;
-using System.IO;
+using SapiensDataAPI.Dtos;
 using SapiensDataAPI.Dtos.ImageUploader.Request;
+using SapiensDataAPI.Models;
+using SapiensDataAPI.Services.JwtToken;
+using System.Text.Json;
 
 namespace SapiensDataAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ReceiptsController : ControllerBase
-    {
-        private readonly SapeinsDataContext _context;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class ReceiptsController : ControllerBase
+	{
+		private readonly SapeinsDataContext _context;
+		private readonly IJwtTokenService _jwtTokenService; // Dependency injection for handling JWT token generation
 
-        public ReceiptsController(SapeinsDataContext context)
-        {
-            _context = context;
-        }
+		public ReceiptsController(SapeinsDataContext context, IJwtTokenService jwtTokenService)
+		{
+			_context = context;
+			_jwtTokenService = jwtTokenService; // Initialize JwtTokenService
+		}
 
-        // GET: api/Receipts
-        [HttpGet]
-        [Authorize]
-        public async Task<ActionResult<IEnumerable<Receipt>>> GetReceipts()
-        {
-            return await _context.Receipts.ToListAsync();
-        }
+		// GET: api/Receipts
+		[HttpGet]
+		[Authorize]
+		public async Task<ActionResult<IEnumerable<Receipt>>> GetReceipts()
+		{
+			return await _context.Receipts.ToListAsync();
+		}
 
-        // GET: api/Receipts/5
-        [HttpGet("{id}")]
+		// GET: api/Receipts/5
+		[HttpGet("{id}")]
 		[Authorize]
 		public async Task<ActionResult<Receipt>> GetReceipt(int id)
-        {
-            var receipt = await _context.Receipts.FindAsync(id);
+		{
+			var receipt = await _context.Receipts.FindAsync(id);
 
-            if (receipt == null)
-            {
-                return NotFound();
-            }
+			if (receipt == null)
+			{
+				return NotFound();
+			}
 
-            return receipt;
-        }
+			return receipt;
+		}
 
-        // PUT: api/Receipts/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+		// PUT: api/Receipts/5
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPut("{id}")]
 		[Authorize(Policy = "Admin")]
 		public async Task<IActionResult> PutReceipt(int id, Receipt receipt)
-        {
-            if (id != receipt.ReceiptId)
-            {
-                return BadRequest();
-            }
+		{
+			if (id != receipt.ReceiptId)
+			{
+				return BadRequest();
+			}
 
-            _context.Entry(receipt).State = EntityState.Modified;
+			_context.Entry(receipt).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReceiptExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!ReceiptExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
 
-            return NoContent();
-        }
+			return NoContent();
+		}
 
-        // POST: api/Receipts
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+		// POST: api/Receipts
+		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+		[HttpPost]
 		[Authorize]
 		public async Task<ActionResult<Receipt>> PostReceipt([FromForm] UploadImageDto image)
 		{
 			var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            //var decodedToken = DecodeJwtPayloadToJson(token);
+			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement.ToString();
+			JwtPayload JwtPayload = JsonSerializer.Deserialize<JwtPayload>(decodedToken);
 
 			if (image == null || image.Image.Length == 0)
-                return BadRequest("No image file provided.");
+				return BadRequest("No image file provided.");
 
-            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "src", "media", "UserReceiptUploads", image.UserName);
+			var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
 
-            if (!Directory.Exists(uploadsFolderPath))
-                Directory.CreateDirectory(uploadsFolderPath);
+			if (!Directory.Exists(uploadsFolderPath))
+				Directory.CreateDirectory(uploadsFolderPath);
 
-            var filePath = Path.Combine(uploadsFolderPath, image.Image.FileName);
+			var extension = Path.GetExtension(image.Image.FileName);
+			var newFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + extension;
 
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await image.Image.CopyToAsync(fileStream);
-            }
+			var filePath = Path.Combine(uploadsFolderPath, newFileName);
 
-            return Ok("Image uploaded successfully.");
-        }
+			using (var fileStream = new FileStream(filePath, FileMode.Create))
+			{
+				await image.Image.CopyToAsync(fileStream);
+			}
 
-		private object DecodeJwtPayloadToJson(string token)
-		{
-			throw new NotImplementedException();
+			return Ok("Image uploaded successfully.");
 		}
 
 		// DELETE: api/Receipts/5
 		[HttpDelete("{id}")]
 		[Authorize(Policy = "Admin")]
 		public async Task<IActionResult> DeleteReceipt(int id)
-        {
-            var receipt = await _context.Receipts.FindAsync(id);
-            if (receipt == null)
-            {
-                return NotFound();
-            }
+		{
+			var receipt = await _context.Receipts.FindAsync(id);
+			if (receipt == null)
+			{
+				return NotFound();
+			}
 
-            _context.Receipts.Remove(receipt);
-            await _context.SaveChangesAsync();
+			_context.Receipts.Remove(receipt);
+			await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+			return NoContent();
+		}
 
-        private bool ReceiptExists(int id)
-        {
-            return _context.Receipts.Any(e => e.ReceiptId == id);
-        }
-    }
+		private bool ReceiptExists(int id)
+		{
+			return _context.Receipts.Any(e => e.ReceiptId == id);
+		}
+	}
 }
