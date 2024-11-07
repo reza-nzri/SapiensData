@@ -137,23 +137,14 @@ builder.Services.AddAuthentication(options =>
 
 // Authorization Policies
 builder.Services.AddAuthorizationBuilder()
-							 // Authorization Policies
 							 .AddPolicy("SuperAdmin", policy => policy.RequireRole("SuperAdmin"))
-							 // Authorization Policies
 							 .AddPolicy("Admin", policy => policy.RequireRole("Admin"))
-							 // Authorization Policies
 							 .AddPolicy("NormalUser", policy => policy.RequireRole("NormalUser"))
-							 // Authorization Policies
 							 .AddPolicy("TeamLead", policy => policy.RequireRole("TeamLead"))
-							 // Authorization Policies
 							 .AddPolicy("Guest", policy => policy.RequireRole("Guest"))
-							 // Authorization Policies
 							 .AddPolicy("Moderator", policy => policy.RequireRole("Moderator"))
-							 // Authorization Policies
 							 .AddPolicy("Developer", policy => policy.RequireRole("Developer"))
-							 // Authorization Policies
 							 .AddPolicy("Tester", policy => policy.RequireRole("Tester"))
-							 // Authorization Policies
 							 .AddPolicy("DataScientist", policy => policy.RequireRole("DataScientist"));
 
 // Add Scoped services
