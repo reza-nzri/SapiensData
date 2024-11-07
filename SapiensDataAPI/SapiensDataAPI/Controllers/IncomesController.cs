@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SapiensDataAPI.Data.DbContextCs;
 using SapiensDataAPI.Dtos.Income.Request;
-using SapiensDataAPI.Dtos.Income.Response;
 using SapiensDataAPI.Models;
 
 namespace SapiensDataAPI.Controllers
@@ -81,7 +80,7 @@ namespace SapiensDataAPI.Controllers
         // POST: api/Incomes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ResIncomeDto>> PostIncome(ReqIncomeDto incomeDto)
+        public async Task<ActionResult<Income>> PostIncome(IncomeDto incomeDto)
         {
             var income = _mapper.Map<Income>(incomeDto);
             _context.Incomes.Add(income);

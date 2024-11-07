@@ -8,7 +8,7 @@ namespace SapiensDataAPI.Configs
 	{
 		public MappingProfile()
 		{
-			CreateMap<ReqIncomeDto, Income>();
+			CreateMap<IncomeDto, Income>();
 		}
 	}
 }
