@@ -67,11 +67,13 @@ namespace SapiensDataAPI.Services.JwtToken // Define the service namespace
 
 		public async Task<RefreshTokenResponseDto> VerifyToken(TokenRequestDto tokenRequest) // Method to verify a token
 		{
+			var jwtKey = _configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key is not configured.");
+
 			var tokenHandler = new JwtSecurityTokenHandler(); // Instantiate a token handler
 			var tokenValidationParameters = new TokenValidationParameters
 			{
 				ValidateIssuerSigningKey = true, // Validate the signing key of the token
-				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])), // Set the signing key from configuration
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)), // Set the signing key from configuration
 				ValidateIssuer = true,
 				ValidIssuer = _configuration["Jwt:Issuer"],
 				ValidateAudience = true,
