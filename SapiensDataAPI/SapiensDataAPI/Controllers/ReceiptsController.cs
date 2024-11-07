@@ -5,22 +5,17 @@ using SapiensDataAPI.Dtos;
 using SapiensDataAPI.Dtos.ImageUploader.Request;
 using SapiensDataAPI.Models;
 using SapiensDataAPI.Services.JwtToken;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 
 namespace SapiensDataAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class ReceiptsController : ControllerBase
+	public class ReceiptsController(SapeinsDataContext context, IJwtTokenService jwtTokenService) : ControllerBase
 	{
-		private readonly SapeinsDataContext _context;
-		private readonly IJwtTokenService _jwtTokenService; // Dependency injection for handling JWT token generation
-
-		public ReceiptsController(SapeinsDataContext context, IJwtTokenService jwtTokenService)
-		{
-			_context = context;
-			_jwtTokenService = jwtTokenService; // Initialize JwtTokenService
-		}
+		private readonly SapeinsDataContext _context = context;
+		private readonly IJwtTokenService _jwtTokenService = jwtTokenService; // Dependency injection for handling JWT token generation
 
 		// GET: api/Receipts
 		[HttpGet]
@@ -83,9 +78,13 @@ namespace SapiensDataAPI.Controllers
 		[Authorize]
 		public async Task<ActionResult<Receipt>> PostReceipt([FromForm] UploadImageDto image)
 		{
-			var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+			var token = HttpContext.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
 			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement;
-			JwtPayload JwtPayload = JsonSerializer.Deserialize<JwtPayload>(decodedToken) ?? new JwtPayload(); ;
+			JwtPayload? JwtPayload = JsonSerializer.Deserialize<JwtPayload>(decodedToken) ?? null;
+			if (JwtPayload == null)
+			{
+				return BadRequest("JwtPayload is not ok.");
+			}
 
 			if (image == null || image.Image.Length == 0)
 				return BadRequest("No image file provided.");
