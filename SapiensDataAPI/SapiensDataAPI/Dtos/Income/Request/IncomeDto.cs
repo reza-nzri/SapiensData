@@ -1,10 +1,8 @@
-﻿using SapiensDataAPI.Models;
-
-namespace SapiensDataAPI.Dtos.Income.Request
+﻿namespace SapiensDataAPI.Dtos.Income.Request
 {
 	public class IncomeDto
 	{
-		public required string UserId { get; set; }
+		public string UserId { get; set; }
 
 		public DateOnly IncomeDate { get; set; }
 
