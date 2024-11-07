@@ -61,7 +61,20 @@ builder.Services.AddCors(options =>
 });
 
 var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-dbConnectionString = dbConnectionString.Replace("${DB_SERVER_IP}", Environment.GetEnvironmentVariable("DB_SERVER_IP"));
+//dbConnectionString = dbConnectionString.Replace("${DB_SERVER_IP}", Environment.GetEnvironmentVariable("DB_SERVER_IP"));
+var dbServerIp = Environment.GetEnvironmentVariable("DB_SERVER_IP");
+
+if (dbConnectionString != null && dbServerIp != null)
+{
+	dbConnectionString = dbConnectionString.Replace("${DB_SERVER_IP}", dbServerIp);
+}
+else
+{
+	// Handle the case where either dbConnectionString or dbServerIp is null
+	Console.WriteLine("Either dbConnectionString or DB_SERVER_IP is not set.");
+	throw new InvalidOperationException("Database connection string 'DefaultConnection' is not configured.");
+}
+
 // Configure the database context
 builder.Services.AddDbContext<SapeinsDataContext>(options =>
 	options.UseSqlServer(dbConnectionString)); // Configure SQL Server with a connection string
