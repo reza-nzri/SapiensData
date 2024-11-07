@@ -5,11 +5,11 @@ namespace SapiensDataAPI.Models;
 
 public partial class BankAccount
 {
-    public int AccountId { get; set; }
+    public required int AccountId { get; set; }
 
-    public string UserId { get; set; }
+    public required string UserId { get; set; }
 
-    public int BankId { get; set; }
+    public required int BankId { get; set; }
 
     public string? AccountNumber { get; set; }
 

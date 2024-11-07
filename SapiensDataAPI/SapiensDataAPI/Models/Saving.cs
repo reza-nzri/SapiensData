@@ -7,7 +7,7 @@ public partial class Saving
 {
     public int SavingsId { get; set; }
 
-    public string UserId { get; set; }
+    public required string UserId { get; set; }
 
     public string SavingsGoal { get; set; } = null!;
 

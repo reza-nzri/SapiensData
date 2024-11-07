@@ -237,6 +237,10 @@ namespace SapiensDataAPI.Controllers
 		[HttpPut("update-my-profile")]
 		public async Task<IActionResult> UpdateMyProfile([FromBody] UserProfileUpdateDto model)
 		{
+			if (model.Username == null)
+			{
+				return BadRequest("No username");
+			}
 			var user = await _userManager.FindByNameAsync(model.Username); // Use the username from the model
 			if (user == null)
 				return NotFound("User not found."); // Return not found if user doesn't exist

@@ -7,9 +7,9 @@ public partial class UserRelationship
 {
     public int RelationshipId { get; set; }
 
-    public string UserId { get; set; }
+    public required string UserId { get; set; }
 
-    public string RelatedUserId { get; set; }
+    public required string RelatedUserId { get; set; }
 
     public string? RelationshipType { get; set; }
 

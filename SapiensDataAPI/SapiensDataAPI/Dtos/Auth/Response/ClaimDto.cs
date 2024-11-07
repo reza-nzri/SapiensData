@@ -3,7 +3,7 @@ namespace SapiensDataAPI.Dtos.Auth.Response
 {
     public class ClaimDto
     {
-        public string Type { get; set; }
-        public string Value { get; set; }
+        public required string Type { get; set; }
+        public required string Value { get; set; }
     }
 }

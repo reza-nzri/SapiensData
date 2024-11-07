@@ -5,9 +5,9 @@ namespace SapiensDataAPI.Models;
 
 public partial class Expense
 {
-    public int ExpenseId { get; set; }
+    public required int ExpenseId { get; set; }
 
-    public string UserId { get; set; }
+    public required string UserId { get; set; }
 
     public string? SourceType { get; set; }
 

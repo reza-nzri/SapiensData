@@ -7,7 +7,7 @@ public partial class UserSession
 {
     public int SessionId { get; set; }
 
-    public string UserId { get; set; }
+    public required string UserId { get; set; }
 
     public DateTime? LoginTime { get; set; }
 
