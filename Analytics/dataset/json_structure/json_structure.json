@@ -1,0 +1,65 @@
+{
+  "Store": {
+    "name": "",
+    "brand_name": "",
+    "tax_id": "",
+    "street": "",
+    "house_number": "",
+    "postal_code": "",
+    "city": "",
+    "state": "",
+    "country": "",
+    "address_type": ""
+  },
+  "Product": [
+    {
+      "full_name": "",
+      "short_name": "",
+      "store_description": "",
+      "user_description": "",
+      "quantity": "",
+      "q_unit_name": "",
+      "items_per_package": "",
+      "ipp_unit_name": "",
+      "inline_total_weight": "",
+      "weight_per_unit": "",
+      "w_unit_name": "",
+      "inline_total_volume": "",
+      "volume_per_unit": "",
+      "v_unit_name": "",
+      "inline_total_price": "",
+      "unit_price": "",
+      "up_unit_name": "",
+      "vat_rate": "",
+      "is_bio": "",
+      "code": "",
+      "category_name": "",
+      "brand": "",
+      "origin_country": "",
+      "expiration_date": "",
+      "tax_code": ""
+    }
+  ],
+  "Receipt": {
+    "buy_datetime": "",
+    "trace_number": "",
+    "total_amount": "",
+    "cashback_amount": "",
+    "currency": "",
+    "total_loyalty": "",
+    "full_name_payment_method": "",
+    "payment_method_name": "",
+    "receipt_payment_amount": "",
+    "iban": ""
+  },
+  "TaxRate": {
+    "tax_code": "",
+    "vat_rate": "",
+    "net_amount": "",
+    "vat_amount": ""
+  },
+  "ReceiptTaxDetail": {
+    "net_sales_amount": "",
+    "vat_amount": ""
+  }
+}
