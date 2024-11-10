@@ -1,8 +1,6 @@
 # SapiensData - DRMAV 📊
 
-<div class="image-container">
-    <img src="Docs\READMEs\media\images\logos\text_logo_1.png" alt="SapiensData Logo" class="styled-image"/>
-</div>
+![SapiensData Logo](Docs/READMEs/media/images/logos/text_logo_1.png)
 
 Project name: `SapiensData - Data Receipt Management, Analysis, and Visualization "DRMAV"`  
 Current version: 0.1.0
@@ -67,22 +65,3 @@ git reset --soft HEAD^
 # create zip file from repo
 git archive --format=zip -o output.zip HEAD
 ```
-
-<!-- HTML and CSS for styling images in Markdown -->
-<style>
-  /* Container for images to center-align and add shadow */
-  .image-container {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-  }
-  
-  /* Image styling */
-  .styled-image {
-      max-width: 50%;           /* Ensures responsive width */
-      height: auto;              /* Keeps aspect ratio */
-      /* border-radius: 8px;        Adds rounded corners */
-      /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); Adds shadow for professional look */
-  }
-
-</style>
