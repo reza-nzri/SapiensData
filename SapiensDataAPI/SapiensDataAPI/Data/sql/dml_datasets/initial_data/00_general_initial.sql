@@ -1,20 +1,68 @@
--- Insert initial data for a sample user in User table
-INSERT INTO [User] (username, password_hash, first_name, last_name, account_email, role, status, created_at)
-VALUES 
-    ('johndoe', HASHBYTES('SHA2_256', 'password123'), 'John', 'Doe', 'johndoe@example.com', 'user', 'active', GETDATE()),
-    ('adminuser', HASHBYTES('SHA2_256', 'adminpassword'), 'Admin', 'User', 'admin@example.com', 'admin', 'active', GETDATE());
+-- Insert unit types into UnitType table
+INSERT INTO UnitType (unit_name, unit_type)
+VALUES
+    -- Weight units
+    ('kg', 'weight'),             -- Kilogram
+    ('g', 'weight'),              -- Gram
+    ('mg', 'weight'),             -- Milligram
+    ('ton', 'weight'),            -- Metric Ton
+    ('lb', 'weight'),             -- Pound
+    ('oz', 'weight'),             -- Ounce
+
+    -- Volume units
+    ('l', 'volume'),              -- Liter
+    ('ml', 'volume'),             -- Milliliter
+    ('cl', 'volume'),             -- Centiliter
+    ('m3', 'volume'),             -- Cubic Meter
+    ('gal', 'volume'),            -- Gallon (US)
+    ('qt', 'volume'),             -- Quart (US)
+    ('pt', 'volume'),             -- Pint (US)
+    ('fl oz', 'volume'),          -- Fluid Ounce (US)
+    ('cup', 'volume'),            -- Cup (US)
+
+    -- Length units
+    ('m', 'length'),              -- Meter
+    ('cm', 'length'),             -- Centimeter
+    ('mm', 'length'),             -- Millimeter
+    ('km', 'length'),             -- Kilometer
+    ('in', 'length'),             -- Inch
+    ('ft', 'length'),             -- Foot
+    ('yd', 'length'),             -- Yard
+    ('mi', 'length'),             -- Mile
+
+    -- Area units
+    ('m2', 'area'),               -- Square Meter
+    ('cm2', 'area'),              -- Square Centimeter
+    ('mm2', 'area'),              -- Square Millimeter
+    ('km2', 'area'),              -- Square Kilometer
+    ('ha', 'area'),               -- Hectare
+    ('ac', 'area'),               -- Acre
+    ('ft2', 'area'),              -- Square Foot
+    ('in2', 'area'),              -- Square Inch
+    ('yd2', 'area'),              -- Square Yard
+    ('mi2', 'area'),              -- Square Mile
+
+    -- Temperature units
+    ('C', 'temperature'),         -- Celsius
+    ('F', 'temperature'),         -- Fahrenheit
+    ('K', 'temperature'),         -- Kelvin
+
+    -- Quantity units
+    ('pcs', 'quantity'),          -- Pieces
+    ('dozen', 'quantity'),        -- Dozen
+    ('gross', 'quantity'),        -- Gross (144 pieces)
+    ('score', 'quantity'),        -- Score (20 pieces)
+    ('pack', 'quantity'),         -- Pack
+    ('box', 'quantity'),          -- Box
+    ('unit', 'quantity'),         -- Generic unit
+
+    -- Time units
+    ('sec', 'time'),              -- Second
+    ('min', 'time'),              -- Minute
+    ('hr', 'time'),               -- Hour
+    ('day', 'time'),              -- Day
+    ('wk', 'time'),               -- Week
+    ('mo', 'time'),               -- Month
+    ('yr', 'time');               -- Year
 GO
 
--- Insert default address entries (example entries for testing purposes)
-INSERT INTO Address (street, house_number, postal_code, city, state, country)
-VALUES 
-    ('123 Main St', '45A', '12345', 'Sample City', 'Sample State', 'Sample Country'),
-    ('456 Elm St', '2B', '67890', 'Another City', 'Another State', 'Another Country');
-GO
-
--- Insert initial bank account details for sample users
-INSERT INTO BankAccount (user_id, bank_name, account_number, iban, account_type, created_at)
-VALUES 
-    (1, 'Sample Bank', '123456789', 'DE12345678901234567890', 'Checking', GETDATE()),
-    (2, 'Test Bank', '987654321', 'DE09876543210987654321', 'Savings', GETDATE());
-GO
