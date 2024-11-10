@@ -25,6 +25,7 @@ SapiensData-DRMAV/web-app/
   │  └─ components/
   ├─ .eslintrc.json
   ├─ .gitignore
+  ├─ folder-structure.txt
   ├─]next-env.d.ts (ignored)
   ├─ next.config.ts
   ├─ package-lock.json
