@@ -22,7 +22,7 @@ CREATE TABLE Product (
     vat_rate DECIMAL(5, 2),               -- VAT rate for the product (e.g., 19.00 for 19%)
     is_bio BIT,                           -- Indicator for organic (bio) product (1 if bio, 0 otherwise)
     code NVARCHAR(50),                    -- Product code
-    category_id INT,                      -- Placeholder if a Category table exists from AI Dataset
+    category_id INT,                      -- e.g., (Fruits, Vegetables, Dairy, Meat, Seafood, Beverages, Snacks, Bakery, Frozen Foods, Canned Goods, Condiments, Spices, Grains, Pasta, Rice, Breakfast Foods, Oils, Sauces, Packaged Meals, Cleaning Supplies, Personal Care, Household Items, Baby Products, Pet Supplies)
     brand NVARCHAR(50),                   -- Brand of the product
     origin_country NVARCHAR(50),          -- Country of origin
     expiration_date DATE,                 -- Expiration date for perishables
@@ -31,6 +31,7 @@ CREATE TABLE Product (
     FOREIGN KEY (ipp_unit) REFERENCES UnitType(unit_id),
     FOREIGN KEY (w_unit) REFERENCES UnitType(unit_id),
     FOREIGN KEY (v_unit) REFERENCES UnitType(unit_id),
-    FOREIGN KEY (up_unit) REFERENCES UnitType(unit_id)
+    FOREIGN KEY (up_unit) REFERENCES UnitType(unit_id),
+    FOREIGN KEY (category_id) REFERENCES UnitTCategoryype(category_id)
 );
 GO

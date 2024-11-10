@@ -38,11 +38,11 @@ CREATE TABLE Frequency (
 GO
 
 CREATE TABLE Category (
-    category_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
-    category_name NVARCHAR(100) NOT NULL,                             -- Name of the category (e.g., "Variable Expenses", "Groceries")
-    description NVARCHAR(500),                                        -- Detailed description of the category
+    category_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),               -- Unique identifier for each financial or shopping category
+    category_name NVARCHAR(100) NOT NULL,                             -- Name of the category (e.g., "Variable Expenses", "Groceries", "fruit", "vegetables", "sauce")
+    description NVARCHAR(500),                                        -- Detailed description of the category (e.g., for "financial", or groceries" or "shopping" items)
     parent_category_id INT,                                           -- Self-referencing foreign key for subcategories
-    category_type NVARCHAR(50) CHECK (                                -- Type of the category (e.g., "Variable", "Fixed", "Savings", "Additional")
+    category_type NVARCHAR(50) CHECK (                                -- Only for financial category: Type of the category (e.g., "Variable", "Fixed", "Savings", "Additional")
         category_type IN ('Variable', 'Fixed', 'Savings', 'Irregular Savings', 'Targeted Savings', 'Additional')
     ),
     created_at DATETIME DEFAULT GETDATE(),                            -- Timestamp for the creation of the category

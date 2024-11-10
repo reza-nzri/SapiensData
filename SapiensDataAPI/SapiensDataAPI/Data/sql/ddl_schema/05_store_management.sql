@@ -5,8 +5,6 @@ CREATE TABLE Store (
     name NVARCHAR(100),
     brand_name NVARCHAR(100),
     tax_id NVARCHAR(20),
-    address_id INT,
-    FOREIGN KEY (address_id) REFERENCES Address(address_id)
 );
 GO
 
@@ -15,7 +13,7 @@ CREATE TABLE StoreAddress (
     store_id INT,
     address_id INT,
     is_default BIT DEFAULT 0,
-    address_type NVARCHAR(50) NOT NULL UNIQUE,                 -- Examples: "Home", "Work", "Billing", "Shipping"
+    address_type NVARCHAR(50) UNIQUE,                 -- Examples: "Home", "Work", "Billing", "Shipping"
     created_at DATETIME DEFAULT GETDATE(),
     updated_at DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (store_id) REFERENCES Store(store_id),

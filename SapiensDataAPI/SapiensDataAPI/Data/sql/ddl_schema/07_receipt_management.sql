@@ -8,7 +8,7 @@ CREATE TABLE Receipt (
     cashback_amount DECIMAL(18, 2),           -- Amount of cash received as cashback (e.g., 15€)
     currency NVARCHAR(10),                    -- Currency used in the transaction (e.g., "EUR", "USD")
     total_loyalty DECIMAL(18, 2) DEFAULT 0,   -- Amount of loyalty discount or points applied to the receipt
-    full_name_payment_method NVARCHAR(255),
+    full_name_payment_method NVARCHAR(255),   -- e.g., "Kartenzahlung kontaktlos SEPA Lastschrift online"
     iban CHAR(34),
     receipt_image_path NVARCHAR(255),         -- File path or URL to the receipt image
     user_id INT,                              -- ID of the user who uploaded the image
@@ -23,7 +23,7 @@ GO
 
 CREATE TABLE TaxRate (
     tax_rate_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
-    tax_code CHAR(3),                  -- Tax code (e.g., A, B, C)
+    tax_code CHAR(3),                           -- Tax code (e.g., A, B, C)
     vat_rate DECIMAL(5, 2) NOT NULL,            -- VAT rate in percentage (e.g., 7.00, 19.00, 0.00 in %)
     net_amount DECIMAL(5, 2) NOT NULL,          -- Total net sales amount excluding VAT (e.g., 7.00, 19.00, 0.00 in %)
     vat_amount DECIMAL(5, 2),                   -- Total VAT amount (taxed)
