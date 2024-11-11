@@ -12,7 +12,7 @@ GO
 CREATE TABLE Income (
     income_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),        -- Unique identifier for each income record
     user_id INT NOT NULL,                                    -- ID of the [User] associated with the income
-    income_date DATE NOT NULL,                               -- Date the income was receiv
+    income_date DATE,                               -- Date the income was receiv
     income_category_id INT,
     source_type NVARCHAR(20) CHECK (source_type IN ('[User]', 'company', 'external_person')), -- Indicates if the source is a [User], company, or an external person
     source_user_id INT,                                      -- If the source is a registered [User], reference to the [User] table
@@ -24,7 +24,7 @@ CREATE TABLE Income (
     net_amount DECIMAL(18, 2),                               -- Net income after deductions (computed column)
     currency NVARCHAR(10) DEFAULT 'EUR',                     -- Currency in which the income was received (EUR, USD)
     is_recurring BIT DEFAULT 0,                              -- Indicates if this income is part of a recurring series
-    frequency_id INT NOT NULL,
+    frequency_id INT,
     payment_method_id INT,
     payer_name NVARCHAR(100),                                -- Name of the person or entity that paid the income
     received_at DATETIME DEFAULT GETDATE(),                  -- Timestamp of when the income was recorded in the system

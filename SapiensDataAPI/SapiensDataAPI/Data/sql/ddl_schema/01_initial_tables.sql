@@ -33,7 +33,7 @@ CREATE TABLE Frequency (
     frequency_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
     frequency_name NVARCHAR(50) NOT NULL UNIQUE,  -- Frequency type (e.g., "one-time", "daily")
     description NVARCHAR(255),                    -- Description of the frequency (e.g., "Occurs once only", "Occurs daily")
-    days_interval INT,                            -- Number of days for the interval (e.g., 1 for daily, 7 for weekly)
+    days_interval INT                            -- Number of days for the interval (e.g., 1 for daily, 7 for weekly)
 );
 GO
 

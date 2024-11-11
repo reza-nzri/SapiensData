@@ -24,8 +24,9 @@ GO
 CREATE TABLE TaxRate (
     tax_rate_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
     tax_code CHAR(3),                           -- Tax code (e.g., A, B, C)
-    vat_rate DECIMAL(5, 2) NOT NULL,            -- VAT rate in percentage (e.g., 7.00, 19.00, 0.00 in %)
-    net_amount DECIMAL(5, 2) NOT NULL,          -- Total net sales amount excluding VAT (e.g., 7.00, 19.00, 0.00 in %)
+    vat_rate DECIMAL(5, 2),            -- VAT rate in percentage (e.g., 7.00, 19.00, 0.00 in %)
+    description NVARCHAR(50),
+    net_amount DECIMAL(5, 2),          -- Total net sales amount excluding VAT (e.g., 7.00, 19.00, 0.00 in %)
     vat_amount DECIMAL(5, 2),                   -- Total VAT amount (taxed)
     receipt_id INT,
     FOREIGN KEY (receipt_id) REFERENCES Receipt(receipt_id)

@@ -13,7 +13,7 @@ CREATE TABLE [User] (
     gender CHAR(1) CHECK (gender IN ('M', 'F', 'O')), -- Gender: 'M' = Male, 'F' = Female, 'O' = Other
     birthday DATE,                                 -- [User]'s date of birth
     profile_picture_path NVARCHAR(255),            -- File path or URL to profile picture
-    account_email NVARCHAR(100) UNIQUE NOT NULL,   -- Primary account email
+    account_email NVARCHAR(100) UNIQUE,   -- Primary account email
     recovery_email NVARCHAR(100),                  -- Email for account recovery
     account_phone NVARCHAR(20),                    -- Primary phone number for account
     recovery_phone NVARCHAR(20),                   -- Phone number for account recovery
@@ -44,7 +44,7 @@ CREATE TABLE UserAddress (
     user_id INT,
     address_id INT,
     is_default BIT DEFAULT 0,
-    address_type NVARCHAR(50) NOT NULL UNIQUE,                 -- Examples: "Home", "Work", "Billing", "Shipping"
+    address_type NVARCHAR(50) UNIQUE,                 -- Examples: "Home", "Work", "Billing", "Shipping"
     created_at DATETIME DEFAULT GETDATE(),
     updated_at DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (user_id) REFERENCES [User](user_id),
