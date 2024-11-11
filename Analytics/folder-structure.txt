@@ -1,6 +1,6 @@
 SapiensData-DRMAV/Analytics/
   ├─ dataset/
-  │  ├─]reciepts/ (ignored)
+  │  ├─]receipts/ (ignored)
   │  └─ train/
   │     └─ NotEmpty.txt
   ├─ src/

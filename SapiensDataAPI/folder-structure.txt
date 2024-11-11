@@ -34,7 +34,7 @@ SapiensData-DRMAV/SapiensDataAPI/
   │  │     │  ├─ demo_data/
   │  │     │  │  └─ 01_demo_data.sql
   │  │     │  ├─ dummy_data/
-  │  │     │  │  └─ 01_reciept_data.sql
+  │  │     │  │  └─ 01_receipt_data.sql
   │  │     │  ├─ initial_data/
   │  │     │  │  └─ 01_label.sql
   │  │     │  └─ test_data/

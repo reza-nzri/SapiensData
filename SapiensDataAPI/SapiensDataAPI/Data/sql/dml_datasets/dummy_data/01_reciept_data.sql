@@ -1,4 +1,4 @@
--- Add Reciept: dataset\reciepts\reciept_media-markt_20241028_105959.jpg
+-- Add receipt: dataset\receipts\receipt_media-markt_20241028_105959.jpg
 
 INSERT INTO Address (street, house_number, postal_code, city, state, country) VALUES 
 ('Breitenbachstr.', '50', '41065', 'Mönchengladbach', NULL, 'Germany');

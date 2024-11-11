@@ -6,7 +6,7 @@ Please convert the text extracted from the "OCR-Text from Receipt" into the temp
 
 Based on the details in the "OCR-Text from Receipt," populate and complete the JSON structure. Pay attention to the language of the "OCR-Text from Receipt." If the text or receipt is in German, ensure that the JSON is also in German, particularly for the names of food products and categories, which must be written exactly as in the original receipt.
 
-- reciept.iban must be written in the same way as reciept censored only with X and no # or other symbols must be used. e.g.: “iban”: “DE4450XXXXXXXXXXXXXXXX4931”
+- receipt.iban must be written in the same way as receipt censored only with X and no # or other symbols must be used. e.g.: “iban”: “DE4450XXXXXXXXXXXXXXXX4931”
 - Automatically categorize each product in the receipt and add the new data attributes as a category for the product.
 - Just write me the answer and the json result. Don't write me any other text or explanation or anything else, just write me the full json.
 - if no data from ocr text was found for an attribute, then do not write it yourself, write it as an empty string. e.g. the data of date and time are not in ocr text, so their corresponding attributes in json should be empty string "".  
