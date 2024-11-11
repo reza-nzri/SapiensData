@@ -23,7 +23,5 @@ public partial class Address
 
     public virtual ICollection<StoreAddress> StoreAddresses { get; set; } = new List<StoreAddress>();
 
-    public virtual ICollection<Store> Stores { get; set; } = new List<Store>();
-
     public virtual ICollection<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
 }

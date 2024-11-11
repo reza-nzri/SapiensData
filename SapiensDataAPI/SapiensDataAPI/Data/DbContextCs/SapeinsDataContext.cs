@@ -982,7 +982,6 @@ public partial class SapeinsDataContext : IdentityDbContext<ApplicationUserModel
 			entity.ToTable("Store");
 
 			entity.Property(e => e.StoreId).HasColumnName("store_id");
-			entity.Property(e => e.AddressId).HasColumnName("address_id");
 			entity.Property(e => e.BrandName)
 				.HasMaxLength(100)
 				.HasColumnName("brand_name");
@@ -992,10 +991,6 @@ public partial class SapeinsDataContext : IdentityDbContext<ApplicationUserModel
 			entity.Property(e => e.TaxId)
 				.HasMaxLength(20)
 				.HasColumnName("tax_id");
-
-			entity.HasOne(d => d.Address).WithMany(p => p.Stores)
-				.HasForeignKey(d => d.AddressId)
-				.HasConstraintName("FK__Store__address_i__76969D2E");
 		});
 
 		modelBuilder.Entity<StoreAddress>(entity =>

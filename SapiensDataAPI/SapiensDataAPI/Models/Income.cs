@@ -2,11 +2,11 @@
 
 public partial class Income
 {
-	public int IncomeId { get; set; }
+	public required int IncomeId { get; set; }
 
 	public required string UserId { get; set; }
 
-	public DateOnly IncomeDate { get; set; }
+	public DateOnly? IncomeDate { get; set; }
 
 	public int? IncomeCategoryId { get; set; }
 
@@ -30,7 +30,7 @@ public partial class Income
 
 	public bool? IsRecurring { get; set; }
 
-	public int FrequencyId { get; set; }
+	public int? FrequencyId { get; set; }
 
 	public int? PaymentMethodId { get; set; }
 

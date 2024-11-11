@@ -13,7 +13,7 @@ public partial class UserAddress
 
     public bool? IsDefault { get; set; }
 
-    public string AddressType { get; set; } = null!;
+    public string? AddressType { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

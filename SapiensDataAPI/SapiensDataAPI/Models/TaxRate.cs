@@ -5,13 +5,15 @@ namespace SapiensDataAPI.Models;
 
 public partial class TaxRate
 {
-    public int TaxRateId { get; set; }
+    public required int TaxRateId { get; set; }
 
     public string? TaxCode { get; set; }
 
-    public decimal VatRate { get; set; }
+    public decimal? VatRate { get; set; }
 
-    public decimal NetAmount { get; set; }
+    public string? Description { get; set; }
+
+	public decimal? NetAmount { get; set; }
 
     public decimal? VatAmount { get; set; }
 

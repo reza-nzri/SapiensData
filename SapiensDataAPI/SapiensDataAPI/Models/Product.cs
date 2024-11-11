@@ -66,4 +66,6 @@ public partial class Product
     public virtual UnitType? VUnitNavigation { get; set; }
 
     public virtual UnitType? WUnitNavigation { get; set; }
+    
+    public virtual Category? Category { get; set; }
 }

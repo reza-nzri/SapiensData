@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SapiensDataAPI.Data.DbContextCs;
 
@@ -11,9 +12,11 @@ using SapiensDataAPI.Data.DbContextCs;
 namespace SapiensDataAPI.Migrations
 {
     [DbContext(typeof(SapeinsDataContext))]
-    partial class SapeinsDataContextModelSnapshot : ModelSnapshot
+    [Migration("20241111122722_Tax description")]
+    partial class Taxdescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -681,6 +684,7 @@ namespace SapiensDataAPI.Migrations
                         .HasColumnName("address_id");
 
                     b.Property<string>("AddressType")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("address_type");
@@ -715,8 +719,7 @@ namespace SapiensDataAPI.Migrations
                     b.HasIndex("CompanyId");
 
                     b.HasIndex(new[] { "AddressType" }, "UQ__CompanyA__071A9587B0D05465")
-                        .IsUnique()
-                        .HasFilter("[address_type] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("CompanyAddress", (string)null);
                 });
@@ -1042,7 +1045,7 @@ namespace SapiensDataAPI.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("description");
 
-                    b.Property<int?>("FrequencyId")
+                    b.Property<int>("FrequencyId")
                         .HasColumnType("int")
                         .HasColumnName("frequency_id");
 
@@ -1054,7 +1057,7 @@ namespace SapiensDataAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("income_category_id");
 
-                    b.Property<DateOnly?>("IncomeDate")
+                    b.Property<DateOnly>("IncomeDate")
                         .HasColumnType("date")
                         .HasColumnName("income_date");
 
@@ -1823,7 +1826,7 @@ namespace SapiensDataAPI.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("NetAmount")
+                    b.Property<decimal>("NetAmount")
                         .HasColumnType("decimal(5, 2)")
                         .HasColumnName("net_amount");
 
@@ -1842,7 +1845,7 @@ namespace SapiensDataAPI.Migrations
                         .HasColumnType("decimal(5, 2)")
                         .HasColumnName("vat_amount");
 
-                    b.Property<decimal?>("VatRate")
+                    b.Property<decimal>("VatRate")
                         .HasColumnType("decimal(5, 2)")
                         .HasColumnName("vat_rate");
 
@@ -1893,6 +1896,7 @@ namespace SapiensDataAPI.Migrations
                         .HasColumnName("address_id");
 
                     b.Property<string>("AddressType")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("address_type");
@@ -1927,8 +1931,7 @@ namespace SapiensDataAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.HasIndex(new[] { "AddressType" }, "UQ__UserAddr__071A95874A01A788")
-                        .IsUnique()
-                        .HasFilter("[address_type] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("UserAddress", (string)null);
                 });
@@ -2268,6 +2271,7 @@ namespace SapiensDataAPI.Migrations
                     b.HasOne("SapiensDataAPI.Models.Frequency", "Frequency")
                         .WithMany("Incomes")
                         .HasForeignKey("FrequencyId")
+                        .IsRequired()
                         .HasConstraintName("FK__Income__frequenc__25518C17");
 
                     b.HasOne("SapiensDataAPI.Models.IncomeCategory", "IncomeCategory")
