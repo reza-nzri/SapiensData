@@ -518,4 +518,4 @@ ehthumbs.db
 SapiensDataAPI/.env
 
 # User uploaded receipts
-SapiensDataAPI/Data/src/media/UserReceiptUploads
+SapiensDataAPI/Data/SapiensCloud/src/media/UserReceiptUploads

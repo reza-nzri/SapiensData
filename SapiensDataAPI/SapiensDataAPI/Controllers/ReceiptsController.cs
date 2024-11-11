@@ -96,7 +96,7 @@ namespace SapiensDataAPI.Controllers
 			if (image == null || image.Image.Length == 0)
 				return BadRequest("No image file provided.");
 
-			var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
+			var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SapiensCloud", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
 
 			if (!Directory.Exists(uploadsFolderPath))
 			{
