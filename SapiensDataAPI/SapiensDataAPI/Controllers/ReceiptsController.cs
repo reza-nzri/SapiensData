@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DotNetEnv;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -106,7 +107,18 @@ namespace SapiensDataAPI.Controllers
 			if (image == null || image.Image.Length == 0)
 				return BadRequest("No image file provided.");
 
-			var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SapiensCloud", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
+			var currentYear = DateTime.Now.Year.ToString();
+			var currentMonth = DateTime.Now.Month.ToString();
+
+			Env.Load(".env");
+			var googleDrivePath = Environment.GetEnvironmentVariable("GOOGLE_DRIVE_BEGINNING_PATH");
+			if (googleDrivePath == null)
+			{
+				return StatusCode(500, "Google Drive path doesn't exist in .env file.");
+			}
+
+			//var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SapiensCloud", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
+			var uploadsFolderPath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", JwtPayload.Sub, "receipts", currentYear, currentMonth);
 
 			if (!Directory.Exists(uploadsFolderPath))
 			{
