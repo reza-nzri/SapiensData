@@ -5,7 +5,7 @@ namespace SapiensDataAPI.Models;
 
 public partial class TaxRate
 {
-    public required int TaxRateId { get; set; }
+    public int TaxRateId { get; set; }
 
     public string? TaxCode { get; set; }
 
