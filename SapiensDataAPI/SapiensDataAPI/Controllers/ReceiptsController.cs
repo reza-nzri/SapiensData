@@ -8,9 +8,11 @@ using SapiensDataAPI.Dtos;
 using SapiensDataAPI.Dtos.Expense.Request;
 using SapiensDataAPI.Dtos.ImageUploader.Request;
 using SapiensDataAPI.Dtos.Income.Request;
+using SapiensDataAPI.Dtos.Receipt.JSON;
 using SapiensDataAPI.Dtos.Receipt.Request;
 using SapiensDataAPI.Models;
 using SapiensDataAPI.Services.JwtToken;
+using System;
 using System.Text.Json;
 
 namespace SapiensDataAPI.Controllers
@@ -30,6 +32,14 @@ namespace SapiensDataAPI.Controllers
 		public async Task<ActionResult<IEnumerable<Receipt>>> GetReceipts()
 		{
 			return await _context.Receipts.ToListAsync();
+		}
+
+		// GET: api/Receipts
+		[HttpPost("lesen")]
+		//[Authorize]
+		public async Task<ActionResult<Receipt>> ReceiveJSON([FromBody] ReceiptVailidation receiptVailidation)
+		{
+			return CreatedAtAction("Idk", receiptVailidation);
 		}
 
 		// GET: api/Receipts/5
