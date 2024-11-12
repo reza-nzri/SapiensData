@@ -1,0 +1,19 @@
+{
+  "SapiensCloud": {
+    "media": {
+      "user_data": [
+        "user-name": {
+          "backups": {
+            "data_backup_yyyymmdd_hhmmss.json": ""
+          },
+          "receipts": {
+              "store-name_yyyymmdd_hhmmss.jpg": "",
+              "to_process_yyyymmdd_hhmmss.jpg": "",
+            }
+          },
+          "profile-picture_yyyymmdd_hhmmss.jpg": ""
+        }
+      ]
+    }
+  }
+}
