@@ -133,7 +133,7 @@ namespace SapiensDataAPI.Controllers
 			}
 
 			var extension = Path.GetExtension(image.Image.FileName);
-			var newFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + extension;
+			var newFileName = "to_process_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + extension;
 
 			var filePath = Path.Combine(uploadsFolderPath, newFileName);
 
