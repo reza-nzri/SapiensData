@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity; // Import Identity namespace for user and role management
+﻿using DotNetEnv;
+using Microsoft.AspNetCore.Identity; // Import Identity namespace for user and role management
 using Microsoft.AspNetCore.Mvc; // Import namespace for ASP.NET Core MVC functionality
 using SapiensDataAPI.Dtos.Auth.Request; // Import the request DTOs for authentication
 using SapiensDataAPI.Models; // Import the ApplicationUserModel for user-related actions
@@ -46,6 +47,27 @@ namespace SapiensDataAPI.Controllers // Define the namespace for the AuthControl
 
 			if (!result.Succeeded) // If user creation fails
 				return BadRequest(result.Errors); // Return bad request with the errors
+
+			Env.Load(".env");
+			var googleDrivePath = Environment.GetEnvironmentVariable("GOOGLE_DRIVE_BEGINNING_PATH");
+			if (googleDrivePath == null)
+			{
+				return StatusCode(500, "Google Drive path doesn't exist in .env file.");
+			}
+
+			var userFolderPath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", user.UserName);
+
+			if (!Directory.Exists(userFolderPath))
+			{
+				try
+				{
+					Directory.CreateDirectory(userFolderPath);
+				}
+				catch
+				{
+					return StatusCode(500, "Can't create directory.");
+				}
+			}
 
 			// Assign 'NormalUser' role by default
 			var roleResult = await _userManager.AddToRoleAsync(user, "NormalUser"); // Add the user to the 'NormalUser' role
