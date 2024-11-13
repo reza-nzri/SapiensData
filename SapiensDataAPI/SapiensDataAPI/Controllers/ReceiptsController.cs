@@ -37,12 +37,49 @@ namespace SapiensDataAPI.Controllers
 
 		// GET: api/Receipts
 		[HttpPost("receive-json-from-python")]
-		//[Authorize]
-		public async Task<ActionResult<Receipt>> ReceiveJSON([FromBody] ReceiptVailidation receiptVailidation)
+		[Authorize]
+		public async Task<IActionResult> ReceiveJSON([FromBody] ReceiptVailidation receiptVailidation)
 		{
+			var token = HttpContext.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement;
+			JwtPayload? JwtPayload = JsonSerializer.Deserialize<JwtPayload>(decodedToken) ?? null;
+			if (JwtPayload == null)
+			{
+				return BadRequest("JwtPayload is not ok.");
+			}
 
+			Env.Load(".env");
+			var googleDrivePath = Environment.GetEnvironmentVariable("GOOGLE_DRIVE_BEGINNING_PATH");
+			if (googleDrivePath == null)
+			{
+				return StatusCode(500, "Google Drive path doesn't exist in .env file.");
+			}
 
-			return CreatedAtAction("receiptVailidation return (idk)", receiptVailidation);
+			//var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SapiensCloud", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
+			var filePath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", JwtPayload.Sub, "receipts", receiptVailidation.FileMetadata.SourceImage);
+			if (!System.IO.File.Exists(filePath))
+			{
+				return BadRequest("File doesn't exist");
+			}
+
+			string? directory = Path.GetDirectoryName(filePath) ?? null;
+			if (!Directory.Exists(directory) || directory == null)
+			{
+				return BadRequest("Directory is not ok");
+			}
+
+			var correctedStoreName = receiptVailidation.Store.Name.Replace(' ', '-');
+
+			var extension = Path.GetExtension(filePath);
+			var newFileName = correctedStoreName + "_" +receiptVailidation.Receipt.BuyDatetime.ToString("yyyyMMdd_HHmmss") + extension;
+
+			// Create the new path by combining the directory and new file name
+			string newPath = Path.Combine(directory, newFileName);
+
+			// Rename the file by moving it to the new path
+			System.IO.File.Move(filePath, newPath);
+
+			return Ok("Image is ok");
 		}
 
 		// GET: api/Receipts/5
