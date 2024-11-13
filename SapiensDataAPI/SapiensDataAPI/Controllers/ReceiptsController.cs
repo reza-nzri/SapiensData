@@ -57,13 +57,13 @@ namespace SapiensDataAPI.Controllers
 
 			//var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SapiensCloud", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
 			var filePath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", JwtPayload.Sub, "receipts", receiptVailidation.FileMetadata.SourceImage);
-			if (!System.IO.File.Exists(filePath))
+			if (!await Task.Run(() => System.IO.File.Exists(filePath)))
 			{
 				return BadRequest("File doesn't exist");
 			}
 
 			string? directory = Path.GetDirectoryName(filePath) ?? null;
-			if (!Directory.Exists(directory) || directory == null)
+			if (directory == null || !await Task.Run(() => Directory.Exists(directory)))
 			{
 				return BadRequest("Directory is not ok");
 			}
@@ -77,7 +77,7 @@ namespace SapiensDataAPI.Controllers
 			string newPath = Path.Combine(directory, newFileName);
 
 			// Rename the file by moving it to the new path
-			System.IO.File.Move(filePath, newPath);
+			await Task.Run(() => System.IO.File.Move(filePath, newPath));
 
 			return Ok("Image is ok");
 		}
