@@ -107,9 +107,6 @@ namespace SapiensDataAPI.Controllers
 			if (image == null || image.Image.Length == 0)
 				return BadRequest("No image file provided.");
 
-			var currentYear = DateTime.Now.Year.ToString();
-			var currentMonth = DateTime.Now.Month.ToString();
-
 			Env.Load(".env");
 			var googleDrivePath = Environment.GetEnvironmentVariable("GOOGLE_DRIVE_BEGINNING_PATH");
 			if (googleDrivePath == null)
