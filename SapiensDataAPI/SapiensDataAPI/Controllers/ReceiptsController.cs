@@ -36,7 +36,7 @@ namespace SapiensDataAPI.Controllers
 		}
 
 		// GET: api/Receipts
-		[HttpPost("lesen")]
+		[HttpPost("receive-json-from-python")]
 		//[Authorize]
 		public async Task<ActionResult<Receipt>> ReceiveJSON([FromBody] ReceiptVailidation receiptVailidation)
 		{
