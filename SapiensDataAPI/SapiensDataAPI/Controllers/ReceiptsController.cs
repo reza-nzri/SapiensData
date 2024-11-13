@@ -40,7 +40,9 @@ namespace SapiensDataAPI.Controllers
 		//[Authorize]
 		public async Task<ActionResult<Receipt>> ReceiveJSON([FromBody] ReceiptVailidation receiptVailidation)
 		{
-			return CreatedAtAction("Idk", receiptVailidation);
+
+
+			return CreatedAtAction("receiptVailidation return (idk)", receiptVailidation);
 		}
 
 		// GET: api/Receipts/5
