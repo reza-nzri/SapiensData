@@ -86,13 +86,19 @@ namespace SapiensDataAPI.Dtos.Receipt.JSON
 		public string VatAmount { get; set; } = string.Empty;
 	}
 
+	public class FileMetadataV
+	{
+		public string SourceImage { get; set; } = string.Empty;
+		public string Username { get; set; } = string.Empty;
+	}
+
 	public class ReceiptVailidation
 	{
+		public FileMetadataV FileMetadata { get; set; } = new FileMetadataV();
 		public StoreV Store { get; set; } = new StoreV();
-		public List<ProductV> Product { get; set; } = new List<ProductV>();
+		public List<ProductV> Product { get; set; } = [];
 		public ReceiptV Receipt { get; set; } = new ReceiptV();
 		public TaxRateV TaxRate { get; set; } = new TaxRateV();
 		public ReceiptTaxDetailV ReceiptTaxDetail { get; set; } = new ReceiptTaxDetailV();
 	}
-
 }
