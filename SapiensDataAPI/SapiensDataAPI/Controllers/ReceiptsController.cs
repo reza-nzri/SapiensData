@@ -94,7 +94,7 @@ namespace SapiensDataAPI.Controllers
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
 		[Authorize]
-		public async Task<ActionResult<Receipt>> PostReceipt([FromForm] UploadImageDto image)
+		public async Task<IActionResult> PostReceipt([FromForm] UploadImageDto image)
 		{
 			var token = HttpContext.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
 			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement;
@@ -118,7 +118,7 @@ namespace SapiensDataAPI.Controllers
 			}
 
 			//var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SapiensCloud", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
-			var uploadsFolderPath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", JwtPayload.Sub, "receipts", currentYear, currentMonth);
+			var uploadsFolderPath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", JwtPayload.Sub, "receipts");
 
 			if (!Directory.Exists(uploadsFolderPath))
 			{
