@@ -21,6 +21,16 @@ CREATE TABLE Receipt (
 );
 GO
 
+CREATE TABLE Receipt_Product (
+    receipt_product_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+    receipt_id INT NOT NULL,                                         -- Foreign key reference to Receipt
+    product_id INT NOT NULL,                                         -- Foreign key reference to Product
+    discount DECIMAL(18, 2) DEFAULT 0,                               -- Discount applied to the product (if any)
+    FOREIGN KEY (receipt_id) REFERENCES Receipt(receipt_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE,
+);
+GO
+
 CREATE TABLE TaxRate (
     tax_rate_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
     tax_code CHAR(3),                           -- Tax code (e.g., A, B, C)
