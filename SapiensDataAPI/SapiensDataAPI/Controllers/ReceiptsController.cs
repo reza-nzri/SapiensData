@@ -3,18 +3,17 @@ using DotNetEnv;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using SapiensDataAPI.Attributes;
 using SapiensDataAPI.Data.DbContextCs;
 using SapiensDataAPI.Dtos;
-using SapiensDataAPI.Dtos.Expense.Request;
 using SapiensDataAPI.Dtos.ImageUploader.Request;
-using SapiensDataAPI.Dtos.Income.Request;
 using SapiensDataAPI.Dtos.Receipt.JSON;
 using SapiensDataAPI.Dtos.Receipt.Request;
+using SapiensDataAPI.Dtos.Receipt.Response;
 using SapiensDataAPI.Models;
 using SapiensDataAPI.Services.JwtToken;
-using System;
 using System.Text.Json;
 
 namespace SapiensDataAPI.Controllers
@@ -88,7 +87,6 @@ namespace SapiensDataAPI.Controllers
 				return NotFound("User not found");
 			}
 
-			// Then use it in the LINQ query
 			var receipts = await _context.Receipts
 				.Where(r => r.ReceiptImagePath != null && r.ReceiptImagePath.EndsWith(lastThreeSegments) && r.UserId == user.Id)
 				.ToListAsync();
@@ -111,30 +109,12 @@ namespace SapiensDataAPI.Controllers
 			_mapper.Map(receiptVailidation.Receipt, receipts[0]);
 			receipts[0].ReceiptImagePath = newPath;
 
-			_context.Update(receipts[0]);
-
-			try
-			{
-				await _context.SaveChangesAsync();
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!ReceiptExists(receipts[0].ReceiptId))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
-
 			List<Product> products = new(receiptVailidation.Product.Count);
 			foreach (var product in receiptVailidation.Product)
 			{
 				products.Add(_mapper.Map<Product>(product));
 			}
-			
+
 			await _context.Products.AddRangeAsync(products);
 			await _context.SaveChangesAsync();
 
@@ -172,6 +152,24 @@ namespace SapiensDataAPI.Controllers
 			await _context.AddAsync(store);
 			await _context.SaveChangesAsync();
 
+			receipts[0].StoreId = store.StoreId;
+			_context.Update(receipts[0]);
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!ReceiptExists(receipts[0].ReceiptId))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
 
 			var storeAddress = new StoreAddress
 			{
@@ -186,18 +184,124 @@ namespace SapiensDataAPI.Controllers
 		}
 
 		// GET: api/Receipts/5
-		[HttpGet("{id}")]
+		[HttpGet("{offset}")]
 		[Authorize]
-		public async Task<ActionResult<Receipt>> GetReceipt(int id)
+		public async Task<ActionResult<ResReceiptDto>> GetReceipt(int offset = 0)
 		{
-			var receipt = await _context.Receipts.FindAsync(id);
+			var token = HttpContext.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement;
+			JwtPayload? JwtPayload = JsonSerializer.Deserialize<JwtPayload>(decodedToken) ?? null;
+			if (JwtPayload == null)
+			{
+				return BadRequest("JwtPayload is not ok.");
+			}
+
+			var user = await _userManager.FindByNameAsync(JwtPayload.Sub);
+			if (user == null)
+			{
+				// Handle the case where the user is not found
+				return NotFound("User not found");
+			}
+
+			var receipt = await _context.Receipts
+				.Where(r => r.UserId == user.Id)
+				.OrderByDescending(r => r.UploadDate)
+				.Skip(offset)
+				.Take(1)
+				.Include(r => r.Store)
+				.FirstOrDefaultAsync();
 
 			if (receipt == null)
 			{
 				return NotFound();
 			}
 
-			return receipt;
+			if (!System.IO.File.Exists(receipt.ReceiptImagePath))
+			{
+				return NotFound();
+			}
+
+			var storeAddress = await _context.StoreAddresses
+				.Where(sa => sa.StoreId == receipt.StoreId)
+				.FirstOrDefaultAsync();
+			if (storeAddress == null)
+			{
+				return BadRequest("No storeaddress found");
+			}
+
+			var address = await _context.Addresses
+				.Where(a => a.AddressId == storeAddress.AddressId)
+				.FirstOrDefaultAsync();
+			if (address == null)
+			{
+				return BadRequest("No address found");
+			}
+
+			var store = _mapper.Map<StoreV>(receipt.Store);
+			store = _mapper.Map(address, store);
+
+			// Determine the MIME type based on the file extension
+			var provider = new FileExtensionContentTypeProvider();
+			if (!provider.TryGetContentType(receipt.ReceiptImagePath, out string? contentType))
+			{
+				return BadRequest("Content type of the image can not be determined");
+			}
+
+			byte[] imageBytes = System.IO.File.ReadAllBytes(receipt.ReceiptImagePath);
+			string base64Image = Convert.ToBase64String(imageBytes);
+
+			var productsReceipts = await _context.ReceiptProducts
+				.Where(rp => rp.ReceiptId == receipt.ReceiptId)
+				.ToListAsync();
+			var productsReceiptsProductsIds = productsReceipts.Select(p => p.ProductId).ToList();
+
+			var products = await _context.Products
+				.Where(p => productsReceiptsProductsIds.Contains(p.ProductId))
+				.ToListAsync();
+
+			List<ProductV> productVs = new List<ProductV>(products.Count);
+
+			foreach (var product in products)
+			{
+				productVs.Add(_mapper.Map<ProductV>(product));
+			}
+
+			var taxRates = await _context.TaxRates
+				.Where(tr => tr.ReceiptId == receipt.ReceiptId)
+				.ToListAsync();
+
+			List<TaxRateV> taxRatesVs = new List<TaxRateV>(taxRates.Count);
+
+			foreach (var taxRate in taxRates)
+			{
+				taxRatesVs.Add(_mapper.Map<TaxRateV>(taxRate));
+			}
+
+			var receiptTaxDetails = await _context.ReceiptTaxDetails
+				.Where(trd => trd.ReceiptId == receipt.ReceiptId)
+				.ToListAsync();
+
+			List<ReceiptTaxDetailV> receiptTaxDetailVs = new List<ReceiptTaxDetailV>(receiptTaxDetails.Count);
+
+			foreach (var receiptTaxDetail in receiptTaxDetails)
+			{
+				receiptTaxDetailVs.Add(_mapper.Map<ReceiptTaxDetailV>(receiptTaxDetail));
+			}
+
+			var ret = new ResReceiptDto
+			{
+				FileName = Path.GetFileName(receipt.ReceiptImagePath),
+				ContentType = contentType,
+				Store = store,
+				Product = productVs,
+				Receipt = _mapper.Map<ReceiptV>(receipt),
+				TaxRate = taxRatesVs,
+				ReceiptTaxDetail = receiptTaxDetailVs,
+				ImageData = base64Image,
+				UploadDate = receipt.UploadDate
+			};
+
+			return Ok(ret);
 		}
 
 		// PUT: api/Receipts/5

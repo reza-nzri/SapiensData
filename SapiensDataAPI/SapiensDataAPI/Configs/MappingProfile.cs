@@ -75,6 +75,15 @@ namespace SapiensDataAPI.Configs
 			CreateMap<StoreV, Store>();
 			CreateMap<StoreV, Address>();
 
+			CreateMap<Store, StoreV>();
+			CreateMap<Address, StoreV>();
+
+			CreateMap<Product, ProductV>();
+			CreateMap<TaxRate, TaxRateV>();
+			CreateMap<ReceiptTaxDetail, ReceiptTaxDetailV>();
+			CreateMap<Store, StoreV>();
+			CreateMap<Receipt, ReceiptV>();
+
 			// Define mapping for string to nullable types without using out arguments
 			CreateMap<string, int?>().ConvertUsing(s => ParseToNullableInt(s));
 			CreateMap<string, decimal?>().ConvertUsing(s => ParseToNullableDecimal(s));
