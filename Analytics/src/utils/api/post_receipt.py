@@ -18,7 +18,7 @@ class ReceiptSender:
         self.json_file_path = f"src/_temp_files/{self.username}/_temp_receipt.json"
         self.headers = {
             "Username": self.username,
-            "SAPIENS_API_KEY": self.api_key
+            "Very-cool-api-key": self.api_key
         }
 
     def send_receipt(self):
@@ -32,17 +32,17 @@ class ReceiptSender:
             data = json.load(file)
 
         # Send the POST request with the JSON data
-        response = requests.post(self.api_url, json=data, headers=self.headers)
+        response = requests.post(self.api_url, json=data, headers=self.headers, verify=False)
 
         # Check if the request was successful
         if response.status_code == 200:
             print(Fore.GREEN + "Success: Receipt data sent successfully.")
         else:
-            print(Fore.RED + f"Error: Failed to send data. Status code: {response.status_code}")
+            print(Fore.RED + f"Error: Status code: {response.status_code} Text: {response.text}")
 
 if __name__ == "__main__":
     # Replace 'your_username' with the actual username
-    username = "rezan"
+    username = "string"
 
     # Create an instance of the ReceiptSender class and send the receipt
     sender = ReceiptSender(username)
