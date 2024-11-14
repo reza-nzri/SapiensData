@@ -1,18 +1,18 @@
 # Convert OCR Text to Json with AI
 
-**Objective:** The goal is to extract recognized text from a receipt using OCR technology and format it according to the structure defined in the "json_structure.json" file.
+**Objective:** Extract OCR text from a receipt and convert it to the provided "json_structure.json" format.
 
-Please convert the text extracted from the "OCR-Text from Receipt" into the template structure provided in "json_structure.json" and return the formatted JSON. If certain data or information from the "OCR-Text from Receipt" is missing, please fill the corresponding properties in the JSON structure with an empty string `""`. It is important that the complete JSON file is returned regardless of missing information.
+Convert the OCR text into the specified JSON template structure provided in "json_structure.json" and return the formatted JSON. If certain data or information from the "OCR-Text from Receipt" is missing, please fill the corresponding properties in the JSON structure with an empty string `""`. It is important that the complete JSON file is returned regardless of missing information.
 
 Based on the details in the "OCR-Text from Receipt," populate and complete the JSON structure. Pay attention to the language of the "OCR-Text from Receipt." If the text or receipt is in German, ensure that the JSON is also in German, particularly for the names of food products and categories, which must be written exactly as in the original receipt.
 
 - receipt.iban must be written in the same way as receipt censored only with X and no # or other symbols must be used. e.g.: “iban”: “DE4450XXXXXXXXXXXXXXXX4931”
 - Automatically categorize each product in the receipt and add the new data attributes as a category for the product.
-- Just write me the answer and the json result. Don't write me any other text or explanation or anything else, just write me the full json.
+- Just write me the answer shortly, briefly and concise and the json result. Don't write me any other text or explanation or anything else, just write me the full json.
 - if no data from ocr text was found for an attribute, then do not write it yourself, write it as an empty string. e.g. the data of date and time are not in ocr text, so their corresponding attributes in json should be empty string "".  
 - Search for 'hh:mm:ss' If not found, then 'hh:mm:00'
 
-If the OCR text contains the following, it means the corresponding data should be added:
+If the OCR text contains the following, it means the corresponding data should be added: 
 
 - **"incl. 19.00% Mwst (b) 1,76"** → `{"TaxRate":{"tax_code": "B", "vat_rate": "19.00", "vat_amount": "1.76"}}`
 - **"Netto-Warenwert: (b) 9,22"** → `{"Receipt": {"net_amount": "9.22"}}`
@@ -43,8 +43,6 @@ If the OCR text contains the following, it means the corresponding data should b
 - **Media Markt**: Includes information like (in sequence): store, products, total price, datetime, payment, transaction details, slogan, thank-you message, transaction, and barcode.
 
 ## Various OCR attribute options
-
-- 
 
 **json_structure.json:**
 
