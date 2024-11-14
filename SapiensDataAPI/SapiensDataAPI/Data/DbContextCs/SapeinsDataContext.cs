@@ -75,6 +75,8 @@ public partial class SapeinsDataContext : IdentityDbContext<ApplicationUserModel
 
 	public virtual DbSet<UserSession> UserSessions { get; set; }
 
+	public virtual DbSet<ReceiptProduct> ReceiptProducts { get; set; }
+
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
