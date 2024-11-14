@@ -38,7 +38,7 @@ namespace SapiensDataAPI.Controllers
 		// GET: api/Receipts
 		[HttpPost("receive-json-from-python")]
 		[Authorize]
-		public async Task<IActionResult> ReceiveJSON([FromBody] ReceiptVailidation receiptVailidation)
+		public async Task<IActionResult> ReceiveJSON([FromBody] ReceiptVailidation receiptVailidation, [FromHeader] string username)
 		{
 			var token = HttpContext.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
 			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement;
@@ -168,6 +168,24 @@ namespace SapiensDataAPI.Controllers
 			receiptTaxDetails.ReceiptId = receipts[0].ReceiptId;
 			receiptTaxDetails.TaxRateId = taxRate.TaxRateId;
 			await _context.AddAsync(receiptTaxDetails);
+			await _context.SaveChangesAsync();
+
+			var address = _mapper.Map<Address>(receiptVailidation.Store);
+			await _context.AddAsync(address);
+			await _context.SaveChangesAsync();
+
+			var store = _mapper.Map<Store>(receiptVailidation.Store);
+			await _context.AddAsync(store);
+			await _context.SaveChangesAsync();
+
+
+			var storeAddress = new StoreAddress
+			{
+				StoreId = store.StoreId,
+				AddressId = address.AddressId,
+				AddressType = receiptVailidation.Store.AddressType
+			};
+			await _context.AddAsync(storeAddress);
 			await _context.SaveChangesAsync();
 
 			return Ok("Image is ok and updated");
