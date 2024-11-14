@@ -68,3 +68,13 @@ To deploy the API to a server or cloud service:
 1. Publish the project from Visual Studio.
 2. Configure the target environment's connection string in `appsettings.Production.json`.
 3. Deploy to your chosen cloud provider or server.
+
+## Commands
+
+```bash
+# Update Database Command
+## If you're using Entity Framework Core:
+EntityFrameworkCore\Update-Database 
+## or 
+dotnet ef database update
+```
