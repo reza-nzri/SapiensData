@@ -13,7 +13,7 @@ CREATE TABLE StoreAddress (
     store_id INT,
     address_id INT,
     is_default BIT DEFAULT 0,
-    address_type NVARCHAR(50) UNIQUE,                 -- Examples: "Home", "Work", "Billing", "Shipping"
+    address_type NVARCHAR(50),                 -- Examples: "Home", "Work", "Billing", "Shipping"
     created_at DATETIME DEFAULT GETDATE(),
     updated_at DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (store_id) REFERENCES Store(store_id),
