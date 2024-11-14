@@ -1,10 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DotNetEnv;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SapiensDataAPI.Dtos.Auth.Request;
+using SapiensDataAPI.Dtos.ImageUploader.Request;
+using SapiensDataAPI.Dtos.Receipt.Request;
+using SapiensDataAPI.Dtos;
 using SapiensDataAPI.Models;
 using SapiensDataAPI.Services.JwtToken;
+using System.Data.Entity;
+using System.Text.Json;
+using AutoMapper;
+using SapiensDataAPI.Data.DbContextCs;
 
 namespace SapiensDataAPI.Controllers
 {
@@ -15,16 +23,19 @@ namespace SapiensDataAPI.Controllers
 	{
 		// Dependency injection for UserManager, RoleManager, and IJwtTokenService
 		private readonly UserManager<ApplicationUserModel> _userManager;
-
 		private readonly RoleManager<IdentityRole> _roleManager;
 		private readonly IJwtTokenService _jwtTokenService;
+		private readonly SapeinsDataContext _context;
+		private readonly IMapper _mapper;
 
 		// Constructor to initialize the injected services
-		public AccountController(UserManager<ApplicationUserModel> userManager, RoleManager<IdentityRole> roleManager, IJwtTokenService jwtTokenService)
+		public AccountController(UserManager<ApplicationUserModel> userManager, RoleManager<IdentityRole> roleManager, IJwtTokenService jwtTokenService, SapeinsDataContext context, IMapper mapper)
 		{
 			_userManager = userManager;
 			_roleManager = roleManager;
 			_jwtTokenService = jwtTokenService;
+			_context = context;
+			_mapper = mapper;
 		}
 
 		// Get all users and their roles
@@ -126,6 +137,67 @@ namespace SapiensDataAPI.Controllers
 				Message = "User found successfully.",
 				Data = userWithRoles
 			});
+		}
+
+		// Admin deletes a user by username
+		[HttpPost("upload-pfp")]
+		[Authorize]
+		public async Task<IActionResult> AdminDeleteUser([FromForm] UploadImageDto image)
+		{
+			var token = HttpContext.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement;
+			JwtPayload? JwtPayload = JsonSerializer.Deserialize<JwtPayload>(decodedToken) ?? null;
+			if (JwtPayload == null)
+			{
+				return BadRequest("JwtPayload is not ok.");
+			}
+
+			if (image == null || image.Image.Length == 0)
+				return BadRequest("No image file provided.");
+
+			Env.Load(".env");
+			var googleDrivePath = Environment.GetEnvironmentVariable("GOOGLE_DRIVE_BEGINNING_PATH");
+			if (googleDrivePath == null)
+			{
+				return StatusCode(500, "Google Drive path doesn't exist in .env file.");
+			}
+
+			//var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SapiensCloud", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
+			var uploadsFolderPath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", JwtPayload.Sub);
+
+			if (!Directory.Exists(uploadsFolderPath))
+			{
+				try
+				{
+					Directory.CreateDirectory(uploadsFolderPath);
+				}
+				catch
+				{
+					return StatusCode(500, "Can't create directory.");
+				}
+			}
+
+			var extension = Path.GetExtension(image.Image.FileName);
+			var newFileName = "profile-picture_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + extension;
+
+			var filePath = Path.Combine(uploadsFolderPath, newFileName);
+
+			using (var fileStream = new FileStream(filePath, FileMode.Create))
+			{
+				await image.Image.CopyToAsync(fileStream);
+			}
+
+			var user = await _userManager.FindByNameAsync(JwtPayload.Sub);
+			if (user == null)
+			{
+				return NotFound("User was not found.");
+			}
+			var userId = user.Id;
+
+			_context.Update(user);
+			await _context.SaveChangesAsync();
+
+			return Ok("Image uploaded successfully.");
 		}
 
 		// Admin deletes a user by username
