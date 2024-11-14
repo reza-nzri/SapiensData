@@ -42,7 +42,7 @@ class ReceiptSender:
 
 if __name__ == "__main__":
     # Replace 'your_username' with the actual username
-    username = "string"
+    username = "lucab"
 
     # Create an instance of the ReceiptSender class and send the receipt
     sender = ReceiptSender(username)
