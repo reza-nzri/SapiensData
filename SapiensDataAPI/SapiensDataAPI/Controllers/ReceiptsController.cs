@@ -50,7 +50,7 @@ namespace SapiensDataAPI.Controllers
 			}
 
 			//var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SapiensCloud", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
-			var filePath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", username, "receipts", receiptVailidation.FileMetadata.SourceImage);
+			var filePath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", username, "receipts", receiptVailidation.FileMetadata.ReceiptFilename);
 			if (!await Task.Run(() => System.IO.File.Exists(filePath)))
 			{
 				return BadRequest("File doesn't exist");

@@ -139,8 +139,8 @@ namespace SapiensDataAPI.Dtos.Receipt.JSON
 
 	public class FileMetadataV
 	{
-		[JsonPropertyName("source_image")]
-		public string SourceImage { get; set; } = string.Empty;
+		[JsonPropertyName("receipt_filename")]
+		public string ReceiptFilename { get; set; } = string.Empty;
 	}
 
 	public class ReceiptVailidation
