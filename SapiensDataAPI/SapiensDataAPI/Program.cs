@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity; // Import Identity for user and role manage
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SapiensDataAPI.Attributes;
 using SapiensDataAPI.Data.DbContextCs;
 using SapiensDataAPI.Models; // Import models, including ApplicationUserModel
 using SapiensDataAPI.Services.JwtToken; // Import services, including JwtTokenService
@@ -25,6 +26,9 @@ Env.Load(".env");
 // Add services to the container
 builder.Services.AddControllers(); // Add controllers to handle API routes
 builder.Services.AddEndpointsApiExplorer(); // Add API explorer for endpoints
+
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddScoped<RequireApiKeyAttribute>();
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -52,6 +56,33 @@ builder.Services.AddSwaggerGen(c =>
             Array.Empty<string>()
         }
     });
+});
+
+builder.Services.AddSwaggerGen(c =>
+{
+	// Add a parameter for the API key in Swagger UI
+	c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+	{
+		In = ParameterLocation.Header,
+		Name = "Very-cool-api-key",
+		Type = SecuritySchemeType.ApiKey,
+		Description = "API Key needed to access the python json endpoint"
+	});
+
+	c.AddSecurityRequirement(new OpenApiSecurityRequirement
+	{
+		{
+			new OpenApiSecurityScheme
+			{
+				Reference = new OpenApiReference
+				{
+					Type = ReferenceType.SecurityScheme,
+					Id = "ApiKey"
+				}
+			},
+			new string[] { }
+		}
+	});
 });
 
 // Configure CORS

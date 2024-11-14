@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SapiensDataAPI.Attributes;
 using SapiensDataAPI.Data.DbContextCs;
 using SapiensDataAPI.Dtos;
 using SapiensDataAPI.Dtos.Expense.Request;
@@ -37,18 +38,11 @@ namespace SapiensDataAPI.Controllers
 
 		// GET: api/Receipts
 		[HttpPost("receive-json-from-python")]
-		[Authorize]
+		[RequireApiKey]
 		public async Task<IActionResult> ReceiveJSON([FromBody] ReceiptVailidation receiptVailidation, [FromHeader] string username)
 		{
-			var token = HttpContext.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
-			var decodedToken = _jwtTokenService.DecodeJwtPayloadToJson(token).RootElement;
-			JwtPayload? JwtPayload = JsonSerializer.Deserialize<JwtPayload>(decodedToken) ?? null;
-			if (JwtPayload == null)
-			{
-				return BadRequest("JwtPayload is not ok.");
-			}
-
 			Env.Load(".env");
+
 			var googleDrivePath = Environment.GetEnvironmentVariable("GOOGLE_DRIVE_BEGINNING_PATH");
 			if (googleDrivePath == null)
 			{
@@ -56,7 +50,7 @@ namespace SapiensDataAPI.Controllers
 			}
 
 			//var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SapiensCloud", "src", "media", "UserReceiptUploads", JwtPayload.Sub);
-			var filePath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", JwtPayload.Sub, "receipts", receiptVailidation.FileMetadata.SourceImage);
+			var filePath = Path.Combine(googleDrivePath, "SapiensCloud", "media", "user_data", username, "receipts", receiptVailidation.FileMetadata.SourceImage);
 			if (!await Task.Run(() => System.IO.File.Exists(filePath)))
 			{
 				return BadRequest("File doesn't exist");
@@ -87,7 +81,7 @@ namespace SapiensDataAPI.Controllers
 			var pathSegments = filePath.Split(Path.DirectorySeparatorChar);
 			var lastThreeSegments = string.Join(Path.DirectorySeparatorChar.ToString(), pathSegments.TakeLast(3));
 
-			var user = await _userManager.FindByNameAsync(JwtPayload.Sub);
+			var user = await _userManager.FindByNameAsync(username);
 			if (user == null)
 			{
 				// Handle the case where the user is not found
