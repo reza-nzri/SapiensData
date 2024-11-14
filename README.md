@@ -1,6 +1,6 @@
 # SapiensData - DRMAV 📊
 
-![SapiensData Logo](Docs/READMEs/media/images/logos/text_logo_1.png)
+![SapiensData Logo](Docs/READMEs/media/images/logos/text_logo_pink.png)
 
 Project name: `SapiensData - Data Receipt Management, Analysis, and Visualization "DRMAV"`  
 Current version: 0.1.0
