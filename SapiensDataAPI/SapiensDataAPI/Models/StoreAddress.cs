@@ -13,11 +13,11 @@ public partial class StoreAddress
 
     public bool? IsDefault { get; set; }
 
-    public string? AddressType { get; set; }
+    public string? AddressType { get; set; } = string.Empty;
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; } = DateTime.Now;
 
-    public DateTime? UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; } = DateTime.Now;
 
     public virtual Address? Address { get; set; }
 
