@@ -109,7 +109,11 @@ namespace SapiensDataAPI.Controllers
 				return BadRequest($"Too many receipts, should be 1 but were {receipts.Count}");
 			}
 
-			var receiptId = receipts[0].ReceiptId;
+			if (receiptVailidation.Product.Count == 0)
+			{
+				return BadRequest("No products found");
+			}
+
 			_mapper.Map(receiptVailidation.Receipt, receipts[0]);
 			receipts[0].ReceiptImagePath = newPath;
 
@@ -121,7 +125,7 @@ namespace SapiensDataAPI.Controllers
 			}
 			catch (DbUpdateConcurrencyException)
 			{
-				if (!ReceiptExists(receiptId))
+				if (!ReceiptExists(receipts[0].ReceiptId))
 				{
 					return NotFound();
 				}
@@ -130,6 +134,41 @@ namespace SapiensDataAPI.Controllers
 					throw;
 				}
 			}
+
+			List<Product> products = new(receiptVailidation.Product.Count);
+			foreach (var product in receiptVailidation.Product)
+			{
+				products.Add(_mapper.Map<Product>(product));
+			}
+			
+			await _context.Products.AddRangeAsync(products);
+			await _context.SaveChangesAsync();
+
+			List<int> productIds = products.Select(p => p.ProductId).ToList();
+
+			List<ReceiptProduct> receiptProducts = new(receiptVailidation.Product.Count);
+			foreach (var item in productIds)
+			{
+				receiptProducts.Add(new ReceiptProduct
+				{
+					ReceiptId = receipts[0].ReceiptId,
+					ProductId = item
+				});
+			}
+
+			await _context.ReceiptProducts.AddRangeAsync(receiptProducts);
+			await _context.SaveChangesAsync();
+
+			var taxRate = _mapper.Map<TaxRate>(receiptVailidation.TaxRate);
+			taxRate.ReceiptId = receipts[0].ReceiptId;
+			await _context.AddAsync(taxRate);
+			await _context.SaveChangesAsync();
+
+			var receiptTaxDetails = _mapper.Map<ReceiptTaxDetail>(receiptVailidation.ReceiptTaxDetail);
+			receiptTaxDetails.ReceiptId = receipts[0].ReceiptId;
+			receiptTaxDetails.TaxRateId = taxRate.TaxRateId;
+			await _context.AddAsync(receiptTaxDetails);
+			await _context.SaveChangesAsync();
 
 			return Ok("Image is ok and updated");
 		}
