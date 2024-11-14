@@ -42,12 +42,6 @@ namespace SapiensDataAPI.Controllers // Define the namespace for the AuthControl
 				LastName = model.LastName // Set the last name
 			};
 
-			// Create the user and hash the password
-			var result = await _userManager.CreateAsync(user, model.Password); // Create the user with the provided password
-
-			if (!result.Succeeded) // If user creation fails
-				return BadRequest(result.Errors); // Return bad request with the errors
-
 			Env.Load(".env");
 			var googleDrivePath = Environment.GetEnvironmentVariable("GOOGLE_DRIVE_BEGINNING_PATH");
 			if (googleDrivePath == null)
@@ -68,6 +62,13 @@ namespace SapiensDataAPI.Controllers // Define the namespace for the AuthControl
 					return StatusCode(500, "Can't create directory.");
 				}
 			}
+
+			// Create the user and hash the password
+			var result = await _userManager.CreateAsync(user, model.Password); // Create the user with the provided password
+
+			if (!result.Succeeded) // If user creation fails
+				return BadRequest(result.Errors); // Return bad request with the errors
+
 
 			// Assign 'NormalUser' role by default
 			var roleResult = await _userManager.AddToRoleAsync(user, "NormalUser"); // Add the user to the 'NormalUser' role
