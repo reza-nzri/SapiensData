@@ -29,7 +29,7 @@ namespace SapiensDataAPI.Models
 		public string? Youtube { get; set; }
 		public string? Tiktok { get; set; }
 		public string? Snapchat { get; set; }
-		public DateTime? CreatedAt { get; set; }
+		public DateTime? CreatedAt { get; set; } = DateTime.Now;
 		public DateTime? UpdatedAt { get; set; }
 		public DateTime? LastLogin { get; set; }
 		public string? Status { get; set; }
