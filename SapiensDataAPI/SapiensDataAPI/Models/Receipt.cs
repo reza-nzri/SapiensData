@@ -46,4 +46,6 @@ public partial class Receipt
     public virtual ApplicationUserModel? User { get; set; }
 
     public virtual ICollection<TaxRate> TaxRates { get; set; } = new List<TaxRate>();
+
+	public virtual ICollection<ReceiptProduct> ReceiptProducts { get; set; } = [];
 }
