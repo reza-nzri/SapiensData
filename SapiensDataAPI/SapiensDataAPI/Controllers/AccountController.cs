@@ -194,6 +194,7 @@ namespace SapiensDataAPI.Controllers
 			}
 			var userId = user.Id;
 
+			user.ProfilePicturePath = filePath;
 			_context.Update(user);
 			await _context.SaveChangesAsync();
 
