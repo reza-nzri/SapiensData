@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SapiensDataAPI.Dtos.Expense.Request;
 using SapiensDataAPI.Dtos.Income.Request;
+using SapiensDataAPI.Dtos.Receipt.JSON;
 using SapiensDataAPI.Dtos.Receipt.Request;
 using SapiensDataAPI.Models;
 
@@ -13,6 +14,7 @@ namespace SapiensDataAPI.Configs
 			CreateMap<IncomeDto, Income>();
 			CreateMap<ExpenseDto, Expense>();
 			CreateMap<ReceiptDto, Receipt>();
+			CreateMap<ReceiptV, Receipt>();
 		}
 	}
 }

@@ -76,6 +76,11 @@ namespace SapiensDataAPI.Controllers
 			// Create the new path by combining the directory and new file name
 			string newPath = Path.Combine(directory, newFileName);
 
+			if (await Task.Run(() => System.IO.File.Exists(newPath)))
+			{
+				return BadRequest("File already exists");
+			}
+
 			// Rename the file by moving it to the new path
 			await Task.Run(() => System.IO.File.Move(filePath, newPath));
 
@@ -104,11 +109,29 @@ namespace SapiensDataAPI.Controllers
 				return BadRequest($"Too many receipts, should be 1 but were {receipts.Count}");
 			}
 
+			var receiptId = receipts[0].ReceiptId;
+			_mapper.Map(receiptVailidation.Receipt, receipts[0]);
 			receipts[0].ReceiptImagePath = newPath;
 
-			await _context.SaveChangesAsync();
+			_context.Update(receipts[0]);
 
-			return Ok("Image is ok");
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!ReceiptExists(receiptId))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
+
+			return Ok("Image is ok and updated");
 		}
 
 		// GET: api/Receipts/5
