@@ -1001,8 +1001,6 @@ public partial class SapeinsDataContext : IdentityDbContext<ApplicationUserModel
 
 			entity.ToTable("StoreAddress");
 
-			entity.HasIndex(e => e.AddressType, "UQ__StoreAdd__071A9587EC1B4587").IsUnique();
-
 			entity.Property(e => e.CompanyAddressId).HasColumnName("company_address_id");
 			entity.Property(e => e.AddressId).HasColumnName("address_id");
 			entity.Property(e => e.AddressType)
