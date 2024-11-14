@@ -93,8 +93,8 @@ ehthumbs.db
 Icon?
 Desktop.ini
 
-# Other
-/dataset/receipts
-
 # Ignoriere das Verzeichnis für das trainierte Modell, um große Binärdateien und häufige Änderungen von Versionskontrollen auszuschließen
 src/models/category_classifier_model/
+
+# Temp_files
+src/_temp_files
