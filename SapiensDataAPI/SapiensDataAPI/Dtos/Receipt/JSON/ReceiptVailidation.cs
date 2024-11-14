@@ -1,5 +1,4 @@
-﻿using SapiensDataAPI.Models;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace SapiensDataAPI.Dtos.Receipt.JSON
 {
