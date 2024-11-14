@@ -516,6 +516,3 @@ ehthumbs.db
 # Environment Variables
 *.env
 SapiensDataAPI/.env
-
-# User uploaded receipts
-SapiensDataAPI/Data/SapiensCloud/src/media/UserReceiptUploads
