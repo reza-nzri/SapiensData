@@ -71,13 +71,42 @@ namespace SapiensDataAPI.Controllers
 			var correctedStoreName = receiptVailidation.Store.Name.Replace(' ', '-');
 
 			var extension = Path.GetExtension(filePath);
-			var newFileName = correctedStoreName + "_" +receiptVailidation.Receipt.BuyDatetime.ToString("yyyyMMdd_HHmmss") + extension;
+			var newFileName = correctedStoreName + "_" + receiptVailidation.Receipt.BuyDatetime.ToString("yyyyMMdd_HHmmss") + extension;
 
 			// Create the new path by combining the directory and new file name
 			string newPath = Path.Combine(directory, newFileName);
 
 			// Rename the file by moving it to the new path
 			await Task.Run(() => System.IO.File.Move(filePath, newPath));
+
+			var pathSegments = filePath.Split(Path.DirectorySeparatorChar);
+			var lastThreeSegments = string.Join(Path.DirectorySeparatorChar.ToString(), pathSegments.TakeLast(3));
+
+			var user = await _userManager.FindByNameAsync(JwtPayload.Sub);
+			if (user == null)
+			{
+				// Handle the case where the user is not found
+				return NotFound("User not found");
+			}
+
+			// Then use it in the LINQ query
+			var receipts = await _context.Receipts
+				.Where(r => r.ReceiptImagePath != null && r.ReceiptImagePath.EndsWith(lastThreeSegments) && r.UserId == user.Id)
+				.ToListAsync();
+
+			if (receipts.Count == 0)
+			{
+				return NotFound("No receipts found");
+			}
+
+			if (receipts.Count > 1)
+			{
+				return BadRequest($"Too many receipts, should be 1 but were {receipts.Count}");
+			}
+
+			receipts[0].ReceiptImagePath = newPath;
+
+			await _context.SaveChangesAsync();
 
 			return Ok("Image is ok");
 		}
