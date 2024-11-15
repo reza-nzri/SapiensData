@@ -26,7 +26,7 @@ class ChatGPTClient:
         openai.api_key = self.api_key
 
         # Set default configuration for the GPT-3.5-turbo model
-        self.model = "gpt-4"  # You can change this to "gpt-4" or "gpt-3.5-turbo" if needed
+        self.model = "gpt-3.5-turbo"  # You can change this to "gpt-4" or "gpt-3.5-turbo" if needed
         self.max_tokens = 2048  # Token limit for output
         self.temperature = 0.2  # Controls randomness of responses (0.0-1.0)
         self.top_p = 0.9        # Controls diversity via nucleus sampling (0.0-1.0)
