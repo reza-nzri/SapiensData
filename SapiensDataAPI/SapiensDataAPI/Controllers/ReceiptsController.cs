@@ -161,7 +161,7 @@ namespace SapiensDataAPI.Controllers
 				await _context.SaveChangesAsync();
 			}
 			catch (DbUpdateConcurrencyException)
-			{
+			{	
 				if (!ReceiptExists(receipts[0].ReceiptId))
 				{
 					return NotFound();
@@ -216,13 +216,13 @@ namespace SapiensDataAPI.Controllers
 			var firstPath = pythonExePath.Split('\n');
 			pythonExePath = firstPath.First().Trim();
 
-			string pythonScriptPath = @"../../Analytics/src/main.py";  // Path to the Python script
+			string pythonScriptPath = @"../../Analytics/src/utils/temp_file_deleter.py";  // Path to the Python script
 			if (!System.IO.File.Exists(pythonScriptPath))
 			{
 				return BadRequest("Python script isn't there");
 			}
 
-			string? parameter = receipts[0].ReceiptImagePath ?? null;  // The parameter you want to pass to the Python script
+			string? parameter = username ?? null;  // The parameter you want to pass to the Python script
 
 			if (parameter == null)
 			{
@@ -477,6 +477,74 @@ namespace SapiensDataAPI.Controllers
 			var receipt = _mapper.Map<Receipt>(EXAMPLEReceiptDto);
 			_context.Receipts.Add(receipt);
 			await _context.SaveChangesAsync();
+
+			string pythonExePath = string.Empty;
+
+			try
+			{
+				// Run the 'where python' command to find the path to python.exe
+				ProcessStartInfo startInfo = new ProcessStartInfo
+				{
+					FileName = "where",
+					Arguments = "python",
+					RedirectStandardOutput = true,
+					UseShellExecute = false,
+					CreateNoWindow = true
+				};
+
+				using (Process? process = Process.Start(startInfo))
+				{
+					if (process != null)
+					{
+						pythonExePath = process.StandardOutput.ReadToEnd().Trim();
+					}
+				}
+
+				if (string.IsNullOrEmpty(pythonExePath))
+				{
+					return BadRequest("Python executable not found.");
+				}
+			}
+			catch (Exception ex)
+			{
+				return BadRequest("Error finding Python: " + ex.Message);
+			}
+
+			var firstPath = pythonExePath.Split('\n');
+			pythonExePath = firstPath.First().Trim();
+
+			string pythonScriptPath = @"../../Analytics/src/main.py";  // Path to the Python script
+			if (!System.IO.File.Exists(pythonScriptPath))
+			{
+				return BadRequest("Python script isn't there");
+			}
+
+			string? parameter = filePath ?? null;  // The parameter you want to pass to the Python script
+
+			if (parameter == null)
+			{
+				return BadRequest("image path is null");
+			}
+
+			// Set up the process start info
+			ProcessStartInfo startInfo2 = new()
+			{
+				FileName = pythonExePath,  // Path to Python
+				Arguments = $"\"{pythonScriptPath}\" \"{parameter}\"",  // Arguments (Python script and parameter)
+				RedirectStandardOutput = true,  // Redirect output to capture it
+				UseShellExecute = false,  // Do not use shell execution (to redirect output)
+				CreateNoWindow = true  // Don't create a command prompt window
+			};
+
+			// Start the process
+			using (Process? process = Process.Start(startInfo2))  // Nullable Process type
+			{
+				if (process == null)
+				{
+					// If the process is null, return an Internal Server Error (500)
+					return StatusCode(500, "Failed to start the Python process.");
+				}
+			}
 
 			return Ok("Image uploaded successfully.");
 		}
