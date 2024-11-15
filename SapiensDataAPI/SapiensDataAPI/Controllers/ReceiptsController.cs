@@ -457,6 +457,7 @@ namespace SapiensDataAPI.Controllers
 			var parts = filePath.Split(Path.DirectorySeparatorChar);
 			var lastParts = parts.Skip(Math.Max(0, parts.Length - 6));
 			var pathForPython = Path.Combine(lastParts.ToArray());
+			pathForPython = pathForPython.Replace("\\", "/");
 
 			string? parameter = pathForPython ?? null;  // The parameter you want to pass to the Python script
 
