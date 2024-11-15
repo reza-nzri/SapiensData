@@ -15,6 +15,7 @@ from .post_receipt import ReceiptSender
 from .temp_file_deleter import TempFileDeleter
 from .text_auto_corrector import TextAutoCorrector
 from .text_cleaner import TextCleaner
+from .remove_second_receipt import JsonReceiptRemover
 
 
 __all__ = [
@@ -31,5 +32,6 @@ __all__ = [
     'ReceiptSender',  # Handle receipt sending functionality
     'TempFileDeleter',  # Delete temporary files associated with a user
     'TextAutoCorrector',  # Correct spelling and grammar errors in text
-    'TextCleaner'  # Clean and format text for better readability
+    'TextCleaner',  # Clean and format text for better readability
+    'JsonReceiptRemover'
 ]
