@@ -15,6 +15,7 @@ using SapiensDataAPI.Dtos.Receipt.Response;
 using SapiensDataAPI.Models;
 using SapiensDataAPI.Services.JwtToken;
 using System.Diagnostics;
+using System.IO;
 using System.Text.Json;
 
 namespace SapiensDataAPI.Controllers
@@ -519,7 +520,11 @@ namespace SapiensDataAPI.Controllers
 				return BadRequest("Python script isn't there");
 			}
 
-			string? parameter = filePath ?? null;  // The parameter you want to pass to the Python script
+			var parts = filePath.Split(Path.DirectorySeparatorChar);
+			var lastParts = parts.Skip(Math.Max(0, parts.Length - 6));
+			var pathForPython = Path.Combine(lastParts.ToArray());
+
+			string? parameter = pathForPython ?? null;  // The parameter you want to pass to the Python script
 
 			if (parameter == null)
 			{
