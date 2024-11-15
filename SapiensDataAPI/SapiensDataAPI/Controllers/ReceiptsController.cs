@@ -182,40 +182,7 @@ namespace SapiensDataAPI.Controllers
 			await _context.AddAsync(storeAddress);
 			await _context.SaveChangesAsync();
 
-			string pythonExePath = string.Empty;
-
-			try
-			{
-				// Run the 'where python' command to find the path to python.exe
-				ProcessStartInfo startInfo = new ProcessStartInfo
-				{
-					FileName = "where",
-					Arguments = "python",
-					RedirectStandardOutput = true,
-					UseShellExecute = false,
-					CreateNoWindow = true
-				};
-
-				using (Process? process = Process.Start(startInfo))
-				{
-					if (process != null)
-					{
-						pythonExePath = process.StandardOutput.ReadToEnd().Trim();
-					}
-				}
-
-				if (string.IsNullOrEmpty(pythonExePath))
-				{
-					return BadRequest("Python executable not found.");
-				}
-			}
-			catch (Exception ex)
-			{
-				return BadRequest("Error finding Python: " + ex.Message);
-			}
-
-			var firstPath = pythonExePath.Split('\n');
-			pythonExePath = firstPath.First().Trim();
+			string pythonExePath = "../../Analytics/venv/Scripts/python.exe";
 
 			string pythonScriptPath = @"../../Analytics/src/utils/temp_file_deleter.py";  // Path to the Python script
 			if (!System.IO.File.Exists(pythonScriptPath))
@@ -479,40 +446,7 @@ namespace SapiensDataAPI.Controllers
 			_context.Receipts.Add(receipt);
 			await _context.SaveChangesAsync();
 
-			string pythonExePath = string.Empty;
-
-			try
-			{
-				// Run the 'where python' command to find the path to python.exe
-				ProcessStartInfo startInfo = new ProcessStartInfo
-				{
-					FileName = "where",
-					Arguments = "python",
-					RedirectStandardOutput = true,
-					UseShellExecute = false,
-					CreateNoWindow = true
-				};
-
-				using (Process? process = Process.Start(startInfo))
-				{
-					if (process != null)
-					{
-						pythonExePath = process.StandardOutput.ReadToEnd().Trim();
-					}
-				}
-
-				if (string.IsNullOrEmpty(pythonExePath))
-				{
-					return BadRequest("Python executable not found.");
-				}
-			}
-			catch (Exception ex)
-			{
-				return BadRequest("Error finding Python: " + ex.Message);
-			}
-
-			var firstPath = pythonExePath.Split('\n');
-			pythonExePath = firstPath.First().Trim();
+			string pythonExePath = "../../Analytics/venv/Scripts/python.exe";
 
 			string pythonScriptPath = @"../../Analytics/src/main.py";  // Path to the Python script
 			if (!System.IO.File.Exists(pythonScriptPath))
