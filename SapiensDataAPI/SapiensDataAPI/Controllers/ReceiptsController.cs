@@ -182,20 +182,34 @@ namespace SapiensDataAPI.Controllers
 			await _context.AddAsync(storeAddress);
 			await _context.SaveChangesAsync();
 
-			string pythonExePath = "../../Analytics/venv/Scripts/python.exe";
+			string workingDirectory = @"../../Analytics/";
+			if (!Directory.Exists(workingDirectory))
+			{
+				return BadRequest($"Working directory not found: {workingDirectory}");
+			}
 
-			string pythonScriptPath = @"../../Analytics/src/utils/temp_file_deleter.py";  // Path to the Python script
-			if (!System.IO.File.Exists(pythonScriptPath))
+			//string pythonExePath = "../../Analytics/venv/Scripts/python.exe";
+			string pythonExePath = "venv/Scripts/python.exe";
+			if (!System.IO.File.Exists(workingDirectory + pythonExePath))
+			{
+				return BadRequest("venv Python isn't there");
+			}
+
+			//string pythonScriptPath = @"../../Analytics/src/main.py";  // Path to the Python script
+			string pythonScriptPath = @"src/main.py";  // Path to the Python script
+
+			if (!System.IO.File.Exists(workingDirectory + pythonScriptPath))
 			{
 				return BadRequest("Python script isn't there");
 			}
 
-			string? parameter = username ?? null;  // The parameter you want to pass to the Python script
-
+			var parameter = username;
 			if (parameter == null)
 			{
 				return BadRequest("image path is null");
 			}
+
+			pythonExePath = workingDirectory + "venv/Scripts/python.exe";
 
 			// Set up the process start info
 			ProcessStartInfo startInfo2 = new()
@@ -204,7 +218,8 @@ namespace SapiensDataAPI.Controllers
 				Arguments = $"\"{pythonScriptPath}\" \"{parameter}\"",  // Arguments (Python script and parameter)
 				RedirectStandardOutput = true,  // Redirect output to capture it
 				UseShellExecute = false,  // Do not use shell execution (to redirect output)
-				CreateNoWindow = true  // Don't create a command prompt window
+				CreateNoWindow = true,  // Don't create a command prompt window
+				WorkingDirectory = @"../../Analytics/"  // Set the desired working directory
 			};
 
 			// Start the process
@@ -446,10 +461,23 @@ namespace SapiensDataAPI.Controllers
 			_context.Receipts.Add(receipt);
 			await _context.SaveChangesAsync();
 
-			string pythonExePath = "../../Analytics/venv/Scripts/python.exe";
+			string workingDirectory = @"../../Analytics/";
+			if (!Directory.Exists(workingDirectory))
+			{
+				return BadRequest($"Working directory not found: {workingDirectory}");
+			}
 
-			string pythonScriptPath = @"../../Analytics/src/main.py";  // Path to the Python script
-			if (!System.IO.File.Exists(pythonScriptPath))
+			//string pythonExePath = "../../Analytics/venv/Scripts/python.exe";
+			string pythonExePath = "venv/Scripts/python.exe";
+			if (!System.IO.File.Exists(workingDirectory + pythonExePath))
+			{
+				return BadRequest("venv Python isn't there");
+			}
+
+			//string pythonScriptPath = @"../../Analytics/src/main.py";  // Path to the Python script
+			string pythonScriptPath = @"src/main.py";  // Path to the Python script
+
+			if (!System.IO.File.Exists(workingDirectory + pythonScriptPath))
 			{
 				return BadRequest("Python script isn't there");
 			}
@@ -466,6 +494,8 @@ namespace SapiensDataAPI.Controllers
 				return BadRequest("image path is null");
 			}
 
+			pythonExePath = workingDirectory + "venv/Scripts/python.exe";
+
 			// Set up the process start info
 			ProcessStartInfo startInfo2 = new()
 			{
@@ -473,7 +503,8 @@ namespace SapiensDataAPI.Controllers
 				Arguments = $"\"{pythonScriptPath}\" \"{parameter}\"",  // Arguments (Python script and parameter)
 				RedirectStandardOutput = true,  // Redirect output to capture it
 				UseShellExecute = false,  // Do not use shell execution (to redirect output)
-				CreateNoWindow = true  // Don't create a command prompt window
+				CreateNoWindow = true,  // Don't create a command prompt window
+				WorkingDirectory = @"../../Analytics/"  // Set the desired working directory
 			};
 
 			// Start the process
