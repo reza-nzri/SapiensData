@@ -47,15 +47,24 @@ and each subproject has its own README.md included in itself.
 ## Contributors & Developer Information 👨‍💻
 
 - **Reza Nazari**
-  - Role: Developer, IT Management
+  - Role: Full-stack Developer, IT Management
   - LinkedIn: [reza-nazarii](https://www.linkedin.com/in/reza-nazarii)
   - Facebook: [RezaNazari0](https://www.facebook.com/RezaNazari0)
   - Instagram: [@reza_nazarii](https://www.instagram.com/reza_nazarii)
   - GitHub: [@reza-nzri](https://github.com/reza-nzri)
   - GitLab: [@Reza_Nazari](https://gitlab.com/Reza_Nazari)
 
-- **Janusz Sliwinski**
+- **Janusz**
   - Role: Backend Developer
+  - GitHub: [@train9013](https://github.com/train9013)
+
+- **Kadkhodazadeh**
+  - Role: Cybersecurity, Backend, Data Science, Network & Cloud
+  - LinkedIn: []()
+  - Facebook: []()
+  - Instagram: []()
+  - GitHub: []()
+  - GitLab: []()
 
 ## Clone the Wiki Repository
 
