@@ -60,29 +60,29 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddSwaggerGen(c =>
 {
-	// Add a parameter for the API key in Swagger UI
-	c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
-	{
-		In = ParameterLocation.Header,
-		Name = "Very-cool-api-key",
-		Type = SecuritySchemeType.ApiKey,
-		Description = "API Key needed to access the python json endpoint"
-	});
+    // Add a parameter for the API key in Swagger UI
+    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Name = "Very-cool-api-key",
+        Type = SecuritySchemeType.ApiKey,
+        Description = "API Key needed to access the python json endpoint"
+    });
 
-	c.AddSecurityRequirement(new OpenApiSecurityRequirement
-	{
-		{
-			new OpenApiSecurityScheme
-			{
-				Reference = new OpenApiReference
-				{
-					Type = ReferenceType.SecurityScheme,
-					Id = "ApiKey"
-				}
-			},
-			new string[] { }
-		}
-	});
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                }
+            },
+            new string[] { }
+        }
+    });
 });
 
 // Configure CORS
@@ -114,12 +114,12 @@ else
 }
 
 // Configure the database context
-builder.Services.AddDbContext<SapeinsDataContext>(options =>
+builder.Services.AddDbContext<SapeinsDataDbContext>(options =>
     options.UseSqlServer(dbConnectionString)); // Configure SQL Server with a connection string
 
 // Configure Identity
 builder.Services.AddIdentity<ApplicationUserModel, IdentityRole>() // Add Identity services for ApplicationUserModel and roles
-    .AddEntityFrameworkStores<SapeinsDataContext>() // Use the database context for storing identity data
+    .AddEntityFrameworkStores<SapeinsDataDbContext>() // Use the database context for storing identity data
     .AddDefaultTokenProviders(); // Add default token providers for password reset and other identity features
 
 // Configure JWT Key, Issuer, and Audience from environment variables
