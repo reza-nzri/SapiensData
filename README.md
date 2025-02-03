@@ -42,7 +42,7 @@ and each subproject has its own README.md included in itself.
 
 ### Copyright
 
-© 2024 SapiensData-DRMAV _ BK-TM MG. All rights reserved.
+© 2024 SapiensData-DRMAV _ All rights reserved.
 
 ## Contributors & Developer Information 👨‍💻
 
