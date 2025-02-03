@@ -19,62 +19,48 @@ Follow these steps to set up and run the project on your local machine for devel
 Please ensure you have the following installed:
 
 - [Visual Studio 2022](https://visualstudio.microsoft.com/) with the .NET Core cross-platform development workload.
-- [.NET 7.0 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
+- [.NET SDK version 9.0](https://dotnet.microsoft.com/download/dotnet/9.0)
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or LocalDB for local development.
 - [Git](https://git-scm.com/)
+- For your own .ENV:
+  - Sapiens API key to connect to and authorize the SapiensDataAPI subproject (identical to your `SAPIENS_API_KEY` variable from `Analytics/.env.dev`)
+  - A Google Drive folder path
 
 ### 🔧 Setup Instructions
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://gitlab.com/yourusername/SapiensData.API.git
-   cd SapiensData.API
-   ```
+1. **Open the Project in Visual Studio**:
+   - Navigate to the `SapiensDataAPI` folder and open `SapiensData.API.sln`.
 
-2. **Open the Project in Visual Studio**:
-   - Navigate to the `SapiensData.API` folder and open `SapiensData.API.sln`.
+2. **Set Up Environment Variables**:
 
-3. **Install NuGet Packages**:
-   - Open the **NuGet Package Manager Console** and run:
+Be ensure that you'r in the `./SapiensDataAPI/SapiensDataAPI` path.
 
-   ```bash
-   Install-Package Microsoft.EntityFrameworkCore.SqlServer
-   Install-Package Microsoft.EntityFrameworkCore.Tools
-   ```
+```bash
+cp .env.example .env
+```
 
-4. **Configure the Database Connection**:
-   - Update the connection string in `appsettings.json` to match your local SQL Server or LocalDB configuration.
+🛠️ **Edit `.env.dev` and set required values.**
 
-5. **Apply Migrations and Update the Database**:
+1. **Install / Update the Database**:
    - Run the following commands in the **NuGet Package Manager Console**:
 
    ```bash
-   Add-Migration InitialCreate
    Update-Database
    ```
 
-6. **Run the Application**:
+   ```bash
+   # Update Database Command
+   ## If you're using Entity Framework Core:
+   EntityFrameworkCore\Update-Database 
+   ## or 
+   dotnet ef database update
+   dotnet ef database update --project SapiensDataAPI
+   ```
+
+2. **Run the Application**:
    - Press `F5` or click the **Run** button in Visual Studio. The API will run on `https://localhost:5001` (or a different port if configured).
 
 ### 🧪 Testing
 
 - **Swagger UI** provides an interactive interface to test each API endpoint.
 - Use tools like [Postman](https://www.postman.com/) or [curl](https://curl.se/) for additional testing.
-
-### 🚀 Deployment
-
-To deploy the API to a server or cloud service:
-
-1. Publish the project from Visual Studio.
-2. Configure the target environment's connection string in `appsettings.Production.json`.
-3. Deploy to your chosen cloud provider or server.
-
-## Commands
-
-```bash
-# Update Database Command
-## If you're using Entity Framework Core:
-EntityFrameworkCore\Update-Database 
-## or 
-dotnet ef database update
-```

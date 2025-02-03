@@ -5,6 +5,7 @@
 This is built using Next.js. First, run the development server:
 
 ```bash
+npm install
 npm run dev
 ```
 

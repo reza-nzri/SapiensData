@@ -3,7 +3,7 @@
 ![SapiensData Logo](Docs/READMEs/media/images/logos/text_logo_pink.png)
 
 Project name: `SapiensData - Data Receipt Management, Analysis, and Visualization "DRMAV"`  
-Current version: 0.1.0
+Current version: 0.2.0
 
 ## Project Overview 📖
 
@@ -12,6 +12,14 @@ Current version: 0.1.0
 ## Project Description 📝
 
 SapiensData enables users to upload images of their receipts, which are then processed using AI models for Optical Character Recognition (OCR). The application extracts and organizes receipt data into a user-friendly format, allowing users to analyze their spending habits and visualize financial trends.
+
+This project is divided into several subprojects:
+
+- **[Analytics](./Analytics/)**
+- **[SapiensDataAPI](./SapiensDataAPI/)**
+- **[Web Application](./web-app/)**
+
+and each subproject has its own README.md included in itself.
 
 ## Usage Instructions 🖥️
 
@@ -23,7 +31,8 @@ SapiensData enables users to upload images of their receipts, which are then pro
 
 ## Project Versions 🆕
 
-- Current Version: 0.1.0
+- Version 0.2.0: Upload from GitLab to Github & adjust to public repo
+- Version 0.1.0: Initial projekt with storage in Google Cloud and use of OpenAi
 
 ## Future Plans 🚀
 
