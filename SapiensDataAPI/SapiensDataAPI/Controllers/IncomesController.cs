@@ -11,10 +11,10 @@ namespace SapiensDataAPI.Controllers
 	[ApiController]
 	public class IncomesController : ControllerBase
 	{
-		private readonly SapeinsDataContext _context;
+		private readonly SapeinsDataDbContext _context;
 		private readonly IMapper _mapper;
 
-		public IncomesController(SapeinsDataContext context, IMapper mapper)
+		public IncomesController(SapeinsDataDbContext context, IMapper mapper)
 		{
 			_context = context;
 			_mapper = mapper;

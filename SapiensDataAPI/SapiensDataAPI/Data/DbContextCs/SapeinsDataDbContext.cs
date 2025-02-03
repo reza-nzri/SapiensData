@@ -6,13 +6,13 @@ using SapiensDataAPI.Models;
 
 namespace SapiensDataAPI.Data.DbContextCs;
 
-public partial class SapeinsDataContext : IdentityDbContext<ApplicationUserModel>
+public partial class SapeinsDataDbContext : IdentityDbContext<ApplicationUserModel>
 {
-	public SapeinsDataContext()
+	public SapeinsDataDbContext()
 	{
 	}
 
-	public SapeinsDataContext(DbContextOptions<SapeinsDataContext> options)
+	public SapeinsDataDbContext(DbContextOptions<SapeinsDataDbContext> options)
 		: base(options)
 	{
 	}

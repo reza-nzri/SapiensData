@@ -22,9 +22,9 @@ namespace SapiensDataAPI.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class ReceiptsController(SapeinsDataContext context, IJwtTokenService jwtTokenService, IMapper mapper, UserManager<ApplicationUserModel> userManager) : ControllerBase
+	public class ReceiptsController(SapeinsDataDbContext context, IJwtTokenService jwtTokenService, IMapper mapper, UserManager<ApplicationUserModel> userManager) : ControllerBase
 	{
-		private readonly SapeinsDataContext _context = context;
+		private readonly SapeinsDataDbContext _context = context;
 		private readonly IJwtTokenService _jwtTokenService = jwtTokenService; // Dependency injection for handling JWT token generation
 		private readonly IMapper _mapper = mapper;
 		private readonly UserManager<ApplicationUserModel> _userManager = userManager;

@@ -10,7 +10,7 @@ using SapiensDataAPI.Data.DbContextCs;
 
 namespace SapiensDataAPI.Migrations
 {
-    [DbContext(typeof(SapeinsDataContext))]
+    [DbContext(typeof(SapeinsDataDbContext))]
     partial class SapeinsDataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

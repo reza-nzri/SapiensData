@@ -11,7 +11,7 @@ using SapiensDataAPI.Data.DbContextCs;
 
 namespace SapiensDataAPI.Migrations
 {
-    [DbContext(typeof(SapeinsDataContext))]
+    [DbContext(typeof(SapeinsDataDbContext))]
     [Migration("20241111122722_Tax description")]
     partial class Taxdescription
     {

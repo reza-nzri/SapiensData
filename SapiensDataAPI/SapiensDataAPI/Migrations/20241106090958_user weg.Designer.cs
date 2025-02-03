@@ -12,7 +12,7 @@ using SapiensDataAPI.Data.DbContextCs;
 
 namespace SapiensDataAPI.Migrations
 {
-	[DbContext(typeof(SapeinsDataContext))]
+	[DbContext(typeof(SapeinsDataDbContext))]
     [Migration("20241106090958_user weg")]
     partial class Userweg
     {

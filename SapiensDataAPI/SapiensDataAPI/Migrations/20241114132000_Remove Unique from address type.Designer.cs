@@ -11,7 +11,7 @@ using SapiensDataAPI.Data.DbContextCs;
 
 namespace SapiensDataAPI.Migrations
 {
-    [DbContext(typeof(SapeinsDataContext))]
+    [DbContext(typeof(SapeinsDataDbContext))]
     [Migration("20241114132000_Remove Unique from address type")]
     partial class RemoveUniquefromaddresstype
     {

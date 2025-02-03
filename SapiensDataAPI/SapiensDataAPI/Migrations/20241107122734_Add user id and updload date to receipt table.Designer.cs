@@ -11,7 +11,7 @@ using SapiensDataAPI.Data.DbContextCs;
 
 namespace SapiensDataAPI.Migrations
 {
-    [DbContext(typeof(SapeinsDataContext))]
+    [DbContext(typeof(SapeinsDataDbContext))]
     [Migration("20241107122734_Add user id and updload date to receipt table")]
     partial class Adduseridandupdloaddatetoreceipttable
     {

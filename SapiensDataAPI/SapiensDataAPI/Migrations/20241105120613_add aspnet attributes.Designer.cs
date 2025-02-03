@@ -13,7 +13,7 @@ using SapiensDataAPI.Data.DbContextCs;
 
 namespace SapiensDataAPI.Migrations
 {
-	[DbContext(typeof(SapeinsDataContext))]
+	[DbContext(typeof(SapeinsDataDbContext))]
     [Migration("20241105120613_add aspnet attributes")]
     partial class Addaspnetattributes
     {

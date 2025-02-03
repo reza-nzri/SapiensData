@@ -12,8 +12,8 @@ using SapiensDataAPI.Data.DbContextCs;
 namespace SapiensDataAPI.Migrations
 {
     [DbContext(typeof(SapeinsDataDbContext))]
-    [Migration("20241114070357_Add intermediate table Receipt_Product to DB")]
-    partial class AddintermediatetableReceipt_ProducttoDB
+    [Migration("20250203163058_Change file name to SapeinsDataDbContext")]
+    partial class ChangefilenametoSapeinsDataDbContext
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1623,7 +1623,7 @@ namespace SapiensDataAPI.Migrations
 
                     b.HasIndex("ReceiptId");
 
-                    b.ToTable("ReceiptProduct");
+                    b.ToTable("ReceiptProducts");
                 });
 
             modelBuilder.Entity("SapiensDataAPI.Models.ReceiptTaxDetail", b =>
@@ -1832,10 +1832,6 @@ namespace SapiensDataAPI.Migrations
                     b.HasIndex("AddressId");
 
                     b.HasIndex("StoreId");
-
-                    b.HasIndex(new[] { "AddressType" }, "UQ__StoreAdd__071A9587EC1B4587")
-                        .IsUnique()
-                        .HasFilter("[address_type] IS NOT NULL");
 
                     b.ToTable("StoreAddress", (string)null);
                 });
