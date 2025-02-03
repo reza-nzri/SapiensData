@@ -1,0 +1,44 @@
+SapiensData-DRMAV/Analytics/
+  ├─ dataset/
+  │  └─ json_structure/
+  │     ├─ file_metadata/
+  │     │  ├─ file_metadata_dummy.json
+  │     │  └─ file_metadata_structure.json
+  │     ├─ json_structure_example.json
+  │     ├─ json_structure_prompt_example.md
+  │     ├─ sql_structure_example.sql
+  │     └─ structure_dummy.json
+  ├─ docs/
+  │  └─ markdowns/
+  │     └─ 1.0_to_learn.md
+  ├─ src/
+  │  ├─]_temp_files/ (ignored)
+  │  ├─ utils/
+  │  │  ├─ OpenAi/
+  │  │  │  ├─ chatgpt_client.py
+  │  │  │  └─ json_structure_prompt.txt
+  │  │  ├─ __init__.py
+  │  │  ├─ add_metadata_to_json.py
+  │  │  ├─ cli.py
+  │  │  ├─ folder_check.py
+  │  │  ├─ image_selector.py
+  │  │  ├─ json_formatter.py
+  │  │  ├─ md_propmt_maker.py
+  │  │  ├─ metadata_extractor.py
+  │  │  ├─ ocr_extractor.py
+  │  │  ├─ pdf_ocr_extractor.py
+  │  │  ├─ post_receipt.py
+  │  │  ├─ temp_file_deleter.py
+  │  │  ├─ text_auto_corrector.py
+  │  │  └─ text_cleaner.py
+  │  └─ main.py
+  ├─]venv/ (ignored)
+  ├─].env.dev (ignored)
+  ├─ .env.dev.example
+  ├─ .env.prod.example
+  ├─ .gitignore
+  ├─ folder-structure.txt
+  ├─ pyproject.toml
+  ├─ README.md
+  ├─ requirements.txt
+  └─ setup.py
