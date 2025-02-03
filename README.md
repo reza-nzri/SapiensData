@@ -47,7 +47,7 @@ and each subproject has its own README.md included in itself.
 ## Contributors & Developer Information 👨‍💻
 
 - **Reza Nazari**
-  - Role: Full-stack Developer, IT Management
+  - Role: Owner & Founder, Full-stack Developer, IT Management, Data Scientist
   - LinkedIn: [reza-nazarii](https://www.linkedin.com/in/reza-nazarii)
   - Facebook: [RezaNazari0](https://www.facebook.com/RezaNazari0)
   - Instagram: [@reza_nazarii](https://www.instagram.com/reza_nazarii)
@@ -55,11 +55,11 @@ and each subproject has its own README.md included in itself.
   - GitLab: [@Reza_Nazari](https://gitlab.com/Reza_Nazari)
 
 - **Janusz**
-  - Role: Backend Developer
+  - Role: Backend Developer, Network & Cloud, IT Administrator
   - GitHub: [@train9013](https://github.com/train9013)
 
 - **Kadkhodazadeh**
-  - Role: Cybersecurity, Backend, Data Science, Network & Cloud
+  - Role: Cybersecurity, Backend Developer, Data Scientist, Network & Cloud, IT Administrator
   - LinkedIn: []()
   - Facebook: []()
   - Instagram: []()
